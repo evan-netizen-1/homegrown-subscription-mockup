@@ -30,8 +30,8 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   --hg-surface: #fcfcfc;
   --hg-red: #e54d2e;
   --hg-red-light: #fff0ed;
-  --card-radius: 22px;
-  --card-radius-sm: 12px;
+  --card-radius: 14px;
+  --card-radius-sm: 14px;
   --nav-radius: 9px;
   --sidebar-width: 240px;
   --toc-width: 320px;
@@ -248,32 +248,53 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 
 /* ===== COMMON MOCKUP COMPONENTS ===== */
 
-/* Marketplace Header */
-.mk-header {
-  background: var(--hg-white);
-  padding: 0 32px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--hg-border);
+/* Marketplace Header (from QA — messaging-v2) */
+.mkt-header {
+  height: 86px; padding: 0 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--hg-white); position: relative; z-index: 50;
   border-radius: var(--card-radius) var(--card-radius) 0 0;
 }
-.mk-logo {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--hg-green);
-  letter-spacing: -0.5px;
+.mkt-header-left { display: flex; align-items: center; gap: 40px; }
+.mkt-logo svg { height: 42px; width: auto; }
+.mkt-nav { display: flex; gap: 32px; }
+.mkt-nav a {
+  font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700;
+  color: var(--hg-text); text-decoration: none;
 }
-.mk-nav { display: flex; gap: 24px; align-items: center; }
-.mk-nav a {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--hg-text);
-  text-decoration: none;
+.mkt-nav a:hover { color: var(--hg-green); }
+.mkt-header-right { display: flex; align-items: center; gap: 20px; }
+.mkt-header-right .location {
+  display: flex; flex-direction: column; align-items: flex-end;
 }
-.mk-nav a:hover { color: var(--hg-green-light); }
-.mk-actions { display: flex; gap: 12px; align-items: center; }
+.mkt-header-right .location-label {
+  font-family: 'Nunito Sans', sans-serif; font-size: 10px; font-weight: 600; color: #858585;
+}
+.mkt-header-right .location-value {
+  font-family: 'Nunito Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--hg-text);
+}
+.header-icon {
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  color: var(--hg-text); cursor: pointer; position: relative;
+}
+.header-icon svg { width: 22px; height: 22px; }
+.header-icon .badge {
+  position: absolute; top: 2px; right: 0;
+  background: var(--hg-amber); color: #fff; font-size: 10px; font-weight: 700;
+  width: 16px; height: 16px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito Sans', sans-serif;
+}
+.header-avatar {
+  width: 34px; height: 34px; border-radius: 50%; background: var(--hg-border);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.header-avatar svg { width: 20px; height: 20px; color: #999; }
+/* Legacy alias for old mk- classes in inline HTML */
+.mk-header { display: none; }
+.mk-logo { display: none; }
+.mk-nav { display: none; }
+.mk-actions { display: none; }
 
 /* Buttons */
 .btn {
@@ -283,7 +304,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   gap: 8px;
   border-radius: 999px;
   font-family: 'Nunito', sans-serif;
-  font-weight: 700;
+  font-weight: 400;
   cursor: pointer;
   border: none;
   transition: background 0.15s, transform 0.1s;
@@ -300,9 +321,9 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 .btn-ghost:hover { background: var(--hg-border); }
 .btn-red-outline { background: transparent; border: 2px solid var(--hg-red); color: var(--hg-red); }
 .btn-red-outline:hover { background: var(--hg-red); color: var(--hg-white); }
-.btn-sm { padding: 6px 16px; font-size: 13px; }
-.btn-md { padding: 10px 24px; font-size: 15px; }
-.btn-lg { padding: 14px 32px; font-size: 16px; }
+.btn-sm { padding: 6px 16px; font-size: 13px; font-weight: 700; }
+.btn-md { padding: 10px 24px; font-size: 15px; height: 40px; }
+.btn-lg { padding: 0 18px; font-size: 16px; height: 52px; }
 
 /* Cards */
 .card {
@@ -398,7 +419,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   color: var(--hg-white);
 }
 
-/* Vendor Dashboard Sidebar */
+/* Vendor Dashboard Layout (from QA — messaging-v2) */
 .dash-layout {
   display: flex;
   border-radius: var(--card-radius);
@@ -412,16 +433,33 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   min-width: var(--sidebar-width);
   background: var(--hg-white);
   border-right: 1px solid var(--hg-border);
-  padding: 20px 12px;
+  padding: 24px 28px;
+  display: flex; flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
 }
+.dash-logo { margin-bottom: 24px; }
+.dash-logo svg { height: 38px; width: auto; }
 .dash-sidebar-logo {
   font-size: 18px;
   font-weight: 800;
   color: var(--hg-green);
-  padding: 0 12px 16px;
+  padding: 0 0 16px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.dash-notif {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
+  padding: 8px 0; cursor: pointer;
+}
+.dash-notif svg { width: 22px; height: 22px; color: var(--hg-text); }
+.dash-notif .notif-badge {
+  background: var(--hg-amber); color: #fff; font-size: 11px; font-weight: 700;
+  width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito Sans', sans-serif;
 }
 .notif-badge {
   background: var(--hg-amber);
@@ -431,38 +469,34 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   padding: 1px 7px;
   border-radius: 999px;
 }
+.dash-nav-section { margin-bottom: 8px; }
+.dash-nav-label, .nav-section {
+  font-family: 'Nunito', sans-serif; font-size: 10px; font-weight: 700;
+  color: var(--hg-text-muted); letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 4px; padding-left: 12px;
+  padding-top: 14px;
+}
 .nav-section {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--hg-text-muted);
-  letter-spacing: 1px;
-  text-transform: uppercase;
   padding: 14px 12px 4px;
 }
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 12px;
-  border-radius: var(--nav-radius);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--hg-text);
-  cursor: pointer;
-  margin-bottom: 2px;
+.dash-nav-item, .nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 14px; border-radius: var(--nav-radius);
+  font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700;
+  color: var(--hg-text); cursor: pointer; text-decoration: none;
+  margin-bottom: 2px; position: relative;
   transition: background 0.15s;
 }
-.nav-item:hover { background: var(--hg-bg); }
-.nav-item.active { background: var(--hg-green-light); color: var(--hg-white); }
+.dash-nav-item:hover, .nav-item:hover { background: var(--hg-bg); }
+.dash-nav-item.active, .nav-item.active {
+  background: var(--hg-green-light); color: #fff;
+}
+.dash-nav-item svg, .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
 .nav-icon { width: 18px; text-align: center; font-size: 14px; flex-shrink: 0; }
-.nav-badge {
-  margin-left: auto;
-  background: var(--hg-amber);
-  color: var(--hg-white);
-  font-size: 10px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 999px;
+.dash-nav-item .nav-badge, .nav-badge {
+  margin-left: auto; background: var(--hg-amber); color: #fff;
+  font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px;
+  font-family: 'Nunito Sans', sans-serif;
 }
 .nav-new {
   margin-left: auto;
@@ -473,9 +507,10 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   padding: 1px 6px;
   border-radius: 999px;
 }
+.dash-nav-bottom { margin-top: auto; border-top: 1px solid var(--hg-border); padding-top: 12px; }
 .dash-main {
   flex: 1;
-  padding: 28px 32px;
+  padding: 32px;
   background: var(--hg-bg);
   overflow-y: auto;
 }
@@ -609,26 +644,34 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 }
 .wizard-line.done { background: var(--hg-green-light); }
 
-/* Modal */
-.modal-frame {
+/* Modal (from QA — messaging-v2) */
+.modal-frame, .modal {
   background: var(--hg-white);
   border-radius: var(--card-radius);
   max-width: 500px;
   margin: 0 auto;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
   overflow: hidden;
 }
 .modal-header {
-  padding: 18px 24px;
+  padding: 20px 24px;
   border-bottom: 1px solid var(--hg-border);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
 }
 .modal-header h3 {
-  font-size: 17px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
   font-weight: 700;
+  color: var(--hg-text);
 }
+.modal-close {
+  margin-left: auto; background: none; border: none; cursor: pointer;
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  border-radius: 8px; color: var(--hg-text-secondary);
+}
+.modal-close:hover { background: var(--hg-bg); }
 .modal-body { padding: 24px; }
 .modal-footer {
   padding: 16px 24px;
@@ -1065,19 +1108,18 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   .viewer-nav { width: 100%; justify-content: space-between; }
   .viewer-content { padding: 16px; }
   .mockup-container { max-width: 100%; }
-  .mk-header { padding: 0 16px; height: 52px; flex-wrap: wrap; }
-  .mk-nav { display: none; }
-  .mk-actions { gap: 6px; }
-  .mk-actions .btn { font-size: 11px; padding: 4px 10px; }
-  .mk-actions span { display: none; }
+  .mkt-header { padding: 0 16px; height: 52px; flex-wrap: wrap; }
+  .mkt-nav { display: none; }
+  .mkt-header-right { gap: 8px; }
+  .mkt-header-right .location { display: none; }
   .two-col { grid-template-columns: 1fr; }
   .type-cards { grid-template-columns: 1fr; }
   .product-grid { grid-template-columns: 1fr 1fr; }
   .dash-layout { flex-direction: column; }
   .dash-sidebar { width: 100%; min-width: 100%; padding: 12px; border-right: none; border-bottom: 1px solid var(--hg-border); display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
   .dash-sidebar-logo { padding: 0 8px 0 0; font-size: 16px; }
-  .nav-section { display: none; }
-  .nav-item { padding: 5px 10px; font-size: 12px; }
+  .dash-nav-label, .nav-section { display: none; }
+  .dash-nav-item, .nav-item { padding: 5px 10px; font-size: 12px; }
   .nav-icon { font-size: 12px; width: 14px; }
   .dash-main { padding: 16px; }
   .stats-bar { flex-wrap: wrap; }
@@ -1161,17 +1203,40 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   <div class="screen-subtitle">How a subscription-eligible product looks before the shopper opts in</div>
 
   <div class="card p-rel">
-    <div class="mk-header">
-      <div class="mk-logo">Homegrown</div>
-      <div class="mk-nav">
-        <a href="#">Products</a>
-        <a href="#">Vendors</a>
-        <a href="#">Markets</a>
+    <div class="mkt-header">
+      <div class="mkt-header-left">
+        <div class="mkt-logo">
+          <svg width="160" viewBox="0 0 389 102" fill="none">
+            <g clip-path="url(#hg-logo-clip)">
+              <rect x="6.65" y="5.88" width="90" height="90" rx="45" fill="#FFF9ED"/>
+              <circle cx="51.78" cy="51.01" r="25.08" fill="#FFA01C" stroke="#FFF9ED" stroke-width="5.1"/>
+              <path d="M126.157 49.495V46.918L123.58 46.945C99.076 47.204 76.482 51.739 58.328 59.26C40.232 66.759 26.273 77.347 19.471 89.911L17.433 93.675H21.713H123.607H126.157V91.125V49.495Z" fill="#3D9A50" stroke="#FFF9ED" stroke-width="5.1"/>
+              <path d="M-6.41 52.099L-8.987 52.072V54.649V95.882V98.432H-6.437H95.458H99.758L97.695 94.659C90.888 82.208 76.926 71.721 58.834 64.296C40.683 56.846 18.092 52.356 -6.41 52.099Z" fill="#297C3B" stroke="#FFF9ED" stroke-width="5.1"/>
+              <rect x="-12.78" y="89.43" width="123.75" height="12.97" rx="6.49" fill="#297C3B" stroke="#FFF9ED" stroke-width="5.1"/>
+            </g>
+            <text x="115" y="68" font-family="Nunito, sans-serif" font-weight="800" font-size="50" fill="#171717" letter-spacing="-1">homegrown</text>
+          </svg>
+        </div>
+        <div class="mkt-nav">
+          <a href="#">Products</a>
+          <a href="#">Vendors</a>
+          <a href="#">Markets</a>
+        </div>
       </div>
-      <div class="mk-actions">
-        <span style="font-size:13px;color:var(--hg-text-secondary)">Shop Near Atlanta</span>
-        <button class="btn btn-amber btn-sm">Sign In</button>
-        <button class="btn btn-green btn-sm">Start Selling</button>
+      <div class="mkt-header-right">
+        <div class="location">
+          <span class="location-label">Shop near</span>
+          <span class="location-value">Atlanta, GA</span>
+        </div>
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <div class="header-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
       </div>
     </div>
 
@@ -1239,13 +1304,40 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   <div class="screen-subtitle">Shopper selected "Subscribe & save" — frequency pills appear, price updates</div>
 
   <div class="card p-rel">
-    <div class="mk-header">
-      <div class="mk-logo">Homegrown</div>
-      <div class="mk-nav"><a href="#">Products</a><a href="#">Vendors</a><a href="#">Markets</a></div>
-      <div class="mk-actions">
-        <span style="font-size:13px;color:var(--hg-text-secondary)">Shop Near Atlanta</span>
-        <button class="btn btn-amber btn-sm">Sign In</button>
-        <button class="btn btn-green btn-sm">Start Selling</button>
+    <div class="mkt-header">
+      <div class="mkt-header-left">
+        <div class="mkt-logo">
+          <svg width="160" viewBox="0 0 389 102" fill="none">
+            <g clip-path="url(#hg-logo-clip)">
+              <rect x="6.65" y="5.88" width="90" height="90" rx="45" fill="#FFF9ED"/>
+              <circle cx="51.78" cy="51.01" r="25.08" fill="#FFA01C" stroke="#FFF9ED" stroke-width="5.1"/>
+              <path d="M126.157 49.495V46.918L123.58 46.945C99.076 47.204 76.482 51.739 58.328 59.26C40.232 66.759 26.273 77.347 19.471 89.911L17.433 93.675H21.713H123.607H126.157V91.125V49.495Z" fill="#3D9A50" stroke="#FFF9ED" stroke-width="5.1"/>
+              <path d="M-6.41 52.099L-8.987 52.072V54.649V95.882V98.432H-6.437H95.458H99.758L97.695 94.659C90.888 82.208 76.926 71.721 58.834 64.296C40.683 56.846 18.092 52.356 -6.41 52.099Z" fill="#297C3B" stroke="#FFF9ED" stroke-width="5.1"/>
+              <rect x="-12.78" y="89.43" width="123.75" height="12.97" rx="6.49" fill="#297C3B" stroke="#FFF9ED" stroke-width="5.1"/>
+            </g>
+            <text x="115" y="68" font-family="Nunito, sans-serif" font-weight="800" font-size="50" fill="#171717" letter-spacing="-1">homegrown</text>
+          </svg>
+        </div>
+        <div class="mkt-nav">
+          <a href="#">Products</a>
+          <a href="#">Vendors</a>
+          <a href="#">Markets</a>
+        </div>
+      </div>
+      <div class="mkt-header-right">
+        <div class="location">
+          <span class="location-label">Shop near</span>
+          <span class="location-value">Atlanta, GA</span>
+        </div>
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <div class="header-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
       </div>
     </div>
 
@@ -1325,12 +1417,40 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   <div class="screen-subtitle">How subscription-eligible products appear in the vendor's product grid</div>
 
   <div class="card p-rel">
-    <div class="mk-header">
-      <div class="mk-logo">Homegrown</div>
-      <div class="mk-nav"><a href="#">Products</a><a href="#">Vendors</a><a href="#">Markets</a></div>
-      <div class="mk-actions">
-        <button class="btn btn-amber btn-sm">Sign In</button>
-        <button class="btn btn-green btn-sm">Start Selling</button>
+    <div class="mkt-header">
+      <div class="mkt-header-left">
+        <div class="mkt-logo">
+          <svg width="160" viewBox="0 0 389 102" fill="none">
+            <g clip-path="url(#hg-logo-clip)">
+              <rect x="6.65" y="5.88" width="90" height="90" rx="45" fill="#FFF9ED"/>
+              <circle cx="51.78" cy="51.01" r="25.08" fill="#FFA01C" stroke="#FFF9ED" stroke-width="5.1"/>
+              <path d="M126.157 49.495V46.918L123.58 46.945C99.076 47.204 76.482 51.739 58.328 59.26C40.232 66.759 26.273 77.347 19.471 89.911L17.433 93.675H21.713H123.607H126.157V91.125V49.495Z" fill="#3D9A50" stroke="#FFF9ED" stroke-width="5.1"/>
+              <path d="M-6.41 52.099L-8.987 52.072V54.649V95.882V98.432H-6.437H95.458H99.758L97.695 94.659C90.888 82.208 76.926 71.721 58.834 64.296C40.683 56.846 18.092 52.356 -6.41 52.099Z" fill="#297C3B" stroke="#FFF9ED" stroke-width="5.1"/>
+              <rect x="-12.78" y="89.43" width="123.75" height="12.97" rx="6.49" fill="#297C3B" stroke="#FFF9ED" stroke-width="5.1"/>
+            </g>
+            <text x="115" y="68" font-family="Nunito, sans-serif" font-weight="800" font-size="50" fill="#171717" letter-spacing="-1">homegrown</text>
+          </svg>
+        </div>
+        <div class="mkt-nav">
+          <a href="#">Products</a>
+          <a href="#">Vendors</a>
+          <a href="#">Markets</a>
+        </div>
+      </div>
+      <div class="mkt-header-right">
+        <div class="location">
+          <span class="location-label">Shop near</span>
+          <span class="location-value">Atlanta, GA</span>
+        </div>
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <div class="header-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
       </div>
     </div>
 
@@ -1897,7 +2017,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
             </div>
 
             <!-- Mobile sub card 1 -->
-            <div style="background:white;border:1px solid var(--hg-border);border-radius:12px;padding:14px;margin-bottom:10px;">
+            <div style="background:white;border:1px solid var(--hg-border);border-radius:14px;padding:14px;margin-bottom:10px;">
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
                 <div style="width:40px;height:40px;border-radius:50%;background:var(--hg-cream);display:flex;align-items:center;justify-content:center;font-size:18px;">🍞</div>
                 <div style="flex:1;">
@@ -1920,7 +2040,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
             </div>
 
             <!-- Mobile sub card 2 -->
-            <div style="background:white;border:1px solid var(--hg-border);border-radius:12px;padding:14px;margin-bottom:10px;">
+            <div style="background:white;border:1px solid var(--hg-border);border-radius:14px;padding:14px;margin-bottom:10px;">
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
                 <div style="width:40px;height:40px;border-radius:50%;background:var(--hg-cream);display:flex;align-items:center;justify-content:center;font-size:18px;">📦</div>
                 <div style="flex:1;">
