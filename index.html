@@ -1150,7 +1150,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 <div class="toc">
   <div class="toc-header">
     <h1>Subscriptions / CSA</h1>
-    <p>Interactive Feature Mockup &middot; 21 Screens &middot; April 2026</p>
+    <p>Interactive Feature Mockup &middot; 25 Screens &middot; April 2026</p>
   </div>
   <div class="toc-list" id="tocList">
     <div class="toc-section">Shopper Experience</div>
@@ -1174,13 +1174,19 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
     <div class="toc-item" onclick="goTo(15)"><span class="toc-num">16</span><div><div class="toc-label">Analytics</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
     <div class="toc-item" onclick="goTo(16)"><span class="toc-num">17</span><div><div class="toc-label">Broadcast Message</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
 
+    <div class="toc-section">CRM</div>
+    <div class="toc-item" onclick="goTo(17)"><span class="toc-num">18</span><div><div class="toc-label">Customers List</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(18)"><span class="toc-num">19</span><div><div class="toc-label">Customer Profile</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(19)"><span class="toc-num">20</span><div><div class="toc-label">CSV Import Wizard</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(20)"><span class="toc-num">21</span><div><div class="toc-label">Send Email from Profile</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+
     <div class="toc-section">System & Notifications</div>
-    <div class="toc-item" onclick="goTo(17)"><span class="toc-num">18</span><div><div class="toc-label">Email Templates</div><span class="toc-tag tag-system">SYSTEM</span></div></div>
-    <div class="toc-item" onclick="goTo(18)"><span class="toc-num">19</span><div><div class="toc-label">Payment Flow & Edge Cases</div><span class="toc-tag tag-system">SYSTEM</span></div></div>
+    <div class="toc-item" onclick="goTo(21)"><span class="toc-num">22</span><div><div class="toc-label">Email Templates</div><span class="toc-tag tag-system">SYSTEM</span></div></div>
+    <div class="toc-item" onclick="goTo(22)"><span class="toc-num">23</span><div><div class="toc-label">Payment Flow & Edge Cases</div><span class="toc-tag tag-system">SYSTEM</span></div></div>
 
     <div class="toc-section">Implementation</div>
-    <div class="toc-item" onclick="goTo(19)"><span class="toc-num">20</span><div><div class="toc-label">Data Model</div><span class="toc-tag tag-tech">TECH</span></div></div>
-    <div class="toc-item" onclick="goTo(20)"><span class="toc-num">21</span><div><div class="toc-label">Notification Triggers</div><span class="toc-tag tag-tech">TECH</span></div></div>
+    <div class="toc-item" onclick="goTo(23)"><span class="toc-num">24</span><div><div class="toc-label">Data Model</div><span class="toc-tag tag-tech">TECH</span></div></div>
+    <div class="toc-item" onclick="goTo(24)"><span class="toc-num">25</span><div><div class="toc-label">Notification Triggers</div><span class="toc-tag tag-tech">TECH</span></div></div>
   </div>
 </div>
 
@@ -1191,7 +1197,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
     <div class="viewer-nav">
       <button class="btn-annotations" id="btnAnnotations" onclick="toggleAnnotations()">Annotations</button>
       <button onclick="prev()">← Prev</button>
-      <span class="viewer-counter" id="viewerCounter">1 / 21</span>
+      <span class="viewer-counter" id="viewerCounter">1 / 25</span>
       <button onclick="next()">Next →</button>
     </div>
   </div>
@@ -3170,8 +3176,497 @@ See you Saturday at Findlay Market! — Green Acres Farm</textarea>
 </div>
 </div>
 
-<!-- ==================== SCREEN 17 ==================== -->
+<!-- ==================== SCREEN 17: CUSTOMERS LIST ==================== -->
 <div class="screen" id="screen-17">
+<div class="mockup-container">
+  <div class="screen-title">Customers List</div>
+  <div class="screen-subtitle">All customers in one place — subscribers, regulars, and one-time buyers</div>
+
+  <div class="dash-layout">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item active"><span class="nav-icon">👥</span> Customers <span class="nav-badge">156</span></div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item"><span class="nav-icon">🔄</span> Subscriptions</div>
+      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main p-rel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 style="font-size:20px;font-weight:800;">Customers</h2>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline btn-sm">📥 Import CSV</button>
+          <button class="btn btn-green btn-sm">+ Add Customer</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-card"><div class="stat-label">Total Customers</div><div class="stat-value">156</div></div>
+        <div class="stat-card"><div class="stat-label">Subscribers</div><div class="stat-value">47</div></div>
+        <div class="stat-card"><div class="stat-label">New This Month</div><div class="stat-value">12 <span class="stat-change stat-up">↑</span></div></div>
+        <div class="stat-card"><div class="stat-label">At Risk</div><div class="stat-value" style="color:var(--hg-red);">7</div></div>
+      </div>
+
+      <!-- Filters -->
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <select class="form-input" style="width:auto;padding:8px 12px;font-size:12px;appearance:auto;">
+          <option>All types</option><option>Subscribers</option><option>Regulars</option><option>One-time</option>
+        </select>
+        <select class="form-input" style="width:auto;padding:8px 12px;font-size:12px;appearance:auto;">
+          <option>Last order: All</option><option>Within 30 days</option><option>30-90 days</option><option>90+ days</option>
+        </select>
+        <input class="form-input" style="width:200px;padding:8px 12px;font-size:12px;" placeholder="Search customers..." />
+      </div>
+
+      <!-- Segment pills -->
+      <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="pill pill-green" style="cursor:pointer;font-size:12px;">All (156)</span>
+        <span class="pill pill-gray" style="cursor:pointer;font-size:12px;">Subscribers (47)</span>
+        <span class="pill pill-gray" style="cursor:pointer;font-size:12px;">Top Customers (31)</span>
+        <span class="pill pill-gray" style="cursor:pointer;font-size:12px;background:var(--hg-red-light);color:var(--hg-red);">At Risk (7)</span>
+        <span class="pill pill-gray" style="cursor:pointer;font-size:12px;">New (12)</span>
+      </div>
+
+      <!-- Table -->
+      <div class="card-sm" style="overflow:hidden;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Last Order</th>
+              <th>Orders</th>
+              <th>Total Spent</th>
+              <th>Email Status</th>
+              <th>Tags</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="cursor:pointer;">
+              <td style="font-weight:700;">Sarah M.</td>
+              <td><span class="pill pill-green" style="font-size:10px;padding:2px 8px;">Subscriber</span></td>
+              <td>Apr 12</td>
+              <td>12</td>
+              <td style="font-weight:700;">$86.40</td>
+              <td style="color:var(--hg-green-light);">✓ Subscribed</td>
+              <td><span class="pill pill-gray" style="font-size:9px;padding:1px 6px;">Regular</span> <span class="pill pill-gray" style="font-size:9px;padding:1px 6px;">Bread lover</span></td>
+            </tr>
+            <tr style="cursor:pointer;">
+              <td style="font-weight:700;">Mike R.</td>
+              <td><span class="pill pill-green" style="font-size:10px;padding:2px 8px;">Subscriber</span></td>
+              <td>Apr 12</td>
+              <td>8</td>
+              <td style="font-weight:700;">$280.00</td>
+              <td style="color:var(--hg-green-light);">✓ Subscribed</td>
+              <td><span class="pill pill-gray" style="font-size:9px;padding:1px 6px;">Farm box</span></td>
+            </tr>
+            <tr style="cursor:pointer;">
+              <td style="font-weight:700;">Jennifer L.</td>
+              <td><span class="pill" style="font-size:10px;padding:2px 8px;border:1px solid var(--hg-border);background:transparent;color:var(--hg-text-secondary);">Regular</span></td>
+              <td>Apr 5</td>
+              <td>5</td>
+              <td style="font-weight:700;">$32.40</td>
+              <td style="color:var(--hg-green-light);">✓ Subscribed</td>
+              <td style="color:var(--hg-text-muted);">—</td>
+            </tr>
+            <tr style="cursor:pointer;background:var(--hg-cream);">
+              <td style="font-weight:700;">David K.</td>
+              <td><span class="pill pill-amber" style="font-size:10px;padding:2px 8px;">Paused</span></td>
+              <td>Mar 22</td>
+              <td>6</td>
+              <td style="font-weight:700;">$57.60</td>
+              <td style="color:var(--hg-green-light);">✓ Subscribed</td>
+              <td style="color:var(--hg-text-muted);">—</td>
+            </tr>
+            <tr style="cursor:pointer;">
+              <td style="font-weight:700;">Lisa T.</td>
+              <td style="color:var(--hg-text-secondary);font-size:12px;">One-time</td>
+              <td>Feb 15</td>
+              <td>1</td>
+              <td style="font-weight:700;">$8.00</td>
+              <td style="color:var(--hg-red);">✗ Unsubscribed</td>
+              <td style="color:var(--hg-text-muted);">—</td>
+            </tr>
+            <tr style="cursor:pointer;">
+              <td style="font-weight:700;">Tom H.</td>
+              <td><span class="pill" style="font-size:10px;padding:2px 8px;border:1px solid var(--hg-border);background:transparent;color:var(--hg-text-secondary);">Regular</span></td>
+              <td>Jan 30</td>
+              <td>4</td>
+              <td style="font-weight:700;">$58.00</td>
+              <td style="color:var(--hg-green-light);">✓ Subscribed</td>
+              <td><span class="pill pill-gray" style="font-size:9px;padding:1px 6px;">Regulars</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="annotation" style="top:20px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Customers lives under SELL — between Orders and Products. Pre-built segments auto-update as behavior changes. "At Risk" = last order 45+ days ago.</div></div>
+      <div class="annotation" style="bottom:60px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Type badges: green solid = active subscriber, outlined = regular (3+ orders), no badge = one-time. Vendors understand this at a glance.</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 18: CUSTOMER PROFILE ==================== -->
+<div class="screen" id="screen-18">
+<div class="mockup-container">
+  <div class="screen-title">Customer Profile</div>
+  <div class="screen-subtitle">Everything a vendor needs to know about one customer — contact, orders, subscription, notes</div>
+
+  <div class="dash-layout" style="min-height:620px;">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item active"><span class="nav-icon">👥</span> Customers</div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item"><span class="nav-icon">🔄</span> Subscriptions</div>
+      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main p-rel">
+      <!-- Breadcrumb -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:13px;">
+        <span style="cursor:pointer;color:var(--hg-text-secondary);">← Customers</span>
+        <span style="color:var(--hg-text-muted);">/</span>
+        <span style="font-weight:700;">Sarah M.</span>
+      </div>
+
+      <div style="display:flex;gap:24px;">
+        <!-- Left: Main content -->
+        <div style="flex:1;">
+          <!-- Header -->
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+            <div style="width:56px;height:56px;border-radius:50%;background:var(--hg-cream);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--hg-green);">SM</div>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <h2 style="font-size:20px;font-weight:800;">Sarah M.</h2>
+                <span class="pill pill-green" style="font-size:10px;padding:2px 8px;">Subscriber</span>
+              </div>
+              <div style="font-size:13px;color:var(--hg-text-secondary);margin-top:2px;">sarah.m@email.com &middot; (555) 234-5678 &middot; Joined Feb 2026</div>
+            </div>
+          </div>
+
+          <!-- Stats strip -->
+          <div class="stats-bar" style="margin-bottom:20px;">
+            <div class="stat-card"><div class="stat-label">Total Spent</div><div class="stat-value" style="font-size:20px;">$86.40</div></div>
+            <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-value" style="font-size:20px;">12</div></div>
+            <div class="stat-card"><div class="stat-label">Avg Order</div><div class="stat-value" style="font-size:20px;">$7.20</div></div>
+            <div class="stat-card"><div class="stat-label">Last Order</div><div class="stat-value" style="font-size:20px;">Apr 12</div></div>
+          </div>
+
+          <!-- Subscription Card -->
+          <div class="card-sm" style="padding:20px;margin-bottom:20px;border-left:4px solid var(--hg-green-light);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <div style="font-size:15px;font-weight:800;">Sourdough Boule — Weekly</div>
+              <div style="display:flex;align-items:center;gap:6px;"><span class="status-dot dot-active"></span><span style="font-size:12px;font-weight:700;color:var(--hg-green-light);">Active</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;color:var(--hg-text-secondary);margin-bottom:12px;">
+              <div>Started: <span style="color:var(--hg-text);font-weight:600;">Feb 8, 2026</span></div>
+              <div>Next pickup: <span style="color:var(--hg-text);font-weight:600;">Apr 19 at Findlay Market</span></div>
+              <div>Revenue from sub: <span style="color:var(--hg-text);font-weight:600;">$86.40</span></div>
+              <div>Skipped <span style="color:var(--hg-amber);font-weight:600;">1 of 12</span> deliveries</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-outline btn-sm">Pause</button>
+              <button class="btn btn-green btn-sm">Send message</button>
+            </div>
+          </div>
+
+          <!-- Order History -->
+          <div class="card-sm" style="overflow:hidden;">
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);font-size:14px;font-weight:700;">Order History</div>
+            <table class="data-table">
+              <thead><tr><th>Date</th><th>Item</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Apr 12</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Apr 5</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 29</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 22</td><td>Sourdough Boule x1</td><td style="color:var(--hg-text-muted);">—</td><td><span class="pill pill-amber" style="font-size:10px;padding:1px 6px;">Skipped</span></td></tr>
+                <tr><td>Mar 15</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 8</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right sidebar -->
+        <div style="width:220px;flex-shrink:0;">
+          <!-- Notes -->
+          <div class="card-sm" style="padding:16px;margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-size:13px;font-weight:700;">Notes</div>
+              <span class="text-link" style="font-size:11px;">Edit</span>
+            </div>
+            <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.5;">Prefers extra crusty. Always picks up early.</div>
+          </div>
+
+          <!-- Tags -->
+          <div class="card-sm" style="padding:16px;margin-bottom:16px;">
+            <div style="font-size:13px;font-weight:700;margin-bottom:8px;">Tags</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="pill pill-gray" style="font-size:10px;padding:2px 8px;">Regular</span>
+              <span class="pill pill-gray" style="font-size:10px;padding:2px 8px;">Bread lover</span>
+              <span style="font-size:12px;color:var(--hg-green-light);cursor:pointer;padding:2px 6px;">+ Add</span>
+            </div>
+          </div>
+
+          <!-- Marketing Preferences -->
+          <div class="card-sm" style="padding:16px;margin-bottom:16px;">
+            <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Marketing Preferences</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12px;">
+              <span>Email</span>
+              <span style="background:var(--hg-green-light);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;">ON</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span>SMS</span>
+              <span style="background:var(--hg-border);color:var(--hg-text-muted);font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;">OFF</span>
+            </div>
+          </div>
+
+          <!-- Pickup location -->
+          <div class="card-sm" style="padding:16px;">
+            <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Pickup Location</div>
+            <div style="font-size:12px;color:var(--hg-text-secondary);">Findlay Market — Saturdays</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="annotation" style="top:20px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Single profile view combining everything Square vendors expect: contact info + order history + notes + tags. This is what vendors compare to.</div></div>
+      <div class="annotation" style="bottom:100px;left:30px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Subscription card shows churn risk signals: skip history, payment status. "Send message" opens compose panel (Screen 21).</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 19: CSV IMPORT WIZARD ==================== -->
+<div class="screen" id="screen-19">
+<div class="mockup-container">
+  <div class="screen-title">CSV Import Wizard</div>
+  <div class="screen-subtitle">Bring existing customer lists from Square, Shopify, or spreadsheets into Homegrown</div>
+
+  <div class="dash-layout" style="min-height:580px;">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item active"><span class="nav-icon">👥</span> Customers</div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item"><span class="nav-icon">🔄</span> Subscriptions</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main" style="display:flex;align-items:flex-start;justify-content:center;padding-top:24px;">
+      <!-- Modal overlay -->
+      <div class="modal-frame p-rel" style="max-width:700px;width:100%;">
+        <div class="modal-header">
+          <h3>Import Customers</h3>
+          <span style="cursor:pointer;font-size:18px;color:var(--hg-text-muted);">✕</span>
+        </div>
+        <div class="modal-body" style="padding:24px 28px;">
+          <!-- Wizard steps -->
+          <div class="wizard-steps" style="margin-bottom:28px;">
+            <div class="wizard-step done"><div class="wizard-dot">✓</div> Upload</div>
+            <div class="wizard-line done"></div>
+            <div class="wizard-step done"><div class="wizard-dot">✓</div> Map Fields</div>
+            <div class="wizard-line"></div>
+            <div class="wizard-step active"><div class="wizard-dot">3</div> Review</div>
+          </div>
+
+          <!-- Step 1: Upload (completed) -->
+          <div class="card-sm" style="padding:16px;margin-bottom:16px;background:var(--hg-green-surface);border-color:var(--hg-green-bg);">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:18px;">📄</span>
+              <div>
+                <div style="font-size:13px;font-weight:700;">square-customers-export.csv</div>
+                <div style="font-size:11px;color:var(--hg-text-secondary);">263 rows &middot; 42 KB &middot; Uploaded successfully</div>
+              </div>
+              <span style="margin-left:auto;color:var(--hg-green-light);font-weight:700;font-size:13px;">✓</span>
+            </div>
+          </div>
+
+          <!-- Step 2: Field mapping (completed) -->
+          <div style="margin-bottom:20px;">
+            <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Field Mapping</div>
+            <div class="card-sm" style="overflow:hidden;">
+              <table class="data-table" style="font-size:12px;">
+                <thead><tr><th>CSV Column</th><th></th><th>Homegrown Field</th><th>Sample</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td style="font-family:monospace;font-size:11px;">first_name</td>
+                    <td style="color:var(--hg-text-muted);">→</td>
+                    <td style="font-weight:600;">First Name</td>
+                    <td style="color:var(--hg-text-secondary);">Sarah</td>
+                    <td><span style="color:var(--hg-green-light);font-weight:700;font-size:11px;">✓ Auto</span></td>
+                  </tr>
+                  <tr>
+                    <td style="font-family:monospace;font-size:11px;">last_name</td>
+                    <td style="color:var(--hg-text-muted);">→</td>
+                    <td style="font-weight:600;">Last Name</td>
+                    <td style="color:var(--hg-text-secondary);">Mitchell</td>
+                    <td><span style="color:var(--hg-green-light);font-weight:700;font-size:11px;">✓ Auto</span></td>
+                  </tr>
+                  <tr>
+                    <td style="font-family:monospace;font-size:11px;">email</td>
+                    <td style="color:var(--hg-text-muted);">→</td>
+                    <td style="font-weight:600;">Email</td>
+                    <td style="color:var(--hg-text-secondary);">sarah.m@email.com</td>
+                    <td><span style="color:var(--hg-green-light);font-weight:700;font-size:11px;">✓ Auto</span></td>
+                  </tr>
+                  <tr>
+                    <td style="font-family:monospace;font-size:11px;">phone</td>
+                    <td style="color:var(--hg-text-muted);">→</td>
+                    <td style="font-weight:600;">Phone</td>
+                    <td style="color:var(--hg-text-secondary);">(555) 234-5678</td>
+                    <td><span style="color:var(--hg-amber);font-weight:700;font-size:11px;">⚠ Review</span></td>
+                  </tr>
+                  <tr>
+                    <td style="font-family:monospace;font-size:11px;">notes</td>
+                    <td style="color:var(--hg-text-muted);">→</td>
+                    <td style="font-weight:600;">Notes</td>
+                    <td style="color:var(--hg-text-secondary);">Prefers extra crusty</td>
+                    <td><span style="color:var(--hg-amber);font-weight:700;font-size:11px;">⚠ Review</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Step 3: Review (active) -->
+          <div class="card-sm" style="padding:20px;background:var(--hg-bg);margin-bottom:20px;">
+            <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Import Summary</div>
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px;">
+              <span style="color:var(--hg-green-light);font-weight:700;">248</span><span>customers will be added</span>
+              <span style="color:var(--hg-amber);font-weight:700;">12</span><span>existing customers will be updated</span>
+              <span style="color:var(--hg-red);font-weight:700;">3</span><span>skipped (invalid email or duplicate)</span>
+            </div>
+            <div style="margin-top:14px;">
+              <label class="form-label" style="font-size:12px;">Tag this import</label>
+              <input class="form-input" style="padding:8px 12px;font-size:13px;" value="Square Import April 2026" />
+            </div>
+          </div>
+
+          <button class="btn btn-green btn-lg" style="width:100%;font-size:15px;font-weight:700;">Import 248 Customers</button>
+          <div style="font-size:11px;color:var(--hg-text-muted);text-align:center;margin-top:8px;">
+            <a href="#" class="text-link" style="font-size:11px;">Download template CSV</a> &middot; Supported: CSV, XLSX
+          </div>
+        </div>
+
+        <div class="annotation" style="top:8px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">CSV import is the lock-in feature. Once vendors bring their Square customer list into Homegrown, switching costs go through the roof. Template download ensures clean data.</div></div>
+        <div class="annotation" style="bottom:120px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Auto-matching with confidence colors (green/yellow) reduces friction. Sample values prevent mapping errors. Phone and notes flagged for review — may need format normalization.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 20: SEND EMAIL FROM PROFILE ==================== -->
+<div class="screen" id="screen-20">
+<div class="mockup-container">
+  <div class="screen-title">Send Email from Customer Profile</div>
+  <div class="screen-subtitle">Context-aware messaging — vendor sees order history while composing</div>
+
+  <div class="dash-layout" style="min-height:620px;">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item active"><span class="nav-icon">👥</span> Customers</div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item"><span class="nav-icon">🔄</span> Subscriptions</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main p-rel" style="display:flex;gap:0;padding:0;overflow:hidden;">
+      <!-- Background: Customer profile (dimmed) -->
+      <div style="flex:1;padding:32px;opacity:0.5;pointer-events:none;">
+        <!-- Breadcrumb -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:13px;">
+          <span style="color:var(--hg-text-secondary);">← Customers</span>
+          <span style="color:var(--hg-text-muted);">/</span>
+          <span style="font-weight:700;">Sarah M.</span>
+        </div>
+        <!-- Header -->
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <div style="width:56px;height:56px;border-radius:50%;background:var(--hg-cream);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--hg-green);">SM</div>
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <h2 style="font-size:20px;font-weight:800;">Sarah M.</h2>
+              <span class="pill pill-green" style="font-size:10px;padding:2px 8px;">Subscriber</span>
+            </div>
+            <div style="font-size:13px;color:var(--hg-text-secondary);margin-top:2px;">sarah.m@email.com &middot; (555) 234-5678</div>
+          </div>
+        </div>
+        <!-- Stats (dimmed) -->
+        <div class="stats-bar">
+          <div class="stat-card"><div class="stat-label">Total Spent</div><div class="stat-value" style="font-size:20px;">$86.40</div></div>
+          <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-value" style="font-size:20px;">12</div></div>
+          <div class="stat-card"><div class="stat-label">Avg Order</div><div class="stat-value" style="font-size:20px;">$7.20</div></div>
+          <div class="stat-card"><div class="stat-label">Last Order</div><div class="stat-value" style="font-size:20px;">Apr 12</div></div>
+        </div>
+      </div>
+
+      <!-- Slide-in panel -->
+      <div style="width:340px;background:var(--hg-white);border-left:1px solid var(--hg-border);padding:24px;display:flex;flex-direction:column;flex-shrink:0;box-shadow:-4px 0 20px rgba(0,0,0,0.08);" class="p-rel">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+          <div style="font-size:16px;font-weight:800;">Message Sarah M.</div>
+          <span style="cursor:pointer;font-size:16px;color:var(--hg-text-muted);">✕</span>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label class="form-label" style="font-size:12px;">To</label>
+          <div style="padding:8px 12px;background:var(--hg-bg);border-radius:8px;font-size:13px;color:var(--hg-text-secondary);">sarah.m@email.com</div>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label class="form-label" style="font-size:12px;">Subject</label>
+          <input class="form-input" style="padding:8px 12px;font-size:13px;" placeholder="e.g., Quick update about your order" />
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label class="form-label" style="font-size:12px;">Template</label>
+          <select class="form-input" style="padding:8px 12px;font-size:13px;appearance:auto;">
+            <option>Select template...</option>
+            <option>Market reminder</option>
+            <option>Thank you</option>
+            <option>Win-back offer</option>
+            <option>Custom</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:14px;flex:1;">
+          <label class="form-label" style="font-size:12px;">Message</label>
+          <textarea class="form-input" rows="6" style="resize:vertical;font-size:13px;padding:10px 12px;" placeholder="Write your message..."></textarea>
+        </div>
+
+        <div style="font-size:11px;color:var(--hg-text-muted);margin-bottom:14px;padding:8px 10px;background:var(--hg-bg);border-radius:8px;">
+          Sent from <strong>your@vendor.com</strong> via Homegrown
+        </div>
+
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-green btn-md" style="flex:1;font-size:14px;font-weight:700;">Send</button>
+          <button class="btn btn-outline btn-md" style="font-size:14px;font-weight:700;">Schedule</button>
+        </div>
+
+        <div class="annotation" style="top:8px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Slide-in panel lets vendor see customer's order history while composing — context-aware communication.</div></div>
+        <div class="annotation" style="bottom:60px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">All sends route through Homegrown's email infrastructure. Vendor email shown as sender, platform handles deliverability and opt-out.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 21 ==================== -->
+<div class="screen" id="screen-21">
 <div class="mockup-container">
   <div class="screen-title">Email Templates (5 Lifecycle Emails)</div>
   <div class="screen-subtitle">All automated emails in the subscription lifecycle</div>
@@ -3288,8 +3783,8 @@ See you Saturday at Findlay Market! — Green Acres Farm</textarea>
 </div>
 </div>
 
-<!-- ==================== SCREEN 18 ==================== -->
-<div class="screen" id="screen-18">
+<!-- ==================== SCREEN 22 ==================== -->
+<div class="screen" id="screen-22">
 <div class="mockup-container">
   <div class="screen-title">Payment Flow & Edge Cases</div>
   <div class="screen-subtitle">Implementation reference — payment lifecycle, state machine, and edge case handling</div>
@@ -3392,8 +3887,8 @@ See you Saturday at Findlay Market! — Green Acres Farm</textarea>
 </div>
 </div>
 
-<!-- ==================== SCREEN 19 ==================== -->
-<div class="screen" id="screen-19">
+<!-- ==================== SCREEN 23 ==================== -->
+<div class="screen" id="screen-23">
 <div class="mockup-container">
   <div class="screen-title">Data Model</div>
   <div class="screen-subtitle">Entity relationships for David's implementation</div>
@@ -3477,8 +3972,8 @@ See you Saturday at Findlay Market! — Green Acres Farm</textarea>
 </div>
 </div>
 
-<!-- ==================== SCREEN 20 ==================== -->
-<div class="screen" id="screen-20">
+<!-- ==================== SCREEN 24 ==================== -->
+<div class="screen" id="screen-24">
 <div class="mockup-container">
   <div class="screen-title">Notification Triggers & Timing</div>
   <div class="screen-subtitle">Every automated notification in the subscription lifecycle</div>
@@ -3655,10 +4150,14 @@ const titles = [
   'Screen 15: This Week\'s Fulfillment',
   'Screen 16: Subscription Analytics',
   'Screen 17: Broadcast Message',
-  'Screen 18: Email Templates',
-  'Screen 19: Payment Flow & Edge Cases',
-  'Screen 20: Data Model',
-  'Screen 21: Notification Triggers'
+  'Screen 18: Customers List',
+  'Screen 19: Customer Profile',
+  'Screen 20: CSV Import Wizard',
+  'Screen 21: Send Email from Profile',
+  'Screen 22: Email Templates',
+  'Screen 23: Payment Flow & Edge Cases',
+  'Screen 24: Data Model',
+  'Screen 25: Notification Triggers'
 ];
 let current = 0;
 let annotationsVisible = true;
