@@ -681,7 +681,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   gap: 12px;
 }
 
-/* Email Template Frame */
+/* Email Template Frame (legacy) */
 .email-frame {
   background: var(--hg-white);
   border: 1px solid var(--hg-border);
@@ -701,6 +701,244 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   font-weight: 800;
 }
 .email-body { padding: 24px 20px; }
+
+/* ===== EMAIL PREVIEW SYSTEM (Screen 21) ===== */
+.email-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.email-grid-item { display: flex; flex-direction: column; }
+.email-grid-item.centered { grid-column: 1 / -1; max-width: 480px; margin: 0 auto; }
+.email-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--hg-text-secondary);
+}
+.email-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.email-tag-green { background: #dff3df; color: #1b6d38; }
+.email-tag-amber { background: #fff3d6; color: #946600; }
+.email-tag-red { background: #fde0da; color: #c33; }
+.email-tag-gray { background: #eee; color: #666; }
+.email-preview {
+  width: 480px;
+  max-width: 100%;
+  background: #e8e8e8;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.email-preview-inner {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: 'Nunito Sans', Arial, Helvetica, sans-serif;
+}
+.email-header-green {
+  background: #1b4c33;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.email-header-green .logo-circle {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.email-header-green .wordmark {
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+.email-header-red {
+  background: #e54d2e;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.email-header-red .logo-circle {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.email-header-red .wordmark {
+  font-family: 'Nunito', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+.email-hero {
+  text-align: center;
+  padding: 28px 24px 20px;
+}
+.email-hero .hero-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.email-hero .hero-icon-green { background: #dff3df; }
+.email-hero .hero-icon-red { background: #fde0da; }
+.email-hero .hero-icon-amber { background: #fff3d6; }
+.email-hero .hero-icon-gray { background: #eee; }
+.email-hero h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #171717;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+.email-hero p {
+  font-size: 14px;
+  color: #6f6f6f;
+  margin: 0;
+  line-height: 1.4;
+}
+.email-content-card {
+  margin: 0 24px 20px;
+  background: #f7f7f7;
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-size: 13px;
+  color: #171717;
+  line-height: 1.5;
+}
+.email-content-card-red {
+  margin: 0 24px 20px;
+  background: #fff0ed;
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-size: 13px;
+  color: #171717;
+  line-height: 1.5;
+}
+.email-content-card .row,
+.email-content-card-red .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.email-content-card .divider,
+.email-content-card-red .divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 10px 0;
+}
+.email-content-card .section-label,
+.email-content-card-red .section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #999;
+  margin-bottom: 6px;
+}
+.email-content-card .detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+.email-content-card .detail-row .icon { flex-shrink: 0; }
+.email-content-card .stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.email-content-card .stat-item { font-size: 12px; }
+.email-content-card .stat-item .stat-label { color: #999; font-size: 11px; }
+.email-content-card .stat-item .stat-value { font-weight: 700; color: #171717; }
+.email-cta {
+  margin: 0 24px 8px;
+  text-align: center;
+}
+.email-cta .btn-email {
+  display: inline-block;
+  padding: 13px 32px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+}
+.email-cta .btn-email-green {
+  background: #1b4c33;
+  color: #ffffff;
+  width: 100%;
+}
+.email-cta .btn-email-amber {
+  background: #FFA01C;
+  color: #ffffff;
+  width: 100%;
+}
+.email-cta .btn-email-ghost {
+  background: transparent;
+  color: #1b4c33;
+  border: 2px solid #d0d0d0;
+}
+.email-cta .btn-email-outline-green {
+  background: transparent;
+  color: #1b4c33;
+  border: 2px solid #1b4c33;
+}
+.email-cta-row {
+  margin: 0 24px 8px;
+  display: flex;
+  gap: 10px;
+}
+.email-cta-row .btn-email { flex: 1; padding: 13px 12px; }
+.email-cta-note {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+  padding: 4px 24px 20px;
+  line-height: 1.4;
+}
+.email-cta-note a { color: #1b4c33; text-decoration: underline; }
+.email-footer {
+  padding: 20px 24px;
+  text-align: center;
+  border-top: 1px solid #ededed;
+  font-size: 11px;
+  color: #999;
+  line-height: 1.6;
+}
+.email-footer a { color: #999; text-decoration: underline; }
 
 /* Flow Diagram */
 .flow-horizontal {
@@ -1128,6 +1366,9 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
   .cancel-arrow { transform: rotate(90deg); width: auto; padding: 8px 0; }
   .modal-frame { max-width: 100%; }
   .email-frame { max-width: 100%; }
+  .email-grid { grid-template-columns: 1fr; }
+  .email-preview { width: 100%; }
+  .email-grid-item.centered { max-width: 100%; }
   .phone-frame { width: 100%; max-width: 340px; }
   .impl-section { overflow-x: auto; }
   .impl-table { min-width: 500px; }
@@ -3669,117 +3910,205 @@ See you Saturday at Findlay Market! — Green Acres Farm</textarea>
 <div class="screen" id="screen-21">
 <div class="mockup-container">
   <div class="screen-title">Email Templates (5 Lifecycle Emails)</div>
-  <div class="screen-subtitle">All automated emails in the subscription lifecycle</div>
+  <div class="screen-subtitle">Realistic 600px-wide email previews for all automated subscription emails</div>
 
-  <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:20px;">
-    <!-- Email 1: Confirmed -->
-    <div>
-      <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">1. SUBSCRIPTION CONFIRMED</div>
-      <div class="email-frame">
-        <div class="email-header-bar"><h4>Homegrown</h4></div>
-        <div class="email-body">
-          <div style="text-align:center;margin-bottom:16px;">
-            <div style="font-size:32px;margin-bottom:8px;">✅</div>
-            <div style="font-size:16px;font-weight:800;">You're subscribed!</div>
-          </div>
-          <div style="background:var(--hg-bg);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
-            <div style="font-weight:700;margin-bottom:4px;">Sourdough Boule</div>
-            <div style="color:var(--hg-text-secondary);">from Sarah's Bakery</div>
-            <div style="color:var(--hg-text-secondary);">$7.20/week · Every Saturday</div>
-            <div style="margin-top:6px;font-weight:700;">First pickup: Apr 19</div>
-            <div style="color:var(--hg-text-secondary);">Findlay Market, 9am-1pm</div>
-          </div>
-          <div style="text-align:center;">
-            <button class="btn btn-green btn-sm" style="font-size:11px;">Manage Subscription</button>
-          </div>
-          <div style="font-size:10px;color:var(--hg-text-muted);text-align:center;margin-top:12px;">Cancel anytime from your account</div>
-        </div>
-      </div>
-    </div>
+  <div class="email-grid">
 
-    <!-- Email 2: Pre-charge -->
-    <div>
-      <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">2. UPCOMING CHARGE (3 days before)</div>
-      <div class="email-frame">
-        <div class="email-header-bar"><h4>Homegrown</h4></div>
-        <div class="email-body">
-          <div style="font-size:15px;font-weight:800;margin-bottom:12px;">Your weekly order is coming up</div>
-          <div style="background:var(--hg-bg);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-              <span>Sourdough Boule</span><span style="font-weight:700;">$7.20</span>
+    <!-- ====== EMAIL 1: SUBSCRIPTION CONFIRMED ====== -->
+    <div class="email-grid-item">
+      <div class="email-label"><span class="email-tag email-tag-green">CONFIRMED</span> 1. SUBSCRIPTION CONFIRMED</div>
+      <div class="email-preview">
+        <div class="email-preview-inner">
+          <div class="email-header-green">
+            <div class="logo-circle">🌱</div>
+            <div class="wordmark">Homegrown</div>
+          </div>
+          <div class="email-hero">
+            <div class="hero-icon hero-icon-green">✅</div>
+            <h3>You're subscribed!</h3>
+          </div>
+          <div class="email-content-card">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+              <div style="font-size:32px;line-height:1;">🍞</div>
+              <div>
+                <div style="font-weight:700;font-size:15px;">Sourdough Boule</div>
+                <div style="color:#6f6f6f;font-size:13px;">from Sarah's Bakery</div>
+              </div>
             </div>
-            <div style="color:var(--hg-text-secondary);">Charge date: April 19</div>
-            <div style="color:var(--hg-text-secondary);">Card: Visa ····4242</div>
+            <div style="font-size:14px;font-weight:600;color:#1b4c33;">$7.20/week &middot; Every Saturday</div>
+            <hr class="divider">
+            <div class="section-label">First pickup</div>
+            <div class="detail-row"><span class="icon">📅</span> Saturday, April 19, 2026</div>
+            <div class="detail-row"><span class="icon">📍</span> Findlay Market, 9am&ndash;1pm</div>
+            <div class="detail-row" style="color:#6f6f6f;font-size:12px;padding-left:22px;">1801 Race St, Cincinnati, OH</div>
           </div>
-          <div style="display:flex;gap:8px;">
-            <button class="btn btn-ghost btn-sm" style="flex:1;font-size:11px;">Skip This Week</button>
-            <button class="btn btn-outline btn-sm" style="flex:1;font-size:11px;">Manage</button>
+          <div class="email-cta">
+            <button class="btn-email btn-email-green">Manage Your Subscription</button>
+          </div>
+          <div class="email-cta-note">Skip, pause, or cancel anytime from your account</div>
+          <div class="email-footer">
+            You're receiving this because you subscribed on Homegrown.<br>
+            <a href="#">Unsubscribe</a> &middot; <a href="#">Manage preferences</a><br>
+            &copy; 2026 Homegrown
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Email 3: Payment Failed -->
-    <div>
-      <div style="font-size:12px;font-weight:700;color:var(--hg-red);margin-bottom:8px;">3. PAYMENT FAILED</div>
-      <div class="email-frame">
-        <div class="email-header-bar" style="background:var(--hg-red);"><h4>Homegrown</h4></div>
-        <div class="email-body">
-          <div style="font-size:15px;font-weight:800;margin-bottom:8px;">We couldn't process your payment</div>
-          <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:12px;">Don't worry — we'll retry in 3 days. You can update your card now to avoid interruption.</div>
-          <div style="background:var(--hg-red-light);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
+    <!-- ====== EMAIL 2: UPCOMING CHARGE ====== -->
+    <div class="email-grid-item">
+      <div class="email-label"><span class="email-tag email-tag-amber">CHARGE</span> 2. UPCOMING CHARGE (3 days before)</div>
+      <div class="email-preview">
+        <div class="email-preview-inner">
+          <div class="email-header-green">
+            <div class="logo-circle">🌱</div>
+            <div class="wordmark">Homegrown</div>
+          </div>
+          <div class="email-hero">
+            <div class="hero-icon hero-icon-amber">📋</div>
+            <h3>Your weekly order is coming up</h3>
+            <p>We'll charge your card in 3 days</p>
+          </div>
+          <div class="email-content-card">
+            <div class="row">
+              <span style="font-weight:600;">Sourdough Boule</span>
+              <span style="font-weight:700;">$7.20</span>
+            </div>
+            <hr class="divider">
+            <div class="detail-row"><span class="icon">📅</span> Charge date: Saturday, April 19</div>
+            <div class="detail-row"><span class="icon">💳</span> Payment: Visa ending in 4242</div>
+          </div>
+          <div class="email-cta-row">
+            <button class="btn-email btn-email-ghost">Skip This Week</button>
+            <button class="btn-email btn-email-outline-green">Manage Subscription</button>
+          </div>
+          <div class="email-cta-note">Don't want this delivery? Skip before April 18.</div>
+          <div class="email-footer">
+            You're receiving this because you subscribed on Homegrown.<br>
+            <a href="#">Unsubscribe</a> &middot; <a href="#">Manage preferences</a><br>
+            &copy; 2026 Homegrown
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== EMAIL 3: PAYMENT FAILED ====== -->
+    <div class="email-grid-item">
+      <div class="email-label"><span class="email-tag email-tag-red">FAILED</span> 3. PAYMENT FAILED</div>
+      <div class="email-preview">
+        <div class="email-preview-inner">
+          <div class="email-header-red">
+            <div class="logo-circle">🌱</div>
+            <div class="wordmark">Homegrown</div>
+          </div>
+          <div class="email-hero">
+            <div class="hero-icon hero-icon-red">⚠️</div>
+            <h3>We couldn't process your payment</h3>
+            <p>Don't worry — we'll retry in 3 days</p>
+          </div>
+          <div class="email-content-card-red">
             <div style="font-weight:700;margin-bottom:4px;">Sourdough Boule — $7.20</div>
-            <div style="color:var(--hg-text-secondary);">Attempted: Apr 19 · Visa ····4242</div>
-            <div style="color:var(--hg-red);font-weight:600;margin-top:6px;">After 3 failed attempts, your subscription will be paused.</div>
+            <div style="color:#6f6f6f;font-size:12px;">Attempted: April 19 &middot; Visa ending 4242</div>
+            <hr class="divider">
+            <div class="section-label">What happens next</div>
+            <div style="margin-bottom:4px;">→ We'll retry on April 22</div>
+            <div style="margin-bottom:4px;">→ If that fails, we'll try again April 25</div>
+            <div style="color:#e54d2e;font-weight:600;">→ After 3 failed attempts, your subscription will be paused</div>
           </div>
-          <button class="btn btn-green btn-sm" style="width:100%;font-size:11px;">Update Payment Method</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:20px;margin-top:20px;">
-    <!-- Email 4: Pickup Reminder -->
-    <div>
-      <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">4. PICKUP REMINDER (day-of)</div>
-      <div class="email-frame" style="max-width:none;">
-        <div class="email-header-bar"><h4>Homegrown</h4></div>
-        <div class="email-body">
-          <div style="font-size:15px;font-weight:800;margin-bottom:8px;">Your order is ready! 🎉</div>
-          <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:12px;">Pick up today at Findlay Market, 9am-1pm</div>
-          <div style="background:var(--hg-bg);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
-            <div style="font-weight:700;margin-bottom:4px;">Your items:</div>
-            <div>🍞 Sourdough Boule</div>
-            <div style="margin-top:6px;font-weight:700;">Weekly Farm Box:</div>
-            <div>🥬 Mixed Greens · 🍅 Tomatoes · 🥒 Cucumbers · 🫑 Peppers · 🧅 Onions · 🌽 Corn</div>
+          <div class="email-cta">
+            <button class="btn-email btn-email-green">Update Payment Method</button>
           </div>
-          <div style="font-size:11px;color:var(--hg-text-muted);">📍 1801 Race St, Cincinnati, OH</div>
+          <div class="email-cta-note">Questions? Reply to this email</div>
+          <div class="email-footer">
+            You're receiving this because you subscribed on Homegrown.<br>
+            <a href="#">Unsubscribe</a> &middot; <a href="#">Manage preferences</a><br>
+            &copy; 2026 Homegrown
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Email 5: Cancelled -->
-    <div>
-      <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">5. SUBSCRIPTION CANCELLED</div>
-      <div class="email-frame" style="max-width:none;">
-        <div class="email-header-bar"><h4>Homegrown</h4></div>
-        <div class="email-body">
-          <div style="font-size:15px;font-weight:800;margin-bottom:8px;">Your subscription has been cancelled</div>
-          <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:12px;">We're sorry to see you go.</div>
-          <div style="background:var(--hg-bg);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
-            <div style="font-weight:700;margin-bottom:4px;">Sourdough Boule — Sarah's Bakery</div>
-            <div style="color:var(--hg-text-secondary);">Last pickup: April 19, 2026</div>
-            <div style="color:var(--hg-text-secondary);">Total deliveries: 8</div>
-            <div style="color:var(--hg-text-secondary);">Total saved: $12.80</div>
+    <!-- ====== EMAIL 4: PICKUP REMINDER ====== -->
+    <div class="email-grid-item">
+      <div class="email-label"><span class="email-tag email-tag-amber">REMINDER</span> 4. PICKUP REMINDER (day-of)</div>
+      <div class="email-preview">
+        <div class="email-preview-inner">
+          <div class="email-header-green">
+            <div class="logo-circle">🌱</div>
+            <div class="wordmark">Homegrown</div>
           </div>
-          <div style="text-align:center;">
-            <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:8px;">Changed your mind?</div>
-            <button class="btn btn-green btn-sm" style="font-size:11px;">Resubscribe</button>
+          <div class="email-hero">
+            <div class="hero-icon hero-icon-amber">🎉</div>
+            <h3>Your order is ready!</h3>
+            <p>Pick up today at Findlay Market</p>
+          </div>
+          <div class="email-content-card">
+            <div class="section-label">Your items</div>
+            <div class="detail-row"><span class="icon">🍞</span> Sourdough Boule &times; 1</div>
+            <hr class="divider">
+            <div class="section-label">Weekly Farm Box</div>
+            <div class="detail-row"><span class="icon">🥬</span> Mixed Greens</div>
+            <div class="detail-row"><span class="icon">🍅</span> Heirloom Tomatoes</div>
+            <div class="detail-row"><span class="icon">🥒</span> Cucumbers</div>
+            <div class="detail-row"><span class="icon">🫑</span> Bell Peppers</div>
+            <div class="detail-row"><span class="icon">🧅</span> Sweet Onions</div>
+            <div class="detail-row"><span class="icon">🌽</span> Sweet Corn <span style="color:#1b4c33;font-size:11px;font-weight:600;margin-left:4px;">(first of the season!)</span></div>
+            <hr class="divider">
+            <div class="detail-row"><span class="icon">📍</span> <strong>Findlay Market</strong></div>
+            <div class="detail-row"><span class="icon">🕐</span> 9:00 AM &ndash; 1:00 PM</div>
+            <div class="detail-row" style="color:#6f6f6f;font-size:12px;padding-left:22px;">1801 Race St, Cincinnati, OH</div>
+          </div>
+          <div class="email-cta">
+            <button class="btn-email btn-email-amber">Get Directions</button>
+          </div>
+          <div class="email-footer">
+            You're receiving this because you subscribed on Homegrown.<br>
+            <a href="#">Unsubscribe</a> &middot; <a href="#">Manage preferences</a><br>
+            &copy; 2026 Homegrown
           </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- ====== EMAIL 5: SUBSCRIPTION CANCELLED ====== -->
+    <div class="email-grid-item centered">
+      <div class="email-label"><span class="email-tag email-tag-gray">CANCELLED</span> 5. SUBSCRIPTION CANCELLED</div>
+      <div class="email-preview">
+        <div class="email-preview-inner">
+          <div class="email-header-green">
+            <div class="logo-circle">🌱</div>
+            <div class="wordmark">Homegrown</div>
+          </div>
+          <div class="email-hero">
+            <div class="hero-icon hero-icon-gray">👋</div>
+            <h3>Your subscription has been cancelled</h3>
+            <p>We're sorry to see you go</p>
+          </div>
+          <div class="email-content-card">
+            <div style="font-weight:700;margin-bottom:2px;">Sourdough Boule — Sarah's Bakery</div>
+            <hr class="divider">
+            <div class="stats-grid">
+              <div class="stat-item"><div class="stat-label">Last pickup</div><div class="stat-value">April 19, 2026</div></div>
+              <div class="stat-item"><div class="stat-label">Total deliveries</div><div class="stat-value">8</div></div>
+              <div class="stat-item"><div class="stat-label">Total saved</div><div class="stat-value">$12.80</div></div>
+              <div class="stat-item"><div class="stat-label">Member since</div><div class="stat-value">Feb 2026</div></div>
+            </div>
+          </div>
+          <div style="text-align:center;padding:0 24px 4px;font-size:14px;color:#6f6f6f;">Changed your mind?</div>
+          <div class="email-cta">
+            <button class="btn-email btn-email-green">Resubscribe</button>
+          </div>
+          <div class="email-cta-note">We'd love to know why you left — <a href="#">Share feedback</a></div>
+          <div class="email-footer">
+            You're receiving this because you subscribed on Homegrown.<br>
+            <a href="#">Unsubscribe</a> &middot; <a href="#">Manage preferences</a><br>
+            &copy; 2026 Homegrown
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.email-grid -->
 </div>
 </div>
 
