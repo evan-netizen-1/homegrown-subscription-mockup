@@ -1744,11 +1744,19 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
               <div class="freq-pill">Every 2 weeks</div>
               <div class="freq-pill">Every 4 weeks</div>
             </div>
-            <div style="font-size:12px;color:var(--hg-text-secondary);margin-top:8px;">
-              Pickup every <strong>Saturday</strong> at Findlay Market &middot; Cancel anytime
+            <div class="annotation" style="top:-8px;right:-30px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Frequency pills (not dropdown) for 3 or fewer options. Paired with location pills below so shopper configures both at once.</div></div>
+
+            <!-- Pickup location selector -->
+            <div style="margin-top:12px;">
+              <div style="font-size:12px;font-weight:700;color:var(--hg-text);margin-bottom:6px;">📍 Pickup location</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <div style="padding:6px 14px;border-radius:999px;background:var(--hg-green-light);color:white;font-size:12px;font-weight:700;cursor:pointer;">Findlay Market — Sat 9am-1pm</div>
+                <div style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">Hyde Park Market — Sun 9:30am-1:30pm</div>
+                <div style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">Blue Ash Market — Wed 4pm-7pm</div>
+              </div>
+              <div style="font-size:11px;color:var(--hg-text-secondary);margin-top:6px;">Cancel anytime</div>
             </div>
-            <div class="annotation" style="top:-8px;right:-30px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Frequency pills (not dropdown) for 3 or fewer options. Shows pickup day + location — the real decision factor for farmers market shoppers.</div></div>
-            <div class="annotation" style="bottom:-8px;right:-30px;" onclick="this.classList.toggle('show-tip')">3<div class="annotation-tip">"Cancel anytime" copy reduces friction. Required for FTC compliance — cancellation must be as easy as signup.</div></div>
+            <div class="annotation" style="bottom:-8px;right:-30px;" onclick="this.classList.toggle('show-tip')">3<div class="annotation-tip">If vendor has multiple markets, shopper picks their preferred pickup location. This sets the recurring pickup day. If vendor has only 1 location, this selector doesn't appear — just shows the location as text. "Cancel anytime" copy reduces friction (FTC compliance).</div></div>
           </div>
 
           <!-- Quantity picker -->
@@ -1940,8 +1948,16 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
               <span style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;color:var(--hg-text-secondary);">Every 2 weeks</span>
               <span style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;color:var(--hg-text-secondary);">Monthly</span>
             </div>
-            <div style="font-size:11px;color:var(--hg-text-secondary);margin-top:8px;">📅 Pickup every Saturday at Findlay Market</div>
-            <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">3<div class="annotation-tip">Tapping the subscribe bar expands it inline — frequency pills appear, price updates, button changes. No page navigation needed. Shopper can subscribe right from the popup.</div></div>
+            <!-- Compact location pills -->
+            <div style="margin-top:8px;">
+              <div style="font-size:11px;font-weight:700;color:var(--hg-text);margin-bottom:4px;">📍 Pickup at:</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;overflow-x:auto;">
+                <span style="padding:4px 10px;border-radius:999px;background:var(--hg-green-light);color:white;font-size:10px;font-weight:700;white-space:nowrap;">Findlay Market — Sat</span>
+                <span style="padding:4px 10px;border-radius:999px;border:1px solid var(--hg-border);font-size:10px;font-weight:600;color:var(--hg-text-secondary);white-space:nowrap;">Hyde Park — Sun</span>
+                <span style="padding:4px 10px;border-radius:999px;border:1px solid var(--hg-border);font-size:10px;font-weight:600;color:var(--hg-text-secondary);white-space:nowrap;">Blue Ash — Wed</span>
+              </div>
+            </div>
+            <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">3<div class="annotation-tip">Tapping the subscribe bar expands it inline — frequency pills AND location pills appear. Shopper configures both right from the popup. No page navigation needed.</div></div>
           </div>
 
           <!-- Quantity + Subscribe button (changed from Add to Cart) -->
@@ -2255,11 +2271,28 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
         <div class="card-sm" style="padding:16px;margin-bottom:20px;">
           <div style="display:flex;align-items:center;gap:12px;">
             <span style="font-size:20px;">📍</span>
-            <div>
-              <div style="font-size:14px;font-weight:700;">Findlay Market</div>
+            <div style="flex:1;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:14px;font-weight:700;">Findlay Market</div>
+                <a href="#" class="text-link" style="font-size:12px;">Change location</a>
+              </div>
               <div style="font-size:12px;color:var(--hg-text-secondary);">Every Saturday, 9am - 1pm</div>
               <div style="font-size:12px;color:var(--hg-text-secondary);">1801 Race St, Cincinnati, OH</div>
             </div>
+          </div>
+        </div>
+
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Frequency</h3>
+        <div class="card-sm" style="padding:16px;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:20px;">🔄</span>
+              <div>
+                <div style="font-size:14px;font-weight:700;">Every week</div>
+                <div style="font-size:12px;color:var(--hg-text-secondary);">$7.20/pickup</div>
+              </div>
+            </div>
+            <a href="#" class="text-link" style="font-size:12px;">Change</a>
           </div>
         </div>
 
@@ -2324,7 +2357,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
           <!-- Terms box -->
           <div class="p-rel" style="background:var(--hg-bg);border-radius:8px;padding:14px;margin-bottom:16px;">
             <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.5;">
-              You'll be charged <strong>$7.20 every week</strong> starting <strong>April 19, 2026</strong>. Pickup at Findlay Market on Saturdays. You can skip, pause, or cancel anytime from your account.
+              You'll be charged <strong>$7.20 every week</strong> starting <strong>April 19, 2026</strong>. Pickup at <strong>Findlay Market</strong> on Saturdays, 9am-1pm. You can skip, pause, or cancel anytime from your account.
             </div>
             <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Plain-language terms, not legal jargon. Shows exact amount, frequency, start date, and emphasizes cancel anytime. Required by FTC + state auto-renewal laws.</div></div>
           </div>
@@ -2929,7 +2962,16 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
               <div style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;">Monthly</div>
             </div>
 
-            <div style="font-size:11px;color:var(--hg-text-secondary);margin-bottom:12px;">📅 Saturdays at Findlay Market &middot; Cancel anytime</div>
+            <!-- Mobile location pills -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:10px;font-weight:700;color:var(--hg-text);margin-bottom:4px;">📍 Pickup at:</div>
+              <div style="display:flex;gap:4px;overflow-x:auto;padding-bottom:2px;">
+                <span style="padding:4px 10px;border-radius:999px;background:var(--hg-green-light);color:white;font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0;">Findlay Market — Sat</span>
+                <span style="padding:4px 10px;border-radius:999px;border:1px solid var(--hg-border);font-size:10px;font-weight:600;color:var(--hg-text-secondary);white-space:nowrap;flex-shrink:0;">Hyde Park — Sun</span>
+                <span style="padding:4px 10px;border-radius:999px;border:1px solid var(--hg-border);font-size:10px;font-weight:600;color:var(--hg-text-secondary);white-space:nowrap;flex-shrink:0;">Blue Ash — Wed</span>
+              </div>
+            </div>
+            <div style="font-size:10px;color:var(--hg-text-secondary);margin-bottom:8px;">Cancel anytime</div>
           </div>
           <!-- Sticky CTA -->
           <div style="padding:12px 16px;border-top:1px solid var(--hg-border);background:white;">
@@ -3155,6 +3197,23 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
           <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;border:2px solid var(--hg-border);border-radius:var(--card-radius-sm);cursor:pointer;">
             <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--hg-border);"></div>
             <div><div style="font-size:14px;font-weight:700;">Every 4 weeks</div><div style="font-size:12px;color:var(--hg-text-secondary);">$7.20/pickup</div></div>
+          </div>
+        </div>
+
+        <!-- Change pickup location -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:15px;font-weight:700;margin-bottom:12px;">Pickup Location</div>
+          <div class="card-sm" style="padding:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="font-size:18px;">📍</span>
+                <div>
+                  <div style="font-size:14px;font-weight:700;">Findlay Market</div>
+                  <div style="font-size:12px;color:var(--hg-text-secondary);">Saturdays, 9am - 1pm</div>
+                </div>
+              </div>
+              <a href="#" class="text-link" style="font-size:13px;">Change location</a>
+            </div>
           </div>
         </div>
 
@@ -3985,11 +4044,25 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
           <span style="margin-left:auto;color:var(--hg-green-light);font-weight:700;font-size:16px;">&#10003;</span>
         </div>
         <div style="margin-top:12px;">
-          <label class="form-label">Pickup location</label>
-          <select class="form-input" style="appearance:auto;">
-            <option>Findlay Market — Saturdays 9am-1pm</option>
-            <option>Hyde Park Farmers Market — Sundays 9:30am-1:30pm</option>
-          </select>
+          <label class="form-label">Available at these markets:</label>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+            <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--hg-border);border-radius:8px;cursor:pointer;font-size:13px;">
+              <div class="checkbox-box checked" style="width:18px;height:18px;flex-shrink:0;"></div>
+              <span style="font-weight:600;">Findlay Market</span>
+              <span style="color:var(--hg-text-secondary);font-size:12px;margin-left:auto;">Saturdays 9am-1pm</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--hg-border);border-radius:8px;cursor:pointer;font-size:13px;">
+              <div class="checkbox-box checked" style="width:18px;height:18px;flex-shrink:0;"></div>
+              <span style="font-weight:600;">Hyde Park Farmers Market</span>
+              <span style="color:var(--hg-text-secondary);font-size:12px;margin-left:auto;">Sundays 9:30am-1:30pm</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--hg-border);border-radius:8px;cursor:pointer;font-size:13px;">
+              <div class="checkbox-box" style="width:18px;height:18px;flex-shrink:0;"></div>
+              <span style="font-weight:600;color:var(--hg-text-secondary);">Blue Ash Market</span>
+              <span style="color:var(--hg-text-muted);font-size:12px;margin-left:auto;">Wednesdays 4pm-7pm</span>
+            </label>
+          </div>
+          <div class="form-helper">Check the markets where this subscription is available. Shoppers choose their preferred pickup location when subscribing.</div>
         </div>
       </div>
 
@@ -4010,36 +4083,40 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
         <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Capacity limits prevent over-commitment — a baker making 50 loaves can't take 200 subscribers. When full, button changes to "Join Waitlist" with card pre-auth.</div></div>
       </div>
 
-      <!-- Availability -->
+      <!-- Schedule & Absences -->
       <div class="card-sm p-rel" style="padding:20px;margin-bottom:16px;">
-        <label class="form-label" style="margin-bottom:10px;">Availability</label>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-          <div>
-            <label class="form-label" style="font-size:12px;">Start date</label>
-            <input class="form-input" type="date" value="2026-04-19" />
+        <label class="form-label" style="margin-bottom:10px;">Schedule</label>
+        <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.5;margin-bottom:12px;">
+          Your subscription schedule is inherited from your market locations. Seasonal markets auto-pause when closed.
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;">
+            <span style="color:var(--hg-green-light);font-weight:700;">&#10003;</span>
+            <span style="font-weight:600;">Findlay Market</span>
+            <span style="color:var(--hg-text-secondary);font-size:12px;">— Every Saturday, 9am-1pm</span>
+            <span class="pill pill-green" style="font-size:9px;padding:1px 6px;margin-left:auto;">Year-round</span>
           </div>
-          <div>
-            <label class="form-label" style="font-size:12px;">End date <span style="color:var(--hg-text-muted);">(optional)</span></label>
-            <input class="form-input" type="date" placeholder="Ongoing" />
-            <div class="form-helper">Set an end date for seasonal subscriptions</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;">
+            <span style="color:var(--hg-green-light);font-weight:700;">&#10003;</span>
+            <span style="font-weight:600;">Hyde Park Farmers Market</span>
+            <span style="color:var(--hg-text-secondary);font-size:12px;">— Every Sunday, 9:30am-1:30pm</span>
+            <span class="pill pill-amber" style="font-size:9px;padding:1px 6px;margin-left:auto;">May-October</span>
           </div>
         </div>
 
-        <label class="form-label" style="font-size:12px;">Blackout dates</label>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
-          <span class="pill pill-gray">May 24 (Memorial Day) ✕</span>
-          <span class="pill pill-gray">Jul 4 (Independence Day) ✕</span>
-          <button class="btn btn-ghost btn-sm" style="font-size:12px;">+ Add date</button>
+        <div style="background:var(--hg-cream);border-radius:8px;padding:12px 14px;margin-bottom:0;">
+          <div style="font-size:12px;font-weight:700;color:var(--hg-text);margin-bottom:4px;">Not attending a market?</div>
+          <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.5;">If you're skipping a market date (vacation, weather, etc.), subscribers will be notified and won't be charged.</div>
+          <a href="#" class="text-link" style="font-size:12px;margin-top:6px;display:inline-block;">Manage market schedule →</a>
         </div>
-        <div class="form-helper">No charges or fulfillments on blackout dates. Subscribers are notified automatically.</div>
-        <div class="annotation" style="bottom:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Blackout dates solve the #1 vendor concern: "what if I go on vacation?" System auto-skips charges + notifies subscribers. Only Barn2Door has this at $99+/mo.</div></div>
+        <div class="annotation" style="bottom:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Availability lives on the LOCATION, not the product. The subscription inherits the market's schedule automatically. Seasonal markets auto-pause when closed. Vendor marks absences on their Locations page — subscribers are notified and not charged.</div></div>
       </div>
 
       <!-- Auto-generated terms -->
       <div class="card-sm" style="padding:16px;background:var(--hg-green-surface);border-color:var(--hg-green-light);margin-bottom:20px;">
         <div style="font-size:12px;font-weight:700;color:var(--hg-green);margin-bottom:6px;">Auto-generated subscription terms</div>
         <div style="font-size:13px;color:var(--hg-text);line-height:1.5;">
-          "Subscribers will be charged $7.20 every week starting April 19, 2026. Pickup at Findlay Market on Saturdays, 9am-1pm. No charges on blackout dates. Subscribers can skip, pause, or cancel anytime."
+          "Subscribers will be charged $7.20 per pickup. Available at Findlay Market (Saturdays, 9am-1pm, year-round) and Hyde Park Farmers Market (Sundays, 9:30am-1:30pm, May-October). Shoppers choose their pickup location when subscribing. Subscribers can skip, pause, or cancel anytime."
         </div>
       </div>
 
@@ -4096,7 +4173,15 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
               <div style="padding:6px 14px;border-radius:999px;background:var(--hg-green-light);color:white;font-size:12px;font-weight:700;">Weekly</div>
               <div style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;">Bi-weekly</div>
             </div>
-            <div style="font-size:11px;color:var(--hg-text-secondary);margin-bottom:10px;">📅 Saturdays at Findlay Market &middot; Cancel anytime</div>
+            <!-- Compact location pills in preview -->
+            <div style="margin-bottom:10px;">
+              <div style="font-size:10px;font-weight:700;color:var(--hg-text);margin-bottom:3px;">📍 Pickup at:</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                <span style="padding:3px 8px;border-radius:999px;background:var(--hg-green-light);color:white;font-size:10px;font-weight:700;">Findlay Market — Sat</span>
+                <span style="padding:3px 8px;border-radius:999px;border:1px solid var(--hg-border);font-size:10px;font-weight:600;color:var(--hg-text-secondary);">Hyde Park — Sun</span>
+              </div>
+              <div style="font-size:10px;color:var(--hg-text-secondary);margin-top:4px;">Cancel anytime</div>
+            </div>
             <button class="btn btn-amber btn-md" style="width:100%;font-size:13px;">Subscribe — $7.20/week</button>
           </div>
           <div class="annotation" style="top:-6px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Preview eliminates "I don't know what this will look like" anxiety. Shows exact shopper view before publishing.</div></div>
@@ -4110,11 +4195,9 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
               <span style="color:var(--hg-text-secondary);font-weight:600;">Type</span><span>Recurring Item</span>
               <span style="color:var(--hg-text-secondary);font-weight:600;">Price</span><span>$7.20/pickup (10% off $8.00)</span>
               <span style="color:var(--hg-text-secondary);font-weight:600;">Frequency</span><span>Weekly, Bi-weekly</span>
-              <span style="color:var(--hg-text-secondary);font-weight:600;">Pickup</span><span>Findlay Market, Saturdays</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Markets</span><span>Findlay Market (Sat), Hyde Park (Sun)</span>
               <span style="color:var(--hg-text-secondary);font-weight:600;">Capacity</span><span>3 / 50 slots</span>
-              <span style="color:var(--hg-text-secondary);font-weight:600;">Starts</span><span>April 19, 2026</span>
-              <span style="color:var(--hg-text-secondary);font-weight:600;">Ends</span><span>Ongoing (no end date)</span>
-              <span style="color:var(--hg-text-secondary);font-weight:600;">Blackouts</span><span>May 24, Jul 4</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Schedule</span><span>Inherited from market locations</span>
             </div>
           </div>
 
@@ -4681,8 +4764,11 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
           <!-- Pickup location -->
           <div style="margin-bottom:18px;">
             <label class="form-label">Pickup Location</label>
-            <div class="form-input" style="color:var(--hg-text);">Findlay Market &mdash; Saturdays</div>
-            <div class="form-helper">Auto-selected from your locations</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">
+              <span style="padding:6px 14px;border-radius:999px;background:var(--hg-green-light);color:white;font-size:12px;font-weight:700;cursor:pointer;">Findlay Market — Sat</span>
+              <span style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">Hyde Park — Sun</span>
+            </div>
+            <div class="form-helper">Select which market this customer will pick up from</div>
           </div>
 
           <!-- Payment section -->
@@ -6768,9 +6854,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
           <tr><td><code>discount_percent</code></td><td>Integer</td><td>0-100, applies to base price</td></tr>
           <tr><td><code>capacity_limit</code></td><td>Integer?</td><td>Null = unlimited</td></tr>
           <tr><td><code>fulfillment_type</code></td><td>Enum</td><td><code>pickup</code> <span style="color:var(--hg-text-secondary);font-size:11px;">(V1: pickup only. Delivery support planned for V2 &mdash; field preserved for future use.)</span></td></tr>
-          <tr><td><code>start_date</code></td><td>Date</td><td>When subscriptions begin</td></tr>
-          <tr><td><code>end_date</code></td><td>Date?</td><td>Null = ongoing. Set for seasonal.</td></tr>
-          <tr><td><code>blackout_dates</code></td><td>Date[]</td><td>No charge/fulfillment on these dates</td></tr>
+          <tr><td><code>location_ids</code></td><td>FK[] &rarr; Location</td><td>Which markets this subscription is available at. Schedule inherited from Location.</td></tr>
           <tr><td><code>status</code></td><td>Enum</td><td><code>draft</code> | <code>active</code> | <code>paused</code> | <code>ended</code></td></tr>
         </tbody>
       </table>
@@ -6785,6 +6869,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
           <tr><td><code>plan_id</code></td><td>FK → SubPlan</td><td></td></tr>
           <tr><td><code>customer_id</code></td><td>FK → User</td><td></td></tr>
           <tr><td><code>frequency</code></td><td>Enum</td><td>Selected from plan's options</td></tr>
+          <tr><td><code>pickup_location_id</code></td><td>FK &rarr; Location</td><td>Which market the subscriber picks up from</td></tr>
           <tr><td><code>payment_token</code></td><td>String</td><td>PayTheory card-on-file token</td></tr>
           <tr><td><code>status</code></td><td>Enum</td><td><code>active</code> | <code>paused</code> | <code>past_due</code> | <code>cancelled</code></td></tr>
           <tr><td><code>next_charge_date</code></td><td>Date</td><td>Auto-calculated from frequency</td></tr>
