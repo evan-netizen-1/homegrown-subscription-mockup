@@ -1054,6 +1054,52 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 .fw-800 { font-weight: 800; }
 .c-secondary { color: var(--hg-text-secondary); }
 .c-muted { color: var(--hg-text-muted); }
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 900px) {
+  body { flex-direction: column; }
+  .toc { display: none; }
+  .viewer { height: 100vh; }
+  .viewer-toolbar { flex-wrap: wrap; gap: 8px; padding: 10px 16px; }
+  .viewer-title { font-size: 13px; width: 100%; }
+  .viewer-nav { width: 100%; justify-content: space-between; }
+  .viewer-content { padding: 16px; }
+  .mockup-container { max-width: 100%; }
+  .mk-header { padding: 0 16px; height: 52px; flex-wrap: wrap; }
+  .mk-nav { display: none; }
+  .mk-actions { gap: 6px; }
+  .mk-actions .btn { font-size: 11px; padding: 4px 10px; }
+  .mk-actions span { display: none; }
+  .two-col { grid-template-columns: 1fr; }
+  .type-cards { grid-template-columns: 1fr; }
+  .product-grid { grid-template-columns: 1fr 1fr; }
+  .dash-layout { flex-direction: column; }
+  .dash-sidebar { width: 100%; min-width: 100%; padding: 12px; border-right: none; border-bottom: 1px solid var(--hg-border); display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  .dash-sidebar-logo { padding: 0 8px 0 0; font-size: 16px; }
+  .nav-section { display: none; }
+  .nav-item { padding: 5px 10px; font-size: 12px; }
+  .nav-icon { font-size: 12px; width: 14px; }
+  .dash-main { padding: 16px; }
+  .stats-bar { flex-wrap: wrap; }
+  .stat-card { min-width: calc(50% - 8px); }
+  .cancel-flow { flex-direction: column; }
+  .cancel-arrow { transform: rotate(90deg); width: auto; padding: 8px 0; }
+  .modal-frame { max-width: 100%; }
+  .email-frame { max-width: 100%; }
+  .phone-frame { width: 100%; max-width: 340px; }
+  .impl-section { overflow-x: auto; }
+  .impl-table { min-width: 500px; }
+  .data-table { min-width: 600px; }
+  .card-sm { overflow-x: auto; }
+  .state-machine { flex-wrap: wrap; justify-content: center; gap: 4px; }
+  .annotation { display: none !important; }
+  .btn-annotations { display: none; }
+}
+@media (max-width: 500px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .stat-card { min-width: 100%; }
+  .freq-pills { flex-direction: column; }
+}
 </style>
 </head>
 <body>
