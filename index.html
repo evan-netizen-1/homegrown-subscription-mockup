@@ -645,6 +645,260 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 }
 .wizard-line.done { background: var(--hg-green-light); }
 
+/* ===== FLOATING LABEL INPUTS ===== */
+.float-input {
+  position: relative;
+  margin-bottom: 16px;
+}
+.float-input input, .float-input textarea {
+  width: 100%;
+  padding: 20px 16px 8px;
+  border: 1px solid var(--hg-border);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Nunito', sans-serif;
+  color: var(--hg-text);
+  outline: none;
+}
+.float-input input:focus, .float-input textarea:focus {
+  border-color: var(--hg-green-light);
+}
+.float-input label {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  font-size: 11px;
+  color: var(--hg-text-secondary);
+  font-weight: 600;
+}
+
+/* ===== SECTION HEADERS ===== */
+.section-header {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--hg-text);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hg-border);
+  margin-bottom: 16px;
+}
+
+/* ===== TOGGLE SWITCH ===== */
+.toggle-switch {
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--hg-border);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.toggle-switch.on {
+  background: var(--hg-green-light);
+}
+.toggle-switch::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle-switch.on::after {
+  left: 22px;
+}
+
+/* ===== PRODUCT CARD ROW ===== */
+.product-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+.product-row:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.product-row-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #f0ebe4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.product-row-info {
+  flex: 1;
+  min-width: 0;
+}
+.product-row-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--hg-text);
+}
+.product-row-price {
+  font-size: 13px;
+  color: var(--hg-text-secondary);
+  margin-top: 2px;
+}
+.product-row-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.product-row-chevron {
+  font-size: 18px;
+  color: var(--hg-text-muted);
+}
+
+/* ===== COLLAPSIBLE SECTION ===== */
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  cursor: pointer;
+}
+.collapsible-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--hg-text);
+}
+.collapsible-chevron {
+  font-size: 18px;
+  color: var(--hg-text-secondary);
+  transition: transform 0.2s;
+}
+.collapsible-subtitle {
+  font-size: 12px;
+  color: var(--hg-text-secondary);
+  margin-top: 2px;
+}
+
+/* ===== CATEGORY BUTTON ===== */
+.category-btn {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--hg-bg);
+  border: 1px solid var(--hg-border);
+  border-radius: 999px;
+  font-size: 15px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  color: var(--hg-text);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.category-btn .chevron {
+  color: var(--hg-text-secondary);
+}
+
+/* ===== TAB PILLS ===== */
+.tab-pills {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.tab-pill {
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  border: none;
+  background: var(--hg-bg);
+  color: var(--hg-text-secondary);
+  transition: all 0.15s;
+}
+.tab-pill.active {
+  background: var(--hg-amber);
+  color: var(--hg-white);
+}
+
+/* ===== QA SIDEBAR ===== */
+.qa-sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background: var(--hg-white);
+  border-right: 1px solid var(--hg-border);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+.qa-sidebar-logo {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--hg-green);
+  padding-bottom: 20px;
+  margin-bottom: 8px;
+}
+.qa-nav-section {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--hg-text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 14px 12px 6px;
+}
+.qa-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  border-radius: var(--nav-radius);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--hg-text);
+  cursor: pointer;
+  margin-bottom: 2px;
+  transition: background 0.15s;
+}
+.qa-nav-item:hover { background: var(--hg-bg); }
+.qa-nav-item.active { background: var(--hg-green-light); color: #fff; }
+.qa-nav-divider {
+  border: none;
+  border-top: 1px solid var(--hg-border);
+  margin: 8px 0;
+}
+.qa-nav-bottom {
+  margin-top: auto;
+  border-top: 1px solid var(--hg-border);
+  padding-top: 12px;
+}
+.qa-nav-bottom-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  border-radius: var(--nav-radius);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--hg-text);
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+.qa-nav-bottom-item:hover { background: var(--hg-bg); }
+
 /* Modal (from QA — messaging-v2) */
 .modal-frame, .modal {
   background: var(--hg-white);
@@ -3634,48 +3888,90 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
         <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">3 types cover 90% of farmer market use cases. "Farm Box" unlocks weekly box contents management later. "Subscribe & Save" links to existing products (no duplication).</div></div>
       </div>
 
-      <!-- Product details -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-        <div>
-          <label class="form-label">Product name</label>
-          <input class="form-input" value="Sourdough Boule" />
+      <!-- Product details — single-column layout matching QA -->
+      <div style="max-width:560px;">
+        <div class="section-header">Product Basics</div>
+        <div class="float-input">
+          <label>Name*</label>
+          <input type="text" value="Sourdough Boule" />
         </div>
-        <div>
-          <label class="form-label">Base price</label>
-          <input class="form-input" value="$8.00" />
-        </div>
-      </div>
 
-      <div style="margin-bottom:20px;">
-        <label class="form-label">Description</label>
-        <textarea class="form-input" rows="2" style="resize:vertical;">Handcrafted sourdough with a crispy crust and tangy, chewy interior.</textarea>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-        <div>
-          <label class="form-label">Subscription discount</label>
-          <input class="form-input" value="10%" />
-          <div class="form-helper">Subscribers pay $7.20 per pickup</div>
+        <div class="category-btn">
+          <span>Select a category</span>
+          <span class="chevron">›</span>
         </div>
-        <div>
-          <label class="form-label">Frequency options</label>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
-            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
-              <div class="checkbox-box checked"></div> Weekly
-            </label>
-            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
-              <div class="checkbox-box checked"></div> Bi-weekly
-            </label>
-            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
-              <div class="checkbox-box"></div> Monthly
-            </label>
+
+        <div class="section-header">Pricing</div>
+        <div class="float-input">
+          <label>$ Price*</label>
+          <input type="text" value="8.00" style="padding-left:28px;" />
+          <span style="position:absolute;top:20px;left:16px;font-size:15px;color:var(--hg-text);">$</span>
+        </div>
+
+        <div class="section-header">Images</div>
+        <div style="border:2px dashed var(--hg-border);border-radius:12px;padding:32px;text-align:center;cursor:pointer;background:var(--hg-bg);margin-bottom:20px;">
+          <div style="font-size:28px;margin-bottom:4px;">+</div>
+          <div style="font-size:13px;color:var(--hg-text-secondary);font-weight:600;">Add Photo</div>
+        </div>
+
+        <!-- Advanced Details (collapsible — expanded) -->
+        <div style="border-top:1px solid var(--hg-border);">
+          <div class="collapsible-header">
+            <div>
+              <div class="collapsible-title">Advanced Details</div>
+              <div class="collapsible-subtitle">Add a description, SKU, inventory tracking, and product options.</div>
+            </div>
+            <span class="collapsible-chevron">▲</span>
+          </div>
+          <div style="padding-bottom:16px;">
+            <div class="float-input">
+              <label>Description</label>
+              <textarea rows="2" style="width:100%;padding:20px 16px 8px;border:1px solid var(--hg-border);border-radius:8px;font-size:15px;font-family:'Nunito',sans-serif;color:var(--hg-text);outline:none;resize:vertical;">Handcrafted sourdough with a crispy crust and tangy, chewy interior.</textarea>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <span style="font-size:14px;font-weight:600;">Inventory Tracking</span>
+              <div class="toggle-switch"></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <span style="font-size:14px;font-weight:600;">Product Options</span>
+              <div class="toggle-switch"></div>
+            </div>
+            <div class="float-input">
+              <label>SKU</label>
+              <input type="text" value="" placeholder="--" />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div style="display:flex;justify-content:flex-end;gap:12px;">
-        <button class="btn btn-ghost btn-md">Cancel</button>
-        <button class="btn btn-green btn-md">Next: Fulfillment →</button>
+        <!-- Subscription-specific fields -->
+        <div style="border-top:1px solid var(--hg-border);">
+          <div class="section-header" style="margin-top:16px;">Subscription Settings</div>
+          <div class="float-input">
+            <label>Subscription discount</label>
+            <input type="text" value="10%" />
+          </div>
+          <div style="font-size:12px;color:var(--hg-green-light);margin-top:-12px;margin-bottom:16px;">Subscribers pay $7.20 per pickup</div>
+
+          <div style="margin-bottom:16px;">
+            <div style="font-size:13px;font-weight:700;margin-bottom:8px;">Frequency options</div>
+            <div style="display:flex;gap:16px;font-size:13px;">
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                <div class="checkbox-box checked"></div> Weekly
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                <div class="checkbox-box checked"></div> Bi-weekly
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                <div class="checkbox-box"></div> Monthly
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px;">
+          <button class="btn btn-ghost btn-md">Cancel</button>
+          <button class="btn btn-amber btn-md">Next: Fulfillment &rarr;</button>
+        </div>
       </div>
 
       <div class="annotation" style="top:40px;left:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Subscriptions lives under SELL in the sidebar — between Products and Inventory. "NEW" badge draws attention. Not a separate top-level section.</div></div>
@@ -3796,47 +4092,51 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
         </div>
       </div>
 
-      <!-- Selected product summary + discount -->
-      <div style="background:var(--hg-green-surface);border:1px solid #c3e6c3;border-radius:var(--card-radius-sm);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-size:20px;">🍞</span>
-          <div>
-            <div style="font-size:14px;font-weight:700;">Sourdough Boule — $8.00</div>
+      <!-- Single-column layout matching QA -->
+      <div style="max-width:560px;">
+        <!-- Selected product summary + discount -->
+        <div style="background:var(--hg-green-surface);border:1px solid #c3e6c3;border-radius:var(--card-radius-sm);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:20px;">🍞</span>
+            <div>
+              <div style="font-size:14px;font-weight:700;">Sourdough Boule — $8.00</div>
+            </div>
           </div>
+          <a style="font-size:13px;color:var(--hg-green-light);font-weight:600;cursor:pointer;text-decoration:none;">Change</a>
         </div>
-        <a style="font-size:13px;color:var(--hg-green-light);font-weight:600;cursor:pointer;text-decoration:none;">Change</a>
-      </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-        <div>
-          <label class="form-label">Subscription discount</label>
-          <input class="form-input" value="10%" />
-          <div class="form-helper">Subscribers pay $7.20 per pickup</div>
+        <div class="section-header">Subscription Settings</div>
+
+        <div class="float-input">
+          <label>Subscription discount</label>
+          <input type="text" value="10%" />
         </div>
-        <div>
-          <label class="form-label">Frequency options</label>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
-            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+        <div style="font-size:12px;color:var(--hg-green-light);margin-top:-12px;margin-bottom:16px;">Subscribers pay $7.20 per pickup</div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:700;margin-bottom:8px;">Frequency options</div>
+          <div style="display:flex;gap:16px;font-size:13px;">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
               <div class="checkbox-box checked"></div> Weekly
             </label>
-            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
               <div class="checkbox-box checked"></div> Bi-weekly
             </label>
-            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
               <div class="checkbox-box"></div> Monthly
             </label>
           </div>
         </div>
-      </div>
 
-      <!-- Note -->
-      <div style="background:var(--hg-cream);border-radius:var(--card-radius-sm);padding:12px 16px;font-size:12px;color:var(--hg-text-secondary);margin-bottom:20px;line-height:1.5;">
-        <strong style="color:var(--hg-text);">Note:</strong> This won't change your existing product — it just adds a subscribe option alongside "Add to Cart."
-      </div>
+        <!-- Note -->
+        <div style="background:var(--hg-cream);border-radius:var(--card-radius-sm);padding:12px 16px;font-size:12px;color:var(--hg-text-secondary);margin-bottom:20px;line-height:1.5;">
+          <strong style="color:var(--hg-text);">Note:</strong> This won't change your existing product — it just adds a subscribe option alongside "Add to Cart."
+        </div>
 
-      <div style="display:flex;justify-content:flex-end;gap:12px;">
-        <button class="btn btn-ghost btn-md">Cancel</button>
-        <button class="btn btn-green btn-md">Next: Fulfillment &rarr;</button>
+        <div style="display:flex;justify-content:flex-end;gap:12px;">
+          <button class="btn btn-ghost btn-md">Cancel</button>
+          <button class="btn btn-amber btn-md">Next: Fulfillment &rarr;</button>
+        </div>
       </div>
 
       <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Subscribe &amp; Save doesn't create a new product — it attaches to an existing one. The product page will show both 'One-time purchase' and 'Subscribe &amp; save' radio buttons (see Screen 1-2).</div></div>
@@ -3903,94 +4203,104 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
         </div>
       </div>
 
-      <!-- Box Configuration -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-        <div>
-          <label class="form-label">Box name</label>
-          <input class="form-input" value="Weekly Veggie Box" />
+      <!-- Box Configuration — single-column layout matching QA -->
+      <div style="max-width:560px;">
+        <div class="section-header">Product Basics</div>
+        <div class="float-input">
+          <label>Box name*</label>
+          <input type="text" value="Weekly Veggie Box" />
         </div>
-        <div>
-          <label class="form-label">Box photo</label>
-          <div style="border:2px dashed var(--hg-border);border-radius:var(--card-radius-sm);padding:20px;text-align:center;cursor:pointer;background:var(--hg-bg);">
-            <div style="font-size:24px;margin-bottom:4px;">📷</div>
-            <div style="font-size:12px;color:var(--hg-text-secondary);">Upload a photo of your box</div>
+
+        <div class="section-header">Images</div>
+        <div style="border:2px dashed var(--hg-border);border-radius:12px;padding:32px;text-align:center;cursor:pointer;background:var(--hg-bg);margin-bottom:20px;">
+          <div style="font-size:28px;margin-bottom:4px;">+</div>
+          <div style="font-size:13px;color:var(--hg-text-secondary);font-weight:600;">Add Photo</div>
+        </div>
+
+        <!-- Advanced Details (collapsible — expanded) -->
+        <div style="border-top:1px solid var(--hg-border);">
+          <div class="collapsible-header">
+            <div>
+              <div class="collapsible-title">Advanced Details</div>
+              <div class="collapsible-subtitle">Add a description, SKU, inventory tracking, and product options.</div>
+            </div>
+            <span class="collapsible-chevron">▲</span>
+          </div>
+          <div style="padding-bottom:16px;">
+            <div class="float-input">
+              <label>Description</label>
+              <textarea rows="2" style="width:100%;padding:20px 16px 8px;border:1px solid var(--hg-border);border-radius:8px;font-size:15px;font-family:'Nunito',sans-serif;color:var(--hg-text);outline:none;resize:vertical;">A curated selection of seasonal vegetables, picked fresh each week from our farm.</textarea>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div style="margin-bottom:20px;">
-        <label class="form-label">Box description</label>
-        <textarea class="form-input" rows="2" style="resize:vertical;">A curated selection of seasonal vegetables, picked fresh each week from our farm.</textarea>
-      </div>
-
-      <!-- Pricing -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-        <div>
-          <label class="form-label">Price per box</label>
-          <input class="form-input" value="$35.00" />
+        <!-- Pricing -->
+        <div class="section-header">Pricing</div>
+        <div class="float-input">
+          <label>$ Price per box*</label>
+          <input type="text" value="35.00" style="padding-left:28px;" />
+          <span style="position:absolute;top:20px;left:16px;font-size:15px;color:var(--hg-text);">$</span>
         </div>
-        <div>
-          <label class="form-label">Frequency options</label>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
-            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+
+        <div style="margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:700;margin-bottom:8px;">Frequency options</div>
+          <div style="display:flex;gap:16px;font-size:13px;">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
               <div class="checkbox-box checked"></div> Weekly
             </label>
-            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
               <div class="checkbox-box checked"></div> Bi-weekly
             </label>
-            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
               <div class="checkbox-box"></div> Monthly
             </label>
           </div>
         </div>
-      </div>
 
-      <!-- Sizes section -->
-      <div style="margin-bottom:20px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-          <label class="form-label" style="margin-bottom:0;">Offer different sizes?</label>
-          <div style="width:40px;height:22px;background:var(--hg-green-light);border-radius:11px;position:relative;cursor:pointer;">
-            <div style="width:18px;height:18px;background:white;border-radius:50%;position:absolute;top:2px;right:2px;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>
+        <!-- Sizes section -->
+        <div style="border-top:1px solid var(--hg-border);padding-top:16px;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+            <span style="font-size:14px;font-weight:600;">Offer different sizes?</span>
+            <div class="toggle-switch on"></div>
           </div>
+          <div style="background:var(--hg-white);border:1px solid var(--hg-border);border-radius:var(--card-radius-sm);overflow:hidden;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--hg-border);">
+              <div style="font-size:13px;font-weight:600;">Small (feeds 1-2)</div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="font-size:13px;font-weight:600;">$25.00</div>
+                <span style="font-size:12px;color:var(--hg-red);cursor:pointer;font-weight:600;">Remove</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--hg-border);">
+              <div style="font-size:13px;font-weight:600;">Regular (feeds 3-4)</div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="font-size:13px;font-weight:600;">$35.00</div>
+                <span style="font-size:12px;color:var(--hg-red);cursor:pointer;font-weight:600;">Remove</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--hg-border);">
+              <div style="font-size:13px;font-weight:600;">Large (feeds 5+)</div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="font-size:13px;font-weight:600;">$45.00</div>
+                <span style="font-size:12px;color:var(--hg-red);cursor:pointer;font-weight:600;">Remove</span>
+              </div>
+            </div>
+            <div style="padding:10px 14px;">
+              <a style="font-size:13px;color:var(--hg-green-light);font-weight:600;cursor:pointer;text-decoration:none;">+ Add size</a>
+            </div>
+          </div>
+          <div class="form-helper">Shoppers choose their size when subscribing</div>
         </div>
-        <div style="background:var(--hg-white);border:1px solid var(--hg-border);border-radius:var(--card-radius-sm);overflow:hidden;">
-          <!-- Size rows -->
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--hg-border);">
-            <div style="font-size:13px;font-weight:600;">Small (feeds 1-2)</div>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="font-size:13px;font-weight:600;">$25.00</div>
-              <span style="font-size:12px;color:var(--hg-red);cursor:pointer;font-weight:600;">Remove</span>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--hg-border);">
-            <div style="font-size:13px;font-weight:600;">Regular (feeds 3-4)</div>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="font-size:13px;font-weight:600;">$35.00</div>
-              <span style="font-size:12px;color:var(--hg-red);cursor:pointer;font-weight:600;">Remove</span>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--hg-border);">
-            <div style="font-size:13px;font-weight:600;">Large (feeds 5+)</div>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <div style="font-size:13px;font-weight:600;">$45.00</div>
-              <span style="font-size:12px;color:var(--hg-red);cursor:pointer;font-weight:600;">Remove</span>
-            </div>
-          </div>
-          <div style="padding:10px 14px;">
-            <a style="font-size:13px;color:var(--hg-green-light);font-weight:600;cursor:pointer;text-decoration:none;">+ Add size</a>
-          </div>
+
+        <!-- Box contents note -->
+        <div style="background:var(--hg-green-surface);border:1px solid #c3e6c3;border-radius:var(--card-radius-sm);padding:14px 16px;font-size:13px;color:var(--hg-text);margin-bottom:20px;line-height:1.5;">
+          <strong>📦 Box Contents:</strong> You'll set what goes in the box each week from your Fulfillment view. Contents can change weekly based on what's in season.
         </div>
-        <div class="form-helper">Shoppers choose their size when subscribing</div>
-      </div>
 
-      <!-- Box contents note -->
-      <div style="background:var(--hg-green-surface);border:1px solid #c3e6c3;border-radius:var(--card-radius-sm);padding:14px 16px;font-size:13px;color:var(--hg-text);margin-bottom:20px;line-height:1.5;">
-        <strong>📦 Box Contents:</strong> You'll set what goes in the box each week from your Fulfillment view. Contents can change weekly based on what's in season.
-      </div>
-
-      <div style="display:flex;justify-content:flex-end;gap:12px;">
-        <button class="btn btn-ghost btn-md">Cancel</button>
-        <button class="btn btn-green btn-md">Next: Fulfillment &rarr;</button>
+        <div style="display:flex;justify-content:flex-end;gap:12px;">
+          <button class="btn btn-ghost btn-md">Cancel</button>
+          <button class="btn btn-amber btn-md">Next: Fulfillment &rarr;</button>
+        </div>
       </div>
 
       <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Farm Box is the CSA model — vendor picks contents weekly. Sizes let vendors serve different household sizes. Contents are set per-week on the SubscriptionOrder, not fixed on the plan.</div></div>
@@ -4242,107 +4552,116 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 </div>
 </div>
 
-<!-- ==================== SCREEN 13 ==================== -->
+<!-- ==================== SCREEN 13: PRODUCTS LIST — SUBSCRIPTION BADGE ==================== -->
 <div class="screen" id="screen-21">
 <div class="mockup-container">
   <div class="screen-title">Products List — Subscription Badge</div>
-  <div class="screen-subtitle">Subscription products live in the same list with a badge, not a separate section</div>
+  <div class="screen-subtitle">Subscription products live in the same list with a badge — card rows matching QA</div>
 
   <div class="dash-layout">
-    <div class="dash-sidebar">
-      <div class="dash-sidebar-logo">Homegrown</div>
-      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
-      <div class="nav-section">Sell</div>
-      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
-      <div class="nav-item active"><span class="nav-icon">🛍️</span> Products</div>
-      <div class="nav-item"><span class="nav-icon">🔄</span> Subscriptions</div>
-      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
-      <div class="nav-section">Manage</div>
-      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    <!-- QA-matching sidebar -->
+    <div class="qa-sidebar">
+      <div class="qa-sidebar-logo">Homegrown</div>
+      <div class="qa-nav-section">Sell</div>
+      <div class="qa-nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="qa-nav-item active"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="qa-nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="qa-nav-section">Grow</div>
+      <div class="qa-nav-item"><span class="nav-icon">🚀</span> Get Sales</div>
+      <div class="qa-nav-section">Engage</div>
+      <div class="qa-nav-item"><span class="nav-icon">📅</span> Events</div>
+      <div class="qa-nav-item"><span class="nav-icon">❓</span> Questions</div>
+      <hr class="qa-nav-divider">
+      <div class="qa-nav-bottom">
+        <div class="qa-nav-bottom-item"><span class="nav-icon">🔗</span> View Storefront <span style="font-size:11px;margin-left:4px;">↗</span></div>
+        <div class="qa-nav-bottom-item"><span class="nav-icon">👤</span> My Account</div>
+        <div class="qa-nav-bottom-item"><span class="nav-icon">🚪</span> Exit Dashboard</div>
+      </div>
     </div>
     <div class="dash-main">
+      <!-- Header row -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
         <h2 style="font-size:20px;font-weight:800;">Products</h2>
-        <div style="display:flex;gap:8px;">
-          <select class="form-input" style="width:auto;padding:8px 12px;font-size:13px;appearance:auto;">
-            <option>All products</option>
-            <option>Subscription only</option>
-            <option>One-time only</option>
-          </select>
-          <button class="btn btn-green btn-sm">+ Add Product</button>
+        <button class="btn btn-amber btn-sm">+ Add Product</button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tab-pills">
+        <button class="tab-pill active">Published</button>
+        <button class="tab-pill">Drafts</button>
+        <button class="tab-pill">Archived</button>
+      </div>
+
+      <!-- Filter bar -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--hg-text-secondary);background:var(--hg-bg);padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);cursor:pointer;">
+          <span>🔄</span> Subscription
+          <div class="toggle-switch on" style="width:32px;height:18px;margin-left:4px;"></div>
         </div>
       </div>
 
-      <div class="card-sm" style="overflow:hidden;">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th style="width:50px;"></th>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Type</th>
-              <th>Subscribers</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><div style="width:40px;height:40px;background:#f0ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🍞</div></td>
-              <td>
-                <div style="font-weight:700;">Sourdough Boule</div>
-                <span class="pill pill-green" style="margin-top:2px;">Recurring</span>
-              </td>
-              <td>$8.00 <span style="font-size:11px;color:var(--hg-green-light);">($7.20 sub)</span></td>
-              <td><span style="font-size:12px;color:var(--hg-text-secondary);">Subscription — Weekly</span></td>
-              <td><span style="font-weight:700;">28</span> <span style="font-size:11px;color:var(--hg-text-secondary);">active</span></td>
-              <td><span class="pill pill-green">Active</span></td>
-              <td><span style="cursor:pointer;">⋯</span></td>
-            </tr>
-            <tr>
-              <td><div style="width:40px;height:40px;background:#e8f5e9;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">📦</div></td>
-              <td>
-                <div style="font-weight:700;">Weekly Farm Box</div>
-                <span class="pill pill-green" style="margin-top:2px;">Farm Box</span>
-              </td>
-              <td>$35.00</td>
-              <td><span style="font-size:12px;color:var(--hg-text-secondary);">Subscription — Weekly</span></td>
-              <td><span style="font-weight:700;">12</span> <span style="font-size:11px;color:var(--hg-text-secondary);">active</span></td>
-              <td><span class="pill pill-green">Active</span></td>
-              <td><span style="cursor:pointer;">⋯</span></td>
-            </tr>
-            <tr>
-              <td><div style="width:40px;height:40px;background:#f0ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🥚</div></td>
-              <td>
-                <div style="font-weight:700;">Farm Fresh Eggs (Dozen)</div>
-                <span class="pill pill-green" style="margin-top:2px;">Save 10%</span>
-              </td>
-              <td>$6.00 <span style="font-size:11px;color:var(--hg-green-light);">($5.40 sub)</span></td>
-              <td><span style="font-size:12px;color:var(--hg-text-secondary);">One-time + Subscription</span></td>
-              <td><span style="font-weight:700;">7</span> <span style="font-size:11px;color:var(--hg-text-secondary);">active</span></td>
-              <td><span class="pill pill-green">Active</span></td>
-              <td><span style="cursor:pointer;">⋯</span></td>
-            </tr>
-            <tr>
-              <td><div style="width:40px;height:40px;background:#f0ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🍅</div></td>
-              <td><div style="font-weight:700;">Heirloom Tomatoes (lb)</div></td>
-              <td>$4.50</td>
-              <td><span style="font-size:12px;color:var(--hg-text-secondary);">One-time</span></td>
-              <td><span style="color:var(--hg-text-muted);">—</span></td>
-              <td><span class="pill pill-green">Active</span></td>
-              <td><span style="cursor:pointer;">⋯</span></td>
-            </tr>
-            <tr>
-              <td><div style="width:40px;height:40px;background:#f0ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🥬</div></td>
-              <td><div style="font-weight:700;">Mixed Greens Bundle</div></td>
-              <td>$5.00</td>
-              <td><span style="font-size:12px;color:var(--hg-text-secondary);">One-time</span></td>
-              <td><span style="color:var(--hg-text-muted);">—</span></td>
-              <td><span class="pill pill-green">Active</span></td>
-              <td><span style="cursor:pointer;">⋯</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Product card rows -->
+      <div class="product-row">
+        <div class="product-row-img">🍞</div>
+        <div class="product-row-info">
+          <div class="product-row-name">Sourdough Boule</div>
+          <div class="product-row-price">$8.00</div>
+        </div>
+        <div class="product-row-right">
+          <span class="pill pill-green" style="font-size:10px;padding:3px 8px;">🔄 Recurring</span>
+          <span class="pill pill-green">Published</span>
+          <span class="product-row-chevron">›</span>
+        </div>
+      </div>
+
+      <div class="product-row">
+        <div class="product-row-img" style="background:#e8f5e9;">📦</div>
+        <div class="product-row-info">
+          <div class="product-row-name">Weekly Farm Box</div>
+          <div class="product-row-price">$35.00</div>
+        </div>
+        <div class="product-row-right">
+          <span class="pill pill-green" style="font-size:10px;padding:3px 8px;">🔄 Recurring</span>
+          <span class="pill pill-green">Published</span>
+          <span class="product-row-chevron">›</span>
+        </div>
+      </div>
+
+      <div class="product-row">
+        <div class="product-row-img">🥚</div>
+        <div class="product-row-info">
+          <div class="product-row-name">Farm Fresh Eggs (Dozen)</div>
+          <div class="product-row-price">$6.00</div>
+        </div>
+        <div class="product-row-right">
+          <span class="pill pill-green" style="font-size:10px;padding:3px 8px;">🏷️ Subscribe</span>
+          <span class="pill pill-green">Published</span>
+          <span class="product-row-chevron">›</span>
+        </div>
+      </div>
+
+      <div class="product-row">
+        <div class="product-row-img">🍅</div>
+        <div class="product-row-info">
+          <div class="product-row-name">Heirloom Tomatoes (lb)</div>
+          <div class="product-row-price">$4.50</div>
+        </div>
+        <div class="product-row-right">
+          <span class="pill pill-green">Published</span>
+          <span class="product-row-chevron">›</span>
+        </div>
+      </div>
+
+      <div class="product-row">
+        <div class="product-row-img">🥬</div>
+        <div class="product-row-info">
+          <div class="product-row-name">Mixed Greens Bundle</div>
+          <div class="product-row-price">$5.00</div>
+        </div>
+        <div class="product-row-right">
+          <span class="pill pill-green">Published</span>
+          <span class="product-row-chevron">›</span>
+        </div>
       </div>
     </div>
   </div>
@@ -7076,175 +7395,191 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 <div class="screen" id="screen-47">
 <div class="mockup-container">
   <div class="screen-title">Product Edit — Enable Subscription Toggle</div>
-  <div class="screen-subtitle">Vendors enable Subscribe &amp; Save directly from the product edit page — no separate wizard needed</div>
+  <div class="screen-subtitle">Vendors enable Subscribe &amp; Save directly from the product edit page — single-column form matching QA</div>
 
   <div class="dash-layout">
-    <div class="dash-sidebar">
-      <div class="dash-sidebar-logo">Homegrown</div>
-      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
-      <div class="nav-section">Sell</div>
-      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
-      <div class="nav-item active"><span class="nav-icon">🛍️</span> Products</div>
-      <div class="nav-item"><span class="nav-icon">🔄</span> Subscriptions</div>
-      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
-      <div class="nav-section">Manage</div>
-      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    <!-- QA-matching sidebar -->
+    <div class="qa-sidebar">
+      <div class="qa-sidebar-logo">Homegrown</div>
+      <div class="qa-nav-section">Sell</div>
+      <div class="qa-nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="qa-nav-item active"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="qa-nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="qa-nav-section">Grow</div>
+      <div class="qa-nav-item"><span class="nav-icon">🚀</span> Get Sales</div>
+      <div class="qa-nav-section">Engage</div>
+      <div class="qa-nav-item"><span class="nav-icon">📅</span> Events</div>
+      <div class="qa-nav-item"><span class="nav-icon">❓</span> Questions</div>
+      <hr class="qa-nav-divider">
+      <div class="qa-nav-bottom">
+        <div class="qa-nav-bottom-item"><span class="nav-icon">🔗</span> View Storefront <span style="font-size:11px;margin-left:4px;">↗</span></div>
+        <div class="qa-nav-bottom-item"><span class="nav-icon">👤</span> My Account</div>
+        <div class="qa-nav-bottom-item"><span class="nav-icon">🚪</span> Exit Dashboard</div>
+      </div>
     </div>
     <div class="dash-main p-rel">
 
-      <!-- Breadcrumb -->
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:13px;color:var(--hg-text-secondary);">
-        <span style="cursor:pointer;font-size:16px;">←</span>
-        <a href="#" style="color:var(--hg-text-secondary);text-decoration:none;">Products</a>
-        <span>/</span>
-        <span style="color:var(--hg-text);font-weight:600;">Sourdough</span>
-      </div>
+      <!-- Single-column edit form matching QA -->
+      <div style="max-width:560px;">
 
-      <!-- Product header -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <h2 style="font-size:22px;font-weight:800;">Sourdough</h2>
-          <span class="pill pill-green">Published</span>
+        <!-- Title row -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <h2 style="font-size:22px;font-weight:800;">Edit Product</h2>
+            <span class="pill pill-green">Published</span>
+          </div>
+          <div style="font-size:20px;cursor:pointer;color:var(--hg-text-secondary);">⋮</div>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <button class="btn btn-amber btn-sm" style="width:36px;height:36px;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;font-size:14px;">✏️</button>
-          <button class="btn btn-ghost btn-sm" style="width:36px;height:36px;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;font-size:16px;">⋯</button>
+
+        <!-- Product Basics -->
+        <div class="section-header">Product Basics</div>
+        <div class="float-input">
+          <label>Name*</label>
+          <input type="text" value="Sourdough" />
         </div>
-      </div>
 
-      <!-- Two-column layout -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <!-- Category -->
+        <div class="category-btn">
+          <span>Artisan Bakery Goods</span>
+          <span class="chevron">›</span>
+        </div>
 
-        <!-- Left column — Images -->
-        <div>
-          <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--hg-text-secondary);">Images</h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div style="aspect-ratio:1;background:linear-gradient(135deg,#f0ebe4,#e8ddd0);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:48px;">🍞</div>
-            <div style="aspect-ratio:1;background:linear-gradient(135deg,#f5f0e8,#ede5d8);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:48px;">🥖</div>
+        <!-- Pricing -->
+        <div class="section-header">Pricing</div>
+        <div class="float-input">
+          <label>$ Price*</label>
+          <input type="text" value="20.00" style="padding-left:28px;" />
+          <span style="position:absolute;top:20px;left:16px;font-size:15px;color:var(--hg-text);">$</span>
+        </div>
+
+        <!-- Images -->
+        <div class="section-header">Images</div>
+        <div style="display:flex;gap:12px;margin-bottom:8px;">
+          <div style="position:relative;">
+            <div style="width:100px;height:100px;background:linear-gradient(135deg,#f0ebe4,#e8ddd0);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:40px;">🍞</div>
+            <span style="position:absolute;bottom:4px;left:4px;background:var(--hg-amber);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;">Primary</span>
+          </div>
+          <div style="width:100px;height:100px;background:linear-gradient(135deg,#f5f0e8,#ede5d8);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:40px;">🥖</div>
+          <div style="width:100px;height:100px;border:2px dashed var(--hg-border);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:var(--hg-text-secondary);">
+            <span style="font-size:24px;">+</span>
+            <span style="font-size:11px;font-weight:600;">Add Photo</span>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:20px;">2 of 10 images</div>
+
+        <!-- Advanced Details (collapsible — expanded) -->
+        <div style="border-top:1px solid var(--hg-border);margin-bottom:0;">
+          <div class="collapsible-header">
+            <div>
+              <div class="collapsible-title">Advanced Details</div>
+              <div class="collapsible-subtitle">Add a description, SKU, inventory tracking, and product options.</div>
+            </div>
+            <span class="collapsible-chevron">▲</span>
+          </div>
+          <div style="padding-bottom:20px;">
+            <div class="float-input">
+              <label>Description</label>
+              <textarea rows="3" style="width:100%;padding:20px 16px 8px;border:1px solid var(--hg-border);border-radius:8px;font-size:15px;font-family:'Nunito',sans-serif;color:var(--hg-text);outline:none;resize:vertical;">Handcrafted sourdough bread made with organic flour and a 48-hour fermentation process.</textarea>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <span style="font-size:14px;font-weight:600;">Inventory Tracking</span>
+              <div class="toggle-switch"></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <span style="font-size:14px;font-weight:600;">Product Options</span>
+              <div class="toggle-switch"></div>
+            </div>
+            <div class="float-input">
+              <label>SKU</label>
+              <input type="text" value="" placeholder="--" />
+            </div>
           </div>
         </div>
 
-        <!-- Right column — Product Details -->
-        <div>
-          <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--hg-text-secondary);">Product Details</h3>
-          <div class="card-sm" style="padding:20px;">
-            <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px;">
-              <span style="font-weight:700;color:var(--hg-text-secondary);">SKU</span>
-              <span>--</span>
-              <span style="font-weight:700;color:var(--hg-text-secondary);">Category</span>
-              <span>🥖 Bakery</span>
-              <span style="font-weight:700;color:var(--hg-text-secondary);">Pricing</span>
-              <span style="font-weight:700;">$20.00</span>
-              <span style="font-weight:700;color:var(--hg-text-secondary);">Description</span>
-              <span>Handcrafted sourdough bread made with organic flour and a 48-hour fermentation process.</span>
+        <!-- ===== SUBSCRIPTION SETTINGS (collapsible — expanded, toggle ON) ===== -->
+        <div style="border-top:1px solid var(--hg-border);">
+          <div class="collapsible-header">
+            <div>
+              <div class="collapsible-title">Subscription Settings</div>
             </div>
+            <span class="collapsible-chevron">▲</span>
+          </div>
+          <div style="padding-bottom:20px;">
 
-            <!-- Divider -->
-            <div style="border-top:1px solid var(--hg-border);margin:20px 0;"></div>
-
-            <!-- ===== SUBSCRIPTIONS SECTION — TOGGLE ON ===== -->
-            <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;">Subscriptions</h4>
-
-            <!-- Toggle ON -->
+            <!-- Enable toggle -->
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-              <span style="font-size:13px;font-weight:600;">Enable Subscribe &amp; Save</span>
-              <!-- Toggle switch — ON state (green) -->
-              <div style="width:44px;height:24px;background:var(--hg-green-light);border-radius:12px;cursor:pointer;position:relative;transition:background 0.2s;">
-                <div style="width:20px;height:20px;background:white;border-radius:50%;position:absolute;top:2px;right:2px;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:right 0.2s;"></div>
+              <span style="font-size:14px;font-weight:600;">Enable Subscribe &amp; Save</span>
+              <div class="toggle-switch on"></div>
+            </div>
+
+            <!-- Subscription discount -->
+            <div class="float-input">
+              <label>Subscription discount</label>
+              <input type="text" value="10%" />
+            </div>
+            <div style="font-size:12px;color:var(--hg-green-light);margin-top:-12px;margin-bottom:16px;">Subscribers pay $18.00 per pickup</div>
+
+            <!-- Frequency options -->
+            <div style="margin-bottom:16px;">
+              <div style="font-size:13px;font-weight:700;margin-bottom:8px;">Frequency options</div>
+              <div style="display:flex;gap:16px;font-size:13px;">
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                  <div style="width:18px;height:18px;border-radius:4px;background:var(--hg-green-light);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;">✓</div>
+                  Weekly
+                </label>
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                  <div style="width:18px;height:18px;border-radius:4px;background:var(--hg-green-light);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;">✓</div>
+                  Bi-weekly
+                </label>
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+                  <div style="width:18px;height:18px;border-radius:4px;border:2px solid var(--hg-border);background:white;"></div>
+                  Monthly
+                </label>
               </div>
             </div>
 
-            <!-- Expanded settings (visible when ON) -->
-            <div style="background:var(--hg-bg);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:14px;">
+            <!-- Subscriber capacity -->
+            <div class="float-input">
+              <label>Subscriber capacity</label>
+              <input type="text" value="50" />
+            </div>
+            <div style="font-size:12px;color:var(--hg-text-secondary);margin-top:-12px;margin-bottom:16px;">Leave blank for unlimited</div>
 
-              <!-- Subscription discount -->
-              <div>
-                <label style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);display:block;margin-bottom:4px;">Subscription discount</label>
-                <input class="form-input" type="text" value="10%" style="width:80px;padding:8px 12px;font-size:13px;">
-                <span style="font-size:11px;color:var(--hg-green-light);margin-left:8px;">Subscribers pay $18.00 per pickup</span>
-              </div>
-
-              <!-- Frequency options -->
-              <div>
-                <label style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);display:block;margin-bottom:6px;">Frequency options</label>
-                <div style="display:flex;gap:16px;font-size:13px;">
-                  <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
-                    <div style="width:18px;height:18px;border-radius:4px;background:var(--hg-green-light);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;">✓</div>
-                    Weekly
-                  </label>
-                  <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
-                    <div style="width:18px;height:18px;border-radius:4px;background:var(--hg-green-light);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;">✓</div>
-                    Bi-weekly
-                  </label>
-                  <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
-                    <div style="width:18px;height:18px;border-radius:4px;border:2px solid var(--hg-border);background:white;"></div>
-                    Monthly
-                  </label>
-                </div>
-              </div>
-
-              <!-- Subscriber capacity -->
-              <div>
-                <label style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);display:block;margin-bottom:4px;">Subscriber capacity</label>
-                <input class="form-input" type="text" value="50" style="width:80px;padding:8px 12px;font-size:13px;">
-                <span style="font-size:11px;color:var(--hg-text-secondary);margin-left:8px;">Leave blank for unlimited</span>
-              </div>
-
-              <!-- Info card -->
-              <div style="background:var(--hg-green-bg);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--hg-green);display:flex;align-items:flex-start;gap:8px;">
-                <span style="font-size:14px;">💡</span>
-                <span>A "Subscribe &amp; save" option will appear on this product's page alongside the regular "Add to Cart" button.</span>
-              </div>
-
-              <!-- Save button -->
-              <div style="text-align:right;margin-top:4px;">
-                <button class="btn btn-green btn-sm">Save Changes</button>
-              </div>
+            <!-- Info card -->
+            <div style="background:var(--hg-green-bg);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--hg-green);display:flex;align-items:flex-start;gap:8px;">
+              <span style="font-size:14px;">💡</span>
+              <span>A "Subscribe &amp; save" option will appear on this product's page alongside the regular "Add to Cart" button.</span>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ===== TOGGLE OFF STATE (shown below) ===== -->
-      <div style="margin-top:48px;border-top:2px dashed var(--hg-border);padding-top:32px;">
-        <div style="display:inline-block;background:var(--hg-bg);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:20px;">TOGGLE OFF STATE</div>
+        <!-- ===== TOGGLE OFF STATE (shown below with separator) ===== -->
+        <div style="margin-top:32px;border-top:2px dashed var(--hg-border);padding-top:24px;">
+          <div style="display:inline-block;background:var(--hg-bg);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:16px;">TOGGLE OFF STATE</div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-          <!-- Left column placeholder -->
-          <div></div>
-
-          <!-- Right column — Product Details with toggle OFF -->
-          <div>
-            <div class="card-sm" style="padding:20px;">
-              <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px;">
-                <span style="font-weight:700;color:var(--hg-text-secondary);">SKU</span>
-                <span>--</span>
-                <span style="font-weight:700;color:var(--hg-text-secondary);">Category</span>
-                <span>🥖 Bakery</span>
-                <span style="font-weight:700;color:var(--hg-text-secondary);">Pricing</span>
-                <span style="font-weight:700;">$20.00</span>
-                <span style="font-weight:700;color:var(--hg-text-secondary);">Description</span>
-                <span>Handcrafted sourdough bread made with organic flour and a 48-hour fermentation process.</span>
+          <div style="border-top:1px solid var(--hg-border);">
+            <div class="collapsible-header">
+              <div>
+                <div class="collapsible-title">Subscription Settings</div>
               </div>
-
-              <!-- Divider -->
-              <div style="border-top:1px solid var(--hg-border);margin:20px 0;"></div>
-
-              <!-- Subscriptions — OFF -->
-              <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;">Subscriptions</h4>
-              <div style="display:flex;align-items:center;justify-content:space-between;">
-                <div>
-                  <span style="font-size:13px;font-weight:600;">Enable Subscribe &amp; Save</span>
-                  <div style="font-size:11px;color:var(--hg-text-secondary);margin-top:2px;">Let customers subscribe to this product for automatic recurring orders with a discount.</div>
-                </div>
-                <!-- Toggle switch — OFF state (gray) -->
-                <div style="width:44px;height:24px;background:var(--hg-border);border-radius:12px;cursor:pointer;position:relative;flex-shrink:0;margin-left:16px;">
-                  <div style="width:20px;height:20px;background:white;border-radius:50%;position:absolute;top:2px;left:2px;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>
-                </div>
+              <span class="collapsible-chevron">▼</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;">
+              <div>
+                <span style="font-size:14px;font-weight:600;">Enable Subscribe &amp; Save</span>
+                <div style="font-size:11px;color:var(--hg-text-secondary);margin-top:2px;">Let customers subscribe to this product for automatic recurring orders with a discount.</div>
               </div>
+              <div class="toggle-switch"></div>
             </div>
           </div>
         </div>
+
+        <!-- Bottom buttons -->
+        <div style="display:flex;gap:12px;margin-top:24px;padding-bottom:32px;">
+          <button class="btn btn-ghost btn-md" style="flex:1;">Cancel</button>
+          <button class="btn btn-amber btn-md" style="flex:1;">Save</button>
+        </div>
+
       </div>
 
       <!-- Annotations -->
