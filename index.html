@@ -1,0 +1,3299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homegrown — Subscriptions / CSA Feature Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var(--hg-bg); display: flex; }
+
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --hg-green: #1b4c33;
+  --hg-green-light: #3d9a50;
+  --hg-green-hover: #153d29;
+  --hg-green-bg: #dff3df;
+  --hg-green-surface: #f0f8f3;
+  --hg-amber: #FFA01C;
+  --hg-amber-hover: #e8900a;
+  --hg-cream: #FFF9ED;
+  --hg-text: #171717;
+  --hg-text-secondary: #6f6f6f;
+  --hg-text-muted: #c7c7c7;
+  --hg-bg: #f7f7f7;
+  --hg-white: #ffffff;
+  --hg-border: #ededed;
+  --hg-surface: #fcfcfc;
+  --hg-red: #e54d2e;
+  --hg-red-light: #fff0ed;
+  --card-radius: 22px;
+  --card-radius-sm: 12px;
+  --nav-radius: 9px;
+  --sidebar-width: 240px;
+  --toc-width: 320px;
+}
+
+/* ===== TOC SIDEBAR ===== */
+.toc {
+  width: var(--toc-width);
+  min-width: var(--toc-width);
+  background: var(--hg-white);
+  border-right: 1px solid var(--hg-border);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+.toc-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--hg-border);
+}
+.toc-header h1 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--hg-green);
+  line-height: 1.2;
+}
+.toc-header p {
+  font-size: 12px;
+  color: var(--hg-text-secondary);
+  margin-top: 4px;
+}
+.toc-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 0;
+}
+.toc-section {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--hg-text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 16px 20px 6px;
+}
+.toc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-left: 3px solid transparent;
+}
+.toc-item:hover { background: var(--hg-bg); }
+.toc-item.active {
+  background: var(--hg-cream);
+  border-left-color: var(--hg-amber);
+}
+.toc-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--hg-text-muted);
+  min-width: 20px;
+  padding-top: 1px;
+}
+.toc-item.active .toc-num { color: var(--hg-amber); }
+.toc-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hg-text);
+  line-height: 1.3;
+}
+.toc-item.active .toc-label { color: var(--hg-text); font-weight: 700; }
+.toc-tag {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-top: 3px;
+  display: inline-block;
+}
+.tag-shopper { background: #f3e8ff; color: #7c3aed; }
+.tag-vendor { background: var(--hg-green-bg); color: var(--hg-green); }
+.tag-system { background: #fef3c7; color: #92400e; }
+.tag-tech { background: #e0f2fe; color: #0369a1; }
+
+/* ===== VIEWER ===== */
+.viewer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+.viewer-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--hg-white);
+  border-bottom: 1px solid var(--hg-border);
+  min-height: 52px;
+}
+.viewer-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--hg-text);
+}
+.viewer-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.viewer-nav button {
+  background: var(--hg-bg);
+  border: 1px solid var(--hg-border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  color: var(--hg-text);
+  transition: background 0.15s;
+}
+.viewer-nav button:hover { background: var(--hg-border); }
+.viewer-counter {
+  font-size: 13px;
+  color: var(--hg-text-secondary);
+  font-weight: 600;
+  min-width: 60px;
+  text-align: center;
+}
+.btn-annotations {
+  background: var(--hg-cream) !important;
+  border-color: var(--hg-amber) !important;
+  color: var(--hg-amber) !important;
+  font-size: 12px !important;
+}
+.btn-annotations.active {
+  background: var(--hg-amber) !important;
+  color: var(--hg-white) !important;
+}
+.viewer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 40px;
+  background: var(--hg-bg);
+}
+
+/* ===== SCREEN CONTAINER ===== */
+.screen { display: none; }
+.screen.active { display: block; }
+.screen-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--hg-text);
+  margin-bottom: 4px;
+}
+.screen-subtitle {
+  font-size: 14px;
+  color: var(--hg-text-secondary);
+  margin-bottom: 24px;
+}
+
+/* ===== ANNOTATIONS ===== */
+.annotation {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--hg-amber);
+  color: var(--hg-white);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(255,160,28,0.4);
+  transition: transform 0.15s;
+}
+.annotation:hover { transform: scale(1.15); }
+.annotation-tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--hg-text);
+  color: var(--hg-white);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Nunito Sans', sans-serif;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 240px;
+  line-height: 1.4;
+  display: none;
+  z-index: 101;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.annotation-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--hg-text);
+}
+.annotation.show-tip .annotation-tip { display: block; }
+.annotations-hidden .annotation { display: none !important; }
+
+/* ===== COMMON MOCKUP COMPONENTS ===== */
+
+/* Marketplace Header */
+.mk-header {
+  background: var(--hg-white);
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--hg-border);
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+}
+.mk-logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--hg-green);
+  letter-spacing: -0.5px;
+}
+.mk-nav { display: flex; gap: 24px; align-items: center; }
+.mk-nav a {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hg-text);
+  text-decoration: none;
+}
+.mk-nav a:hover { color: var(--hg-green-light); }
+.mk-actions { display: flex; gap: 12px; align-items: center; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, transform 0.1s;
+  text-decoration: none;
+}
+.btn:active { transform: scale(0.97); }
+.btn-green { background: var(--hg-green-light); color: var(--hg-white); }
+.btn-green:hover { background: var(--hg-green-hover); }
+.btn-amber { background: var(--hg-amber); color: var(--hg-white); }
+.btn-amber:hover { background: var(--hg-amber-hover); }
+.btn-outline { background: transparent; border: 2px solid var(--hg-green-light); color: var(--hg-green-light); }
+.btn-outline:hover { background: var(--hg-green-light); color: var(--hg-white); }
+.btn-ghost { background: var(--hg-bg); color: var(--hg-text); border: none; }
+.btn-ghost:hover { background: var(--hg-border); }
+.btn-red-outline { background: transparent; border: 2px solid var(--hg-red); color: var(--hg-red); }
+.btn-red-outline:hover { background: var(--hg-red); color: var(--hg-white); }
+.btn-sm { padding: 6px 16px; font-size: 13px; }
+.btn-md { padding: 10px 24px; font-size: 15px; }
+.btn-lg { padding: 14px 32px; font-size: 16px; }
+
+/* Cards */
+.card {
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+}
+.card-sm {
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+}
+
+/* Pills / Badges */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.pill-green { background: var(--hg-green-bg); color: var(--hg-green); }
+.pill-amber { background: var(--hg-cream); color: var(--hg-amber); }
+.pill-gray { background: var(--hg-bg); color: var(--hg-text-secondary); }
+.pill-red { background: var(--hg-red-light); color: var(--hg-red); }
+
+/* Status Dots */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-active { background: var(--hg-green-light); }
+.dot-paused { background: var(--hg-amber); }
+.dot-cancelled { background: var(--hg-text-muted); }
+
+/* Radio & Frequency */
+.radio-group { display: flex; flex-direction: column; gap: 12px; }
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border: 2px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.radio-option.selected {
+  border-color: var(--hg-green-light);
+  background: var(--hg-green-surface);
+}
+.radio-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--hg-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.radio-option.selected .radio-circle {
+  border-color: var(--hg-green-light);
+}
+.radio-circle-inner {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--hg-green-light);
+  display: none;
+}
+.radio-option.selected .radio-circle-inner { display: block; }
+.freq-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.freq-pill {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--hg-border);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  background: var(--hg-white);
+  color: var(--hg-text);
+  transition: all 0.15s;
+}
+.freq-pill.selected {
+  border-color: var(--hg-green-light);
+  background: var(--hg-green-light);
+  color: var(--hg-white);
+}
+
+/* Vendor Dashboard Sidebar */
+.dash-layout {
+  display: flex;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  min-height: 560px;
+}
+.dash-sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background: var(--hg-white);
+  border-right: 1px solid var(--hg-border);
+  padding: 20px 12px;
+}
+.dash-sidebar-logo {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--hg-green);
+  padding: 0 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.notif-badge {
+  background: var(--hg-amber);
+  color: var(--hg-white);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+}
+.nav-section {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--hg-text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 14px 12px 4px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  border-radius: var(--nav-radius);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--hg-text);
+  cursor: pointer;
+  margin-bottom: 2px;
+  transition: background 0.15s;
+}
+.nav-item:hover { background: var(--hg-bg); }
+.nav-item.active { background: var(--hg-green-light); color: var(--hg-white); }
+.nav-icon { width: 18px; text-align: center; font-size: 14px; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto;
+  background: var(--hg-amber);
+  color: var(--hg-white);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+.nav-new {
+  margin-left: auto;
+  background: var(--hg-green-bg);
+  color: var(--hg-green-light);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+.dash-main {
+  flex: 1;
+  padding: 28px 32px;
+  background: var(--hg-bg);
+  overflow-y: auto;
+}
+
+/* Stats Bar */
+.stats-bar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  flex: 1;
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  padding: 16px 20px;
+}
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--hg-text-secondary);
+  margin-bottom: 4px;
+}
+.stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--hg-text);
+}
+.stat-change {
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 6px;
+}
+.stat-up { color: var(--hg-green-light); }
+.stat-down { color: var(--hg-red); }
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.data-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--hg-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--hg-border);
+}
+.data-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--hg-border);
+  vertical-align: middle;
+}
+.data-table tr:hover { background: var(--hg-surface); }
+
+/* Form inputs */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
+  color: var(--hg-text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.form-input:focus { border-color: var(--hg-green-light); }
+.form-input::placeholder { color: #bbb; }
+.form-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--hg-text);
+  margin-bottom: 6px;
+  display: block;
+}
+.form-helper {
+  font-size: 12px;
+  color: var(--hg-text-secondary);
+  margin-top: 4px;
+}
+
+/* Wizard Steps */
+.wizard-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 28px;
+}
+.wizard-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hg-text-muted);
+}
+.wizard-step.active { color: var(--hg-green-light); }
+.wizard-step.done { color: var(--hg-text-secondary); }
+.wizard-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid var(--hg-border);
+  color: var(--hg-text-muted);
+}
+.wizard-step.active .wizard-dot {
+  border-color: var(--hg-green-light);
+  background: var(--hg-green-light);
+  color: var(--hg-white);
+}
+.wizard-step.done .wizard-dot {
+  border-color: var(--hg-green-light);
+  background: var(--hg-green-bg);
+  color: var(--hg-green-light);
+}
+.wizard-line {
+  flex: 1;
+  height: 2px;
+  background: var(--hg-border);
+  margin: 0 12px;
+}
+.wizard-line.done { background: var(--hg-green-light); }
+
+/* Modal */
+.modal-frame {
+  background: var(--hg-white);
+  border-radius: var(--card-radius);
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--hg-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h3 {
+  font-size: 17px;
+  font-weight: 700;
+}
+.modal-body { padding: 24px; }
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--hg-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Email Template Frame */
+.email-frame {
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  max-width: 375px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.email-header-bar {
+  background: var(--hg-green);
+  color: var(--hg-white);
+  padding: 16px 20px;
+  text-align: center;
+}
+.email-header-bar h4 {
+  font-size: 18px;
+  font-weight: 800;
+}
+.email-body { padding: 24px 20px; }
+
+/* Flow Diagram */
+.flow-horizontal {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+.flow-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+.flow-arrow {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--hg-text-muted);
+  font-size: 20px;
+  padding-top: 20px;
+}
+
+/* Phone Frame */
+.phone-frame {
+  width: 375px;
+  background: var(--hg-white);
+  border: 2px solid var(--hg-border);
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.phone-notch {
+  height: 28px;
+  background: var(--hg-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.phone-notch-bar {
+  width: 120px;
+  height: 4px;
+  background: var(--hg-border);
+  border-radius: 999px;
+}
+.phone-content { padding: 0; }
+
+/* Mockup wrapper */
+.mockup-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Product card grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.product-card {
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+.product-img {
+  height: 150px;
+  background: #f0ebe4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+.product-info { padding: 14px; }
+.product-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hg-text);
+  margin-bottom: 2px;
+}
+.product-vendor {
+  font-size: 12px;
+  color: var(--hg-text-secondary);
+  margin-bottom: 6px;
+}
+.product-price {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--hg-text);
+}
+.product-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--hg-green-light);
+  color: var(--hg-white);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+/* Subscription card */
+.sub-card {
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.sub-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--hg-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.sub-details { flex: 1; }
+.sub-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--hg-text);
+}
+.sub-meta {
+  font-size: 12px;
+  color: var(--hg-text-secondary);
+  margin-top: 2px;
+}
+.sub-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Checklist / Checkbox */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+.checkbox-box {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--hg-border);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.checkbox-box.checked {
+  background: var(--hg-green-light);
+  border-color: var(--hg-green-light);
+  position: relative;
+}
+.checkbox-box.checked::after {
+  content: '✓';
+  color: white;
+  font-size: 12px;
+  position: absolute;
+  top: -1px;
+  left: 2px;
+}
+
+/* Two-column layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+}
+
+/* Type selector cards */
+.type-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.type-card {
+  background: var(--hg-white);
+  border: 2px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.type-card.selected {
+  border-color: var(--hg-green-light);
+  background: var(--hg-green-surface);
+}
+.type-card:hover { border-color: var(--hg-green-light); }
+.type-icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+.type-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--hg-text);
+  margin-bottom: 4px;
+}
+.type-desc {
+  font-size: 12px;
+  color: var(--hg-text-secondary);
+  line-height: 1.4;
+}
+
+/* Fulfillment / content listing */
+.fulfill-group {
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  padding: 18px 20px;
+  margin-bottom: 12px;
+}
+.fulfill-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.fulfill-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+.fulfill-count {
+  font-size: 13px;
+  color: var(--hg-text-secondary);
+  font-weight: 600;
+}
+
+/* Chart placeholder */
+.chart-placeholder {
+  background: var(--hg-surface);
+  border: 1px dashed var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--hg-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Cancel flow steps */
+.cancel-flow {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+.cancel-step {
+  flex: 1;
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  padding: 20px;
+}
+.cancel-arrow {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--hg-text-muted);
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.cancel-step-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--hg-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+/* Implementation notes */
+.impl-section {
+  background: var(--hg-white);
+  border: 1px solid var(--hg-border);
+  border-radius: var(--card-radius-sm);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.impl-section h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hg-green);
+  margin-bottom: 12px;
+}
+.impl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: 'Nunito Sans', sans-serif;
+}
+.impl-table th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--hg-text-secondary);
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--hg-border);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.impl-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--hg-border);
+  vertical-align: top;
+}
+.impl-table code {
+  background: var(--hg-bg);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+}
+
+/* Flow diagram for implementation */
+.state-machine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.state-box {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+.state-active { background: var(--hg-green-bg); color: var(--hg-green); border: 2px solid var(--hg-green-light); }
+.state-paused { background: var(--hg-cream); color: var(--hg-amber); border: 2px solid var(--hg-amber); }
+.state-cancelled { background: var(--hg-bg); color: var(--hg-text-secondary); border: 2px solid var(--hg-text-muted); }
+.state-arrow {
+  padding: 0 8px;
+  color: var(--hg-text-muted);
+  font-size: 16px;
+}
+
+/* Misc */
+.divider {
+  height: 1px;
+  background: var(--hg-border);
+  margin: 20px 0;
+}
+.text-link {
+  color: var(--hg-green-light);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+.text-link:hover { text-decoration: underline; }
+.text-red { color: var(--hg-red); }
+.text-strike { text-decoration: line-through; color: var(--hg-text-muted); }
+.save-badge {
+  display: inline-block;
+  background: var(--hg-green-bg);
+  color: var(--hg-green);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.inline-flex { display: inline-flex; align-items: center; gap: 6px; }
+.gap-8 { gap: 8px; }
+.gap-16 { gap: 16px; }
+.mb-8 { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.p-rel { position: relative; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.flex-1 { flex: 1; }
+.text-center { text-align: center; }
+.text-sm { font-size: 13px; }
+.text-xs { font-size: 11px; }
+.fw-700 { font-weight: 700; }
+.fw-800 { font-weight: 800; }
+.c-secondary { color: var(--hg-text-secondary); }
+.c-muted { color: var(--hg-text-muted); }
+</style>
+</head>
+<body>
+
+<!-- ===== TOC SIDEBAR ===== -->
+<div class="toc">
+  <div class="toc-header">
+    <h1>Subscriptions / CSA</h1>
+    <p>Interactive Feature Mockup &middot; 20 Screens &middot; April 2026</p>
+  </div>
+  <div class="toc-list" id="tocList">
+    <div class="toc-section">Shopper Experience</div>
+    <div class="toc-item active" onclick="goTo(0)"><span class="toc-num">1</span><div><div class="toc-label">Product Page — Default</div><span class="toc-tag tag-shopper">SHOPPER</span></div></div>
+    <div class="toc-item" onclick="goTo(1)"><span class="toc-num">2</span><div><div class="toc-label">Product — Subscribe Selected</div><span class="toc-tag tag-shopper">SHOPPER</span></div></div>
+    <div class="toc-item" onclick="goTo(2)"><span class="toc-num">3</span><div><div class="toc-label">Vendor Storefront — Subs</div><span class="toc-tag tag-shopper">SHOPPER</span></div></div>
+    <div class="toc-item" onclick="goTo(3)"><span class="toc-num">4</span><div><div class="toc-label">Subscribe Checkout</div><span class="toc-tag tag-shopper">SHOPPER</span></div></div>
+    <div class="toc-item" onclick="goTo(4)"><span class="toc-num">5</span><div><div class="toc-label">My Subscriptions</div><span class="toc-tag tag-shopper">SHOPPER</span></div></div>
+    <div class="toc-item" onclick="goTo(5)"><span class="toc-num">6</span><div><div class="toc-label">Skip & Pause Flow</div><span class="toc-tag tag-shopper">SHOPPER</span></div></div>
+    <div class="toc-item" onclick="goTo(6)"><span class="toc-num">7</span><div><div class="toc-label">Cancel Flow (3-Step)</div><span class="toc-tag tag-shopper">SHOPPER</span></div></div>
+    <div class="toc-item" onclick="goTo(7)"><span class="toc-num">8</span><div><div class="toc-label">Mobile Views</div><span class="toc-tag tag-shopper">SHOPPER</span></div></div>
+
+    <div class="toc-section">Vendor Experience</div>
+    <div class="toc-item" onclick="goTo(8)"><span class="toc-num">9</span><div><div class="toc-label">Create Sub — Step 1</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(9)"><span class="toc-num">10</span><div><div class="toc-label">Create Sub — Step 2</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(10)"><span class="toc-num">11</span><div><div class="toc-label">Create Sub — Step 3</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(11)"><span class="toc-num">12</span><div><div class="toc-label">Products List + Badge</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(12)"><span class="toc-num">13</span><div><div class="toc-label">Subscriber Dashboard</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(13)"><span class="toc-num">14</span><div><div class="toc-label">Weekly Fulfillment</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(14)"><span class="toc-num">15</span><div><div class="toc-label">Analytics</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+    <div class="toc-item" onclick="goTo(15)"><span class="toc-num">16</span><div><div class="toc-label">Broadcast Message</div><span class="toc-tag tag-vendor">VENDOR</span></div></div>
+
+    <div class="toc-section">System & Notifications</div>
+    <div class="toc-item" onclick="goTo(16)"><span class="toc-num">17</span><div><div class="toc-label">Email Templates</div><span class="toc-tag tag-system">SYSTEM</span></div></div>
+    <div class="toc-item" onclick="goTo(17)"><span class="toc-num">18</span><div><div class="toc-label">Payment Flow & Edge Cases</div><span class="toc-tag tag-system">SYSTEM</span></div></div>
+
+    <div class="toc-section">Implementation</div>
+    <div class="toc-item" onclick="goTo(18)"><span class="toc-num">19</span><div><div class="toc-label">Data Model</div><span class="toc-tag tag-tech">TECH</span></div></div>
+    <div class="toc-item" onclick="goTo(19)"><span class="toc-num">20</span><div><div class="toc-label">Notification Triggers</div><span class="toc-tag tag-tech">TECH</span></div></div>
+  </div>
+</div>
+
+<!-- ===== VIEWER ===== -->
+<div class="viewer">
+  <div class="viewer-toolbar">
+    <div class="viewer-title" id="viewerTitle">Screen 1: Product Page — Default</div>
+    <div class="viewer-nav">
+      <button class="btn-annotations" id="btnAnnotations" onclick="toggleAnnotations()">Annotations</button>
+      <button onclick="prev()">← Prev</button>
+      <span class="viewer-counter" id="viewerCounter">1 / 20</span>
+      <button onclick="next()">Next →</button>
+    </div>
+  </div>
+  <div class="viewer-content" id="viewerContent">
+
+<!-- ==================== SCREEN 1 ==================== -->
+<div class="screen active" id="screen-0">
+<div class="mockup-container">
+  <div class="screen-title">Product Page — One-Time Purchase (Default)</div>
+  <div class="screen-subtitle">How a subscription-eligible product looks before the shopper opts in</div>
+
+  <div class="card p-rel">
+    <div class="mk-header">
+      <div class="mk-logo">Homegrown</div>
+      <div class="mk-nav">
+        <a href="#">Products</a>
+        <a href="#">Vendors</a>
+        <a href="#">Markets</a>
+      </div>
+      <div class="mk-actions">
+        <span style="font-size:13px;color:var(--hg-text-secondary)">Shop Near Atlanta</span>
+        <button class="btn btn-amber btn-sm">Sign In</button>
+        <button class="btn btn-green btn-sm">Start Selling</button>
+      </div>
+    </div>
+
+    <div style="padding: 32px;">
+      <div style="display:flex;gap:32px;">
+        <!-- Product Image -->
+        <div style="width:340px;height:340px;background:#f0ebe4;border-radius:var(--card-radius-sm);display:flex;align-items:center;justify-content:center;font-size:80px;flex-shrink:0;">🍞</div>
+
+        <!-- Product Details -->
+        <div style="flex:1;" class="p-rel">
+          <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:4px;">
+            <a href="#" class="text-link">Sarah's Bakery</a>
+          </div>
+          <h2 style="font-size:24px;font-weight:800;margin-bottom:8px;">Sourdough Boule</h2>
+          <div style="font-size:14px;color:var(--hg-text-secondary);margin-bottom:20px;line-height:1.5;">
+            Handcrafted sourdough with a crispy crust and tangy, chewy interior. Made with locally sourced flour and a 10-year-old starter.
+          </div>
+          <div style="font-size:28px;font-weight:800;margin-bottom:24px;">$8.00</div>
+
+          <!-- Purchase Options -->
+          <div class="radio-group p-rel" style="margin-bottom:20px;">
+            <div class="radio-option selected">
+              <div class="radio-circle"><div class="radio-circle-inner"></div></div>
+              <div>
+                <div style="font-size:15px;font-weight:700;">One-time purchase</div>
+                <div style="font-size:13px;color:var(--hg-text-secondary);">$8.00</div>
+              </div>
+            </div>
+            <div class="radio-option">
+              <div class="radio-circle"><div class="radio-circle-inner"></div></div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div>
+                  <div style="font-size:15px;font-weight:700;">Subscribe & save</div>
+                  <div style="font-size:13px;color:var(--hg-text-secondary);">From $7.20/delivery</div>
+                </div>
+                <span class="save-badge">Save 10%</span>
+              </div>
+            </div>
+            <div class="annotation" style="top:4px;right:-30px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Radio buttons, not a toggle. Shopify + ReCharge research confirms radios outperform toggles — they don't compete with the main CTA.</div></div>
+            <div class="annotation" style="bottom:4px;right:-30px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Subscribe option shows discount upfront ("Save 10%"). Percentage, not dollar amount — works across price points.</div></div>
+          </div>
+
+          <!-- Quantity & CTA -->
+          <div style="display:flex;gap:12px;align-items:center;">
+            <div style="display:flex;align-items:center;border:1px solid var(--hg-border);border-radius:999px;overflow:hidden;">
+              <button style="width:36px;height:40px;border:none;background:var(--hg-bg);cursor:pointer;font-size:16px;">−</button>
+              <span style="width:40px;text-align:center;font-weight:700;">1</span>
+              <button style="width:36px;height:40px;border:none;background:var(--hg-bg);cursor:pointer;font-size:16px;">+</button>
+            </div>
+            <button class="btn btn-green btn-lg" style="flex:1;">Add to Cart</button>
+          </div>
+
+          <div class="annotation" style="bottom:-10px;right:40px;" onclick="this.classList.toggle('show-tip')">3<div class="annotation-tip">One-time is the default. Subscribe is opt-in — never pre-selected. Amazon pre-selects Subscribe which causes disputes.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 2 ==================== -->
+<div class="screen" id="screen-1">
+<div class="mockup-container">
+  <div class="screen-title">Product Page — Subscribe Selected</div>
+  <div class="screen-subtitle">Shopper selected "Subscribe & save" — frequency pills appear, price updates</div>
+
+  <div class="card p-rel">
+    <div class="mk-header">
+      <div class="mk-logo">Homegrown</div>
+      <div class="mk-nav"><a href="#">Products</a><a href="#">Vendors</a><a href="#">Markets</a></div>
+      <div class="mk-actions">
+        <span style="font-size:13px;color:var(--hg-text-secondary)">Shop Near Atlanta</span>
+        <button class="btn btn-amber btn-sm">Sign In</button>
+        <button class="btn btn-green btn-sm">Start Selling</button>
+      </div>
+    </div>
+
+    <div style="padding: 32px;">
+      <div style="display:flex;gap:32px;">
+        <div style="width:340px;height:340px;background:#f0ebe4;border-radius:var(--card-radius-sm);display:flex;align-items:center;justify-content:center;font-size:80px;flex-shrink:0;">🍞</div>
+
+        <div style="flex:1;" class="p-rel">
+          <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:4px;"><a href="#" class="text-link">Sarah's Bakery</a></div>
+          <h2 style="font-size:24px;font-weight:800;margin-bottom:8px;">Sourdough Boule</h2>
+          <div style="font-size:14px;color:var(--hg-text-secondary);margin-bottom:20px;line-height:1.5;">Handcrafted sourdough with a crispy crust and tangy, chewy interior. Made with locally sourced flour and a 10-year-old starter.</div>
+
+          <!-- Updated price -->
+          <div style="margin-bottom:24px;" class="p-rel">
+            <span class="text-strike" style="font-size:20px;">$8.00</span>
+            <span style="font-size:28px;font-weight:800;margin-left:8px;">$7.20</span>
+            <span class="save-badge" style="margin-left:8px;">Save 10%</span>
+            <div class="annotation" style="top:-8px;right:-30px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Price updates live when subscribe is selected. Strike-through original + green savings badge makes the value obvious.</div></div>
+          </div>
+
+          <!-- Purchase Options -->
+          <div class="radio-group" style="margin-bottom:16px;">
+            <div class="radio-option">
+              <div class="radio-circle"><div class="radio-circle-inner"></div></div>
+              <div>
+                <div style="font-size:15px;font-weight:700;">One-time purchase</div>
+                <div style="font-size:13px;color:var(--hg-text-secondary);">$8.00</div>
+              </div>
+            </div>
+            <div class="radio-option selected">
+              <div class="radio-circle"><div class="radio-circle-inner"></div></div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div>
+                  <div style="font-size:15px;font-weight:700;">Subscribe & save</div>
+                  <div style="font-size:13px;color:var(--hg-text-secondary);">$7.20/delivery</div>
+                </div>
+                <span class="save-badge">Save 10%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Frequency pills -->
+          <div class="p-rel" style="margin-bottom:20px;">
+            <div class="freq-pills">
+              <div class="freq-pill selected">Every week</div>
+              <div class="freq-pill">Every 2 weeks</div>
+              <div class="freq-pill">Every 4 weeks</div>
+            </div>
+            <div style="font-size:12px;color:var(--hg-text-secondary);margin-top:8px;">
+              📅 Pickup every <strong>Saturday</strong> at Findlay Market &middot; Cancel anytime
+            </div>
+            <div class="annotation" style="top:-8px;right:-30px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Frequency pills (not dropdown) for 3 or fewer options. Shows pickup day + location — the real decision factor for farmers market shoppers.</div></div>
+            <div class="annotation" style="bottom:-8px;right:-30px;" onclick="this.classList.toggle('show-tip')">3<div class="annotation-tip">"Cancel anytime" copy reduces friction. Required for FTC compliance — cancellation must be as easy as signup.</div></div>
+          </div>
+
+          <!-- CTA -->
+          <div style="display:flex;gap:12px;align-items:center;" class="p-rel">
+            <div style="display:flex;align-items:center;border:1px solid var(--hg-border);border-radius:999px;overflow:hidden;">
+              <button style="width:36px;height:40px;border:none;background:var(--hg-bg);cursor:pointer;font-size:16px;">−</button>
+              <span style="width:40px;text-align:center;font-weight:700;">1</span>
+              <button style="width:36px;height:40px;border:none;background:var(--hg-bg);cursor:pointer;font-size:16px;">+</button>
+            </div>
+            <button class="btn btn-green btn-lg" style="flex:1;">Subscribe — $7.20/delivery</button>
+            <div class="annotation" style="top:-12px;right:-30px;" onclick="this.classList.toggle('show-tip')">4<div class="annotation-tip">Button text changes from "Add to Cart" to "Subscribe — $7.20/delivery". Reinforces commitment + shows price.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 3 ==================== -->
+<div class="screen" id="screen-2">
+<div class="mockup-container">
+  <div class="screen-title">Vendor Storefront — Subscription Products</div>
+  <div class="screen-subtitle">How subscription-eligible products appear in the vendor's product grid</div>
+
+  <div class="card p-rel">
+    <div class="mk-header">
+      <div class="mk-logo">Homegrown</div>
+      <div class="mk-nav"><a href="#">Products</a><a href="#">Vendors</a><a href="#">Markets</a></div>
+      <div class="mk-actions">
+        <button class="btn btn-amber btn-sm">Sign In</button>
+        <button class="btn btn-green btn-sm">Start Selling</button>
+      </div>
+    </div>
+
+    <!-- Vendor Hero -->
+    <div style="background:linear-gradient(135deg,#2d5016,#1b4c33);height:160px;display:flex;align-items:flex-end;padding:0 32px 0;">
+      <div style="display:flex;align-items:flex-end;gap:16px;transform:translateY(40px);">
+        <div style="width:80px;height:80px;border-radius:50%;background:var(--hg-cream);border:4px solid white;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 2px 8px rgba(0,0,0,0.15);">🌿</div>
+        <div style="padding-bottom:8px;">
+          <div style="font-size:22px;font-weight:800;color:white;text-shadow:0 1px 4px rgba(0,0,0,0.3);">Green Acres Farm</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.8);">Organic produce &middot; Atlanta, GA</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:56px 32px 32px;">
+      <!-- Tabs -->
+      <div style="display:flex;gap:24px;border-bottom:1px solid var(--hg-border);margin-bottom:24px;padding-bottom:0;">
+        <div style="font-size:14px;font-weight:700;padding-bottom:12px;border-bottom:2px solid var(--hg-green-light);color:var(--hg-green-light);">Products</div>
+        <div style="font-size:14px;font-weight:600;padding-bottom:12px;color:var(--hg-text-secondary);">Events</div>
+        <div style="font-size:14px;font-weight:600;padding-bottom:12px;color:var(--hg-text-secondary);">Reviews</div>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="product-grid p-rel">
+        <!-- Farm Box (subscription-only) -->
+        <div class="product-card" style="border:2px solid var(--hg-green-light);">
+          <div class="product-badge">Subscribe</div>
+          <div class="product-img" style="background:#e8f5e9;">📦</div>
+          <div class="product-info">
+            <div class="product-name">Weekly Farm Box</div>
+            <div class="product-vendor">Seasonal veggies, farmer's choice</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+              <div class="product-price">$35<span style="font-size:12px;font-weight:600;color:var(--hg-text-secondary)">/week</span></div>
+              <button class="btn btn-green btn-sm">Subscribe</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Regular product with subscribe badge -->
+        <div class="product-card">
+          <div class="product-badge" style="background:var(--hg-green-bg);color:var(--hg-green);">Save 10%</div>
+          <div class="product-img">🥚</div>
+          <div class="product-info">
+            <div class="product-name">Farm Fresh Eggs (Dozen)</div>
+            <div class="product-vendor">Free-range, pasture-raised</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+              <div class="product-price">$6.00</div>
+              <button class="btn btn-outline btn-sm">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Regular product, no subscription -->
+        <div class="product-card">
+          <div class="product-img">🍅</div>
+          <div class="product-info">
+            <div class="product-name">Heirloom Tomatoes (lb)</div>
+            <div class="product-vendor">Seasonal, vine-ripened</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+              <div class="product-price">$4.50</div>
+              <button class="btn btn-outline btn-sm">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- More products -->
+        <div class="product-card">
+          <div class="product-badge" style="background:var(--hg-green-bg);color:var(--hg-green);">Save 10%</div>
+          <div class="product-img">🥬</div>
+          <div class="product-info">
+            <div class="product-name">Mixed Greens Bundle</div>
+            <div class="product-vendor">Kale, spinach, arugula</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+              <div class="product-price">$5.00</div>
+              <button class="btn btn-outline btn-sm">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">🫐</div>
+          <div class="product-info">
+            <div class="product-name">Blueberry Pint</div>
+            <div class="product-vendor">Organic, hand-picked</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+              <div class="product-price">$7.00</div>
+              <button class="btn btn-outline btn-sm">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-img">🌽</div>
+          <div class="product-info">
+            <div class="product-name">Sweet Corn (4 ears)</div>
+            <div class="product-vendor">Non-GMO, just picked</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+              <div class="product-price">$3.50</div>
+              <button class="btn btn-outline btn-sm">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="annotation" style="top:10px;left:-28px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Farm Box card has a green border and "Subscribe" button — distinct from regular "Add to Cart" products. This is a subscription-only product.</div></div>
+        <div class="annotation" style="top:10px;right:-28px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">"Save 10%" badge on subscribe-eligible products is subtle — doesn't overwhelm the browse experience. Clicking opens product page with subscribe option (Screen 2).</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 4 ==================== -->
+<div class="screen" id="screen-3">
+<div class="mockup-container">
+  <div class="screen-title">Subscribe Checkout</div>
+  <div class="screen-subtitle">Final checkout step with subscription summary, consent, and PayTheory payment</div>
+
+  <div class="card" style="padding:32px;">
+    <h2 style="font-size:22px;font-weight:800;margin-bottom:24px;">Complete Your Subscription</h2>
+
+    <div class="two-col p-rel">
+      <!-- Left: Form -->
+      <div>
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Pickup Details</h3>
+        <div class="card-sm" style="padding:16px;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">📍</span>
+            <div>
+              <div style="font-size:14px;font-weight:700;">Findlay Market</div>
+              <div style="font-size:12px;color:var(--hg-text-secondary);">Every Saturday, 9am - 1pm</div>
+              <div style="font-size:12px;color:var(--hg-text-secondary);">1801 Race St, Cincinnati, OH</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Payment Method</h3>
+        <div class="card-sm" style="padding:20px;margin-bottom:12px;background:var(--hg-surface);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <span style="font-size:14px;">💳</span>
+            <span style="font-size:13px;font-weight:600;">Pay with PayTheory</span>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label class="form-label">Card number</label>
+            <input class="form-input" placeholder="4242 4242 4242 4242" disabled style="background:white;">
+          </div>
+          <div style="display:flex;gap:12px;">
+            <div style="flex:1;">
+              <label class="form-label">Expiration</label>
+              <input class="form-input" placeholder="MM/YY" disabled style="background:white;">
+            </div>
+            <div style="flex:1;">
+              <label class="form-label">CVC</label>
+              <input class="form-input" placeholder="123" disabled style="background:white;">
+            </div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--hg-text-muted);display:flex;align-items:center;gap:4px;margin-bottom:20px;">
+          🔒 Your payment info is securely stored by PayTheory for recurring charges
+        </div>
+
+        <div class="annotation" style="position:relative;display:inline-block;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip" style="bottom:auto;top:calc(100% + 8px);">PayTheory tokenizes the card once at subscribe time. Token reused for all recurring charges. Don't show "save card?" — it's implicit with subscription.</div></div>
+      </div>
+
+      <!-- Right: Summary -->
+      <div>
+        <div class="card-sm" style="padding:24px;">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Subscription Summary</h3>
+
+          <div style="display:flex;gap:14px;margin-bottom:16px;">
+            <div style="width:64px;height:64px;background:#f0ebe4;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">🍞</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;">Sourdough Boule</div>
+              <div style="font-size:12px;color:var(--hg-text-secondary);">from Sarah's Bakery</div>
+              <div style="font-size:12px;color:var(--hg-text-secondary);margin-top:2px;">Every week &middot; Qty: 1</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span style="font-size:13px;color:var(--hg-text-secondary);">Regular price</span>
+            <span class="text-strike" style="font-size:13px;">$8.00</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span style="font-size:13px;color:var(--hg-green-light);font-weight:600;">Subscribe & save (10%)</span>
+            <span style="font-size:13px;color:var(--hg-green-light);font-weight:600;">−$0.80</span>
+          </div>
+          <div class="divider"></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:16px;">
+            <span style="font-size:15px;font-weight:800;">Per delivery</span>
+            <span style="font-size:15px;font-weight:800;">$7.20</span>
+          </div>
+
+          <!-- Terms box -->
+          <div class="p-rel" style="background:var(--hg-bg);border-radius:8px;padding:14px;margin-bottom:16px;">
+            <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.5;">
+              You'll be charged <strong>$7.20 every week</strong> starting <strong>April 19, 2026</strong>. Pickup at Findlay Market on Saturdays. You can skip, pause, or cancel anytime from your account.
+            </div>
+            <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Plain-language terms, not legal jargon. Shows exact amount, frequency, start date, and emphasizes cancel anytime. Required by FTC + state auto-renewal laws.</div></div>
+          </div>
+
+          <!-- Consent checkbox -->
+          <div class="p-rel" style="margin-bottom:20px;">
+            <div class="checkbox-row">
+              <div class="checkbox-box checked"></div>
+              <div style="font-size:12px;color:var(--hg-text);line-height:1.4;">
+                I authorize recurring charges of $7.20/week to my payment method until I cancel.
+              </div>
+            </div>
+            <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">3<div class="annotation-tip">Explicit consent checkbox (NOT pre-checked in production). Required by ROSCA, CA auto-renewal law, and card network rules. Must store consent timestamp for 3+ years.</div></div>
+          </div>
+
+          <button class="btn btn-green btn-lg" style="width:100%;">Start Subscription</button>
+          <div style="font-size:11px;color:var(--hg-text-muted);text-align:center;margin-top:8px;">First pickup: Saturday, April 19</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 5 ==================== -->
+<div class="screen" id="screen-4">
+<div class="mockup-container">
+  <div class="screen-title">My Subscriptions Dashboard</div>
+  <div class="screen-subtitle">Shopper's account page showing active and past subscriptions</div>
+
+  <div class="card" style="padding:32px;">
+    <div style="display:flex;gap:32px;">
+      <!-- Left nav -->
+      <div style="width:200px;flex-shrink:0;">
+        <div style="font-size:18px;font-weight:800;margin-bottom:20px;color:var(--hg-green);">My Account</div>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <div style="padding:8px 12px;border-radius:var(--nav-radius);font-size:14px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">My Orders</div>
+          <div style="padding:8px 12px;border-radius:var(--nav-radius);font-size:14px;font-weight:700;background:var(--hg-green-light);color:white;cursor:pointer;">My Subscriptions</div>
+          <div style="padding:8px 12px;border-radius:var(--nav-radius);font-size:14px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">Favorites</div>
+          <div style="padding:8px 12px;border-radius:var(--nav-radius);font-size:14px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">Payment Methods</div>
+          <div style="padding:8px 12px;border-radius:var(--nav-radius);font-size:14px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">Account Settings</div>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div style="flex:1;" class="p-rel">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <h2 style="font-size:22px;font-weight:800;">My Subscriptions</h2>
+            <span class="pill pill-green">2 active</span>
+          </div>
+        </div>
+
+        <!-- Sub card 1 -->
+        <div class="sub-card p-rel">
+          <div class="sub-avatar">🍞</div>
+          <div class="sub-details">
+            <div class="sub-name">Sourdough Boule</div>
+            <div class="sub-meta">Sarah's Bakery &middot; $7.20/week &middot; Every Saturday</div>
+            <div class="sub-meta">Next pickup: <strong>Apr 19</strong> at Findlay Market</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="status-dot dot-active"></span>
+            <span style="font-size:12px;font-weight:600;color:var(--hg-green-light);">Active</span>
+          </div>
+          <div class="sub-actions">
+            <button class="btn btn-ghost btn-sm">Skip Next</button>
+            <button class="btn btn-outline btn-sm">Manage</button>
+          </div>
+          <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">"Skip Next" is a single action — max 2 clicks to skip (click button → confirm toast). This alone prevents 27% of cancellations (Recharge data).</div></div>
+        </div>
+
+        <!-- Sub card 2 -->
+        <div class="sub-card">
+          <div class="sub-avatar">📦</div>
+          <div class="sub-details">
+            <div class="sub-name">Weekly Farm Box</div>
+            <div class="sub-meta">Green Acres Farm &middot; $35.00/week &middot; Every Saturday</div>
+            <div class="sub-meta">Next pickup: <strong>Apr 19</strong> at Findlay Market</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="status-dot dot-active"></span>
+            <span style="font-size:12px;font-weight:600;color:var(--hg-green-light);">Active</span>
+          </div>
+          <div class="sub-actions">
+            <button class="btn btn-ghost btn-sm">Skip Next</button>
+            <button class="btn btn-outline btn-sm">Manage</button>
+          </div>
+        </div>
+
+        <!-- Upcoming deliveries -->
+        <div style="margin-top:24px;">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;">Upcoming Deliveries</h3>
+          <div class="card-sm" style="padding:14px 18px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:700;">Saturday, Apr 19</div>
+              <div style="font-size:12px;color:var(--hg-text-secondary);">Sourdough Boule + Weekly Farm Box &middot; Findlay Market</div>
+            </div>
+            <button class="btn btn-ghost btn-sm">Skip</button>
+          </div>
+          <div class="card-sm" style="padding:14px 18px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:700;">Saturday, Apr 26</div>
+              <div style="font-size:12px;color:var(--hg-text-secondary);">Sourdough Boule + Weekly Farm Box &middot; Findlay Market</div>
+            </div>
+            <button class="btn btn-ghost btn-sm">Skip</button>
+          </div>
+          <div class="card-sm" style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:700;">Saturday, May 3</div>
+              <div style="font-size:12px;color:var(--hg-text-secondary);">Sourdough Boule + Weekly Farm Box &middot; Findlay Market</div>
+            </div>
+            <button class="btn btn-ghost btn-sm">Skip</button>
+          </div>
+        </div>
+
+        <div class="annotation" style="bottom:0;right:-28px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Upcoming deliveries as a simple list (not calendar — calendar is overkill for most users). Each row has inline "Skip" for quick action. Shows 3-4 upcoming.</div></div>
+
+        <!-- Past subscriptions (collapsed) -->
+        <div style="margin-top:24px;">
+          <div style="font-size:14px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">
+            ▸ Past Subscriptions (1)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 6 ==================== -->
+<div class="screen" id="screen-5">
+<div class="mockup-container">
+  <div class="screen-title">Skip & Pause Flow</div>
+  <div class="screen-subtitle">Two modal states: quick skip (one action) and pause with duration picker</div>
+
+  <div style="display:flex;gap:32px;">
+    <!-- Skip Modal -->
+    <div style="flex:1;">
+      <div style="font-size:13px;font-weight:700;color:var(--hg-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Skip</div>
+      <div class="modal-frame p-rel">
+        <div class="modal-header">
+          <h3>Skip next delivery?</h3>
+          <span style="cursor:pointer;font-size:18px;color:var(--hg-text-muted);">✕</span>
+        </div>
+        <div class="modal-body">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:var(--hg-cream);display:flex;align-items:center;justify-content:center;font-size:22px;">🍞</div>
+            <div>
+              <div style="font-size:15px;font-weight:700;">Sourdough Boule</div>
+              <div style="font-size:13px;color:var(--hg-text-secondary);">Sarah's Bakery &middot; $7.20</div>
+            </div>
+          </div>
+
+          <div style="background:var(--hg-bg);border-radius:8px;padding:14px;margin-bottom:20px;">
+            <div style="font-size:14px;color:var(--hg-text);line-height:1.5;">
+              You <strong>won't be charged</strong> on <strong>April 19</strong>. Your subscription resumes the following week (April 26).
+            </div>
+          </div>
+
+          <button class="btn btn-green btn-md" style="width:100%;margin-bottom:8px;">Skip April 19 Delivery</button>
+          <div style="text-align:center;"><a class="text-link" style="font-size:13px;">Never mind</a></div>
+        </div>
+        <div class="annotation" style="top:8px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Skip is the simplest action — one click to confirm. No payment, no fulfillment. Subscription auto-resumes next cycle. This single feature prevents 27% of cancellations.</div></div>
+      </div>
+    </div>
+
+    <!-- Pause Modal -->
+    <div style="flex:1;">
+      <div style="font-size:13px;font-weight:700;color:var(--hg-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;">Pause</div>
+      <div class="modal-frame p-rel">
+        <div class="modal-header">
+          <h3>Pause subscription</h3>
+          <span style="cursor:pointer;font-size:18px;color:var(--hg-text-muted);">✕</span>
+        </div>
+        <div class="modal-body">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+            <div style="width:48px;height:48px;border-radius:50%;background:var(--hg-cream);display:flex;align-items:center;justify-content:center;font-size:22px;">🍞</div>
+            <div>
+              <div style="font-size:15px;font-weight:700;">Sourdough Boule</div>
+              <div style="font-size:13px;color:var(--hg-text-secondary);">Sarah's Bakery &middot; $7.20/week</div>
+            </div>
+          </div>
+
+          <label class="form-label">Pause for</label>
+          <select class="form-input" style="margin-bottom:16px;appearance:auto;">
+            <option>1 week</option>
+            <option selected>2 weeks</option>
+            <option>1 month</option>
+            <option>Until I resume</option>
+          </select>
+
+          <div style="background:var(--hg-bg);border-radius:8px;padding:14px;margin-bottom:20px;">
+            <div style="font-size:14px;color:var(--hg-text);line-height:1.5;">
+              You won't be charged during the pause. Your subscription will <strong>resume on May 3</strong>. We'll send a reminder 2 days before.
+            </div>
+          </div>
+
+          <button class="btn btn-amber btn-md" style="width:100%;margin-bottom:8px;">Pause Subscription</button>
+          <div style="text-align:center;"><a class="text-link text-red" style="font-size:13px;">Cancel subscription instead</a></div>
+        </div>
+        <div class="annotation" style="top:8px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Pause offers a path to cancel — if they want to pause, they might want to cancel. "Until I resume" option prevents indefinite ghosting. Resume reminder fires 2 days before.</div></div>
+        <div class="annotation" style="bottom:8px;right:-10px;" onclick="this.classList.toggle('show-tip')">3<div class="annotation-tip">"Cancel instead" link leads to the 3-step cancel flow (Screen 7). Always offer pause before cancel — 23% of cancellations happen because users couldn't find pause.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 7 ==================== -->
+<div class="screen" id="screen-6">
+<div class="mockup-container">
+  <div class="screen-title">Cancel Flow — 3-Step Retention</div>
+  <div class="screen-subtitle">Value reminder → Pause offer → Exit survey. Each step is an optional off-ramp back.</div>
+
+  <div class="cancel-flow p-rel">
+    <!-- Step 1 -->
+    <div class="cancel-step">
+      <div class="cancel-step-num">Step 1 — Value Reminder</div>
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--hg-green-bg);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 10px;">💚</div>
+        <div style="font-size:17px;font-weight:800;margin-bottom:8px;">Before you go...</div>
+      </div>
+      <div class="card-sm" style="padding:14px;margin-bottom:12px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:var(--hg-green-light);">$12.80</div>
+        <div style="font-size:12px;color:var(--hg-text-secondary);">saved with your subscription</div>
+      </div>
+      <div class="card-sm" style="padding:14px;margin-bottom:16px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;">8</div>
+        <div style="font-size:12px;color:var(--hg-text-secondary);">deliveries from Sarah's Bakery</div>
+      </div>
+      <button class="btn btn-green btn-sm" style="width:100%;margin-bottom:8px;">Keep My Subscription</button>
+      <div style="text-align:center;"><a class="text-link" style="font-size:12px;">Continue to cancel →</a></div>
+    </div>
+
+    <div class="cancel-arrow">→</div>
+
+    <!-- Step 2 -->
+    <div class="cancel-step">
+      <div class="cancel-step-num">Step 2 — Pause Offer</div>
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--hg-cream);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 10px;">⏸️</div>
+        <div style="font-size:17px;font-weight:800;margin-bottom:4px;">Need a break?</div>
+        <div style="font-size:13px;color:var(--hg-text-secondary);">Pause instead of cancelling</div>
+      </div>
+      <div style="background:var(--hg-bg);border-radius:8px;padding:14px;margin-bottom:16px;">
+        <div style="font-size:13px;color:var(--hg-text);line-height:1.5;">
+          Take a break for <strong>1 month</strong>. We'll send you a reminder before your subscription resumes. No charges during the pause.
+        </div>
+      </div>
+      <button class="btn btn-amber btn-sm" style="width:100%;margin-bottom:8px;">Pause for 1 Month</button>
+      <div style="text-align:center;"><a class="text-link text-red" style="font-size:12px;">No, cancel my subscription →</a></div>
+    </div>
+
+    <div class="cancel-arrow">→</div>
+
+    <!-- Step 3 -->
+    <div class="cancel-step">
+      <div class="cancel-step-num">Step 3 — Exit Survey + Confirm</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:12px;">Help us improve</div>
+      <div style="font-size:13px;color:var(--hg-text-secondary);margin-bottom:12px;">What's the main reason you're cancelling?</div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;padding:6px 0;">
+          <div class="radio-circle" style="width:16px;height:16px;"><div class="radio-circle-inner" style="width:8px;height:8px;display:block;"></div></div>
+          Too expensive
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;padding:6px 0;">
+          <div class="radio-circle" style="width:16px;height:16px;"><div class="radio-circle-inner" style="width:8px;height:8px;"></div></div>
+          Not using enough / too much food
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;padding:6px 0;">
+          <div class="radio-circle" style="width:16px;height:16px;"><div class="radio-circle-inner" style="width:8px;height:8px;"></div></div>
+          Quality wasn't what I expected
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;padding:6px 0;">
+          <div class="radio-circle" style="width:16px;height:16px;"><div class="radio-circle-inner" style="width:8px;height:8px;"></div></div>
+          Moving / no longer in the area
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;padding:6px 0;">
+          <div class="radio-circle" style="width:16px;height:16px;"><div class="radio-circle-inner" style="width:8px;height:8px;"></div></div>
+          Other
+        </label>
+      </div>
+
+      <div style="background:var(--hg-red-light);border-radius:8px;padding:12px;margin-bottom:12px;">
+        <div style="font-size:12px;color:var(--hg-text);line-height:1.4;">
+          Your subscription will end after your last paid delivery on <strong>April 19</strong>. You can resubscribe anytime.
+        </div>
+      </div>
+
+      <button class="btn btn-red-outline btn-sm" style="width:100%;">Confirm Cancellation</button>
+    </div>
+
+    <div class="annotation" style="top:-10px;left:0;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">3 steps max — more feels manipulative. Each step offers an off-ramp (keep, pause) before cancel. FTC compliant: cancel completes in max 2 clicks from the cancel button.</div></div>
+    <div class="annotation" style="top:-10px;right:0;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Exit survey data feeds vendor analytics (Screen 15). "Too much food" is the #1 CSA cancel reason — that's why skip/pause are offered first. Survey is optional (skippable).</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 8 ==================== -->
+<div class="screen" id="screen-7">
+<div class="mockup-container">
+  <div class="screen-title">Mobile Views</div>
+  <div class="screen-subtitle">Product page (subscribe mode) and My Subscriptions on 375px mobile</div>
+
+  <div style="display:flex;gap:40px;justify-content:center;">
+    <!-- Phone 1: Product subscribe -->
+    <div>
+      <div style="font-size:13px;font-weight:700;color:var(--hg-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;text-align:center;">Product — Subscribe Mode</div>
+      <div class="phone-frame">
+        <div class="phone-notch"><div class="phone-notch-bar"></div></div>
+        <div class="phone-content">
+          <!-- Mini header -->
+          <div style="padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--hg-border);">
+            <span style="font-size:16px;font-weight:800;color:var(--hg-green);">Homegrown</span>
+            <span style="font-size:16px;">☰</span>
+          </div>
+          <!-- Product image -->
+          <div style="height:200px;background:#f0ebe4;display:flex;align-items:center;justify-content:center;font-size:64px;">🍞</div>
+          <div style="padding:16px;">
+            <div style="font-size:11px;color:var(--hg-green-light);font-weight:600;margin-bottom:2px;">Sarah's Bakery</div>
+            <div style="font-size:18px;font-weight:800;margin-bottom:4px;">Sourdough Boule</div>
+            <div style="margin-bottom:12px;">
+              <span class="text-strike" style="font-size:16px;">$8.00</span>
+              <span style="font-size:22px;font-weight:800;margin-left:6px;">$7.20</span>
+              <span class="save-badge" style="margin-left:6px;">Save 10%</span>
+            </div>
+
+            <!-- Radio compact -->
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+              <div style="flex:1;padding:10px;border:1px solid var(--hg-border);border-radius:8px;text-align:center;font-size:12px;font-weight:600;color:var(--hg-text-secondary);">One-time</div>
+              <div style="flex:1;padding:10px;border:2px solid var(--hg-green-light);border-radius:8px;text-align:center;font-size:12px;font-weight:700;color:var(--hg-green-light);background:var(--hg-green-surface);">Subscribe</div>
+            </div>
+
+            <!-- Frequency pills -->
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+              <div style="padding:6px 14px;border-radius:999px;background:var(--hg-green-light);color:white;font-size:12px;font-weight:700;">Every week</div>
+              <div style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;">Every 2 wks</div>
+              <div style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;">Monthly</div>
+            </div>
+
+            <div style="font-size:11px;color:var(--hg-text-secondary);margin-bottom:12px;">📅 Saturdays at Findlay Market &middot; Cancel anytime</div>
+          </div>
+          <!-- Sticky CTA -->
+          <div style="padding:12px 16px;border-top:1px solid var(--hg-border);background:white;">
+            <button class="btn btn-green btn-md" style="width:100%;font-size:14px;">Subscribe — $7.20/delivery</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone 2: My Subscriptions -->
+    <div>
+      <div style="font-size:13px;font-weight:700;color:var(--hg-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;text-align:center;">My Subscriptions</div>
+      <div class="phone-frame">
+        <div class="phone-notch"><div class="phone-notch-bar"></div></div>
+        <div class="phone-content">
+          <div style="padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--hg-border);">
+            <span style="font-size:16px;">←</span>
+            <span style="font-size:15px;font-weight:700;">My Subscriptions</span>
+            <span style="width:16px;"></span>
+          </div>
+          <div style="padding:16px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+              <span class="pill pill-green">2 active</span>
+            </div>
+
+            <!-- Mobile sub card 1 -->
+            <div style="background:white;border:1px solid var(--hg-border);border-radius:12px;padding:14px;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div style="width:40px;height:40px;border-radius:50%;background:var(--hg-cream);display:flex;align-items:center;justify-content:center;font-size:18px;">🍞</div>
+                <div style="flex:1;">
+                  <div style="font-size:14px;font-weight:700;">Sourdough Boule</div>
+                  <div style="font-size:11px;color:var(--hg-text-secondary);">Sarah's Bakery</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:4px;">
+                  <span class="status-dot dot-active"></span>
+                  <span style="font-size:11px;font-weight:600;color:var(--hg-green-light);">Active</span>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--hg-text-secondary);margin-bottom:10px;">
+                <span>$7.20/week</span>
+                <span>Next: Apr 19</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-ghost btn-sm" style="flex:1;font-size:12px;">Skip Next</button>
+                <button class="btn btn-outline btn-sm" style="flex:1;font-size:12px;">Manage</button>
+              </div>
+            </div>
+
+            <!-- Mobile sub card 2 -->
+            <div style="background:white;border:1px solid var(--hg-border);border-radius:12px;padding:14px;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div style="width:40px;height:40px;border-radius:50%;background:var(--hg-cream);display:flex;align-items:center;justify-content:center;font-size:18px;">📦</div>
+                <div style="flex:1;">
+                  <div style="font-size:14px;font-weight:700;">Weekly Farm Box</div>
+                  <div style="font-size:11px;color:var(--hg-text-secondary);">Green Acres Farm</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:4px;">
+                  <span class="status-dot dot-active"></span>
+                  <span style="font-size:11px;font-weight:600;color:var(--hg-green-light);">Active</span>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--hg-text-secondary);margin-bottom:10px;">
+                <span>$35.00/week</span>
+                <span>Next: Apr 19</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-ghost btn-sm" style="flex:1;font-size:12px;">Skip Next</button>
+                <button class="btn btn-outline btn-sm" style="flex:1;font-size:12px;">Manage</button>
+              </div>
+            </div>
+
+            <!-- Upcoming -->
+            <div style="font-size:13px;font-weight:700;margin-top:16px;margin-bottom:10px;">Upcoming</div>
+            <div style="background:white;border:1px solid var(--hg-border);border-radius:8px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:12px;font-weight:700;">Sat, Apr 19</div>
+                <div style="font-size:11px;color:var(--hg-text-secondary);">2 items &middot; Findlay Market</div>
+              </div>
+              <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;">Skip</button>
+            </div>
+            <div style="background:white;border:1px solid var(--hg-border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:12px;font-weight:700;">Sat, Apr 26</div>
+                <div style="font-size:11px;color:var(--hg-text-secondary);">2 items &middot; Findlay Market</div>
+              </div>
+              <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;">Skip</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-rel" style="margin-top:24px;">
+    <div class="annotation" style="position:relative;display:inline-block;margin-right:12px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip" style="bottom:auto;top:calc(100% + 8px);left:0;transform:none;">Mobile product page: compact radio toggle (not full radio options), frequency pills wrap naturally, sticky bottom CTA. 40-50% of subscription signups happen on mobile.</div></div>
+    <div class="annotation" style="position:relative;display:inline-block;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip" style="bottom:auto;top:calc(100% + 8px);left:0;transform:none;">Mobile subscription cards: full-width, all key info visible without scrolling. Skip/Manage buttons are full-width for easy tap targets (44px min per Apple HIG).</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 9 ==================== -->
+<div class="screen" id="screen-8">
+<div class="mockup-container">
+  <div class="screen-title">Create Subscription — Step 1: What & How</div>
+  <div class="screen-subtitle">Vendor chooses subscription type and configures product details</div>
+
+  <div class="dash-layout">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown <span class="notif-badge">3</span></div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item active"><span class="nav-icon">🔄</span> Subscriptions <span class="nav-new">NEW</span></div>
+      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="nav-section">Grow</div>
+      <div class="nav-item"><span class="nav-icon">🚀</span> Get Sales</div>
+      <div class="nav-section">Engage</div>
+      <div class="nav-item"><span class="nav-icon">📅</span> Events</div>
+      <div class="nav-item"><span class="nav-icon">💬</span> Messages</div>
+      <div class="nav-item"><span class="nav-icon">❓</span> Questions</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">📍</span> Locations</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main p-rel">
+      <!-- Wizard -->
+      <div class="wizard-steps">
+        <div class="wizard-step active"><div class="wizard-dot">1</div> What & How</div>
+        <div class="wizard-line"></div>
+        <div class="wizard-step"><div class="wizard-dot">2</div> Fulfillment</div>
+        <div class="wizard-line"></div>
+        <div class="wizard-step"><div class="wizard-dot">3</div> Preview</div>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:800;margin-bottom:4px;">Create a Subscription Product</h2>
+      <p style="font-size:13px;color:var(--hg-text-secondary);margin-bottom:20px;">Choose what type of subscription you want to offer</p>
+
+      <!-- Type selector -->
+      <div class="type-cards p-rel">
+        <div class="type-card selected">
+          <div class="type-icon">🔄</div>
+          <div class="type-name">Recurring Item</div>
+          <div class="type-desc">Same product on a schedule. Great for staples like bread, eggs, or dairy.</div>
+        </div>
+        <div class="type-card">
+          <div class="type-icon">📦</div>
+          <div class="type-name">Farm Box</div>
+          <div class="type-desc">You pick what goes in the box each week. Perfect for CSA programs.</div>
+        </div>
+        <div class="type-card">
+          <div class="type-icon">🏷️</div>
+          <div class="type-name">Subscribe & Save</div>
+          <div class="type-desc">Add a discount to an existing product for recurring orders.</div>
+        </div>
+        <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">3 types cover 90% of farmer market use cases. "Farm Box" unlocks weekly box contents management later. "Subscribe & Save" links to existing products (no duplication).</div></div>
+      </div>
+
+      <!-- Product details -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div>
+          <label class="form-label">Product name</label>
+          <input class="form-input" value="Sourdough Boule" />
+        </div>
+        <div>
+          <label class="form-label">Base price</label>
+          <input class="form-input" value="$8.00" />
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label class="form-label">Description</label>
+        <textarea class="form-input" rows="2" style="resize:vertical;">Handcrafted sourdough with a crispy crust and tangy, chewy interior.</textarea>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div>
+          <label class="form-label">Subscription discount</label>
+          <input class="form-input" value="10%" />
+          <div class="form-helper">Subscribers pay $7.20 per delivery</div>
+        </div>
+        <div>
+          <label class="form-label">Frequency options</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+              <div class="checkbox-box checked"></div> Weekly
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+              <div class="checkbox-box checked"></div> Bi-weekly
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+              <div class="checkbox-box"></div> Monthly
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:12px;">
+        <button class="btn btn-ghost btn-md">Cancel</button>
+        <button class="btn btn-green btn-md">Next: Fulfillment →</button>
+      </div>
+
+      <div class="annotation" style="top:40px;left:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Subscriptions lives under SELL in the sidebar — between Products and Inventory. "NEW" badge draws attention. Not a separate top-level section.</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 10 ==================== -->
+<div class="screen" id="screen-9">
+<div class="mockup-container">
+  <div class="screen-title">Create Subscription — Step 2: Fulfillment Rules</div>
+  <div class="screen-subtitle">Vendor sets pickup/delivery, capacity limits, seasonal dates, and blackout dates</div>
+
+  <div class="dash-layout">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item active"><span class="nav-icon">🔄</span> Subscriptions</div>
+      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="nav-section">Grow</div>
+      <div class="nav-item"><span class="nav-icon">🚀</span> Get Sales</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">📍</span> Locations</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main p-rel">
+      <div class="wizard-steps">
+        <div class="wizard-step done"><div class="wizard-dot">✓</div> What & How</div>
+        <div class="wizard-line done"></div>
+        <div class="wizard-step active"><div class="wizard-dot">2</div> Fulfillment</div>
+        <div class="wizard-line"></div>
+        <div class="wizard-step"><div class="wizard-dot">3</div> Preview</div>
+      </div>
+
+      <h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">Fulfillment Rules</h2>
+
+      <!-- Fulfillment method -->
+      <div class="card-sm" style="padding:20px;margin-bottom:16px;">
+        <label class="form-label" style="margin-bottom:10px;">How will subscribers get their orders?</label>
+        <div style="display:flex;gap:12px;">
+          <div style="flex:1;padding:14px;border:2px solid var(--hg-green-light);border-radius:var(--card-radius-sm);text-align:center;background:var(--hg-green-surface);cursor:pointer;">
+            <div style="font-size:20px;margin-bottom:4px;">📍</div>
+            <div style="font-size:13px;font-weight:700;">Pickup at market</div>
+          </div>
+          <div style="flex:1;padding:14px;border:2px solid var(--hg-border);border-radius:var(--card-radius-sm);text-align:center;cursor:pointer;">
+            <div style="font-size:20px;margin-bottom:4px;">🚚</div>
+            <div style="font-size:13px;font-weight:700;">Delivery</div>
+          </div>
+          <div style="flex:1;padding:14px;border:2px solid var(--hg-border);border-radius:var(--card-radius-sm);text-align:center;cursor:pointer;">
+            <div style="font-size:20px;margin-bottom:4px;">📍🚚</div>
+            <div style="font-size:13px;font-weight:700;">Both</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <label class="form-label">Pickup location</label>
+          <select class="form-input" style="appearance:auto;">
+            <option>Findlay Market — Saturdays 9am-1pm</option>
+            <option>Hyde Park Farmers Market — Sundays 9:30am-1:30pm</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Capacity -->
+      <div class="card-sm p-rel" style="padding:20px;margin-bottom:16px;">
+        <label class="form-label" style="margin-bottom:10px;">Subscriber capacity</label>
+        <div style="display:flex;gap:12px;align-items:center;">
+          <input class="form-input" style="width:120px;" value="50" />
+          <span style="font-size:13px;color:var(--hg-text-secondary);">maximum subscribers</span>
+        </div>
+        <div class="form-helper">Leave blank for unlimited. When full, shoppers will see "Join Waitlist" instead of "Subscribe".</div>
+        <div style="margin-top:10px;display:flex;align-items:center;gap:8px;">
+          <div style="flex:1;height:6px;background:var(--hg-border);border-radius:999px;overflow:hidden;">
+            <div style="width:6%;height:100%;background:var(--hg-green-light);border-radius:999px;"></div>
+          </div>
+          <span style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);">3 / 50</span>
+        </div>
+        <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Capacity limits prevent over-commitment — a baker making 50 loaves can't take 200 subscribers. When full, button changes to "Join Waitlist" with card pre-auth.</div></div>
+      </div>
+
+      <!-- Availability -->
+      <div class="card-sm p-rel" style="padding:20px;margin-bottom:16px;">
+        <label class="form-label" style="margin-bottom:10px;">Availability</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <div>
+            <label class="form-label" style="font-size:12px;">Start date</label>
+            <input class="form-input" type="date" value="2026-04-19" />
+          </div>
+          <div>
+            <label class="form-label" style="font-size:12px;">End date <span style="color:var(--hg-text-muted);">(optional)</span></label>
+            <input class="form-input" type="date" placeholder="Ongoing" />
+            <div class="form-helper">Set an end date for seasonal subscriptions</div>
+          </div>
+        </div>
+
+        <label class="form-label" style="font-size:12px;">Blackout dates</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
+          <span class="pill pill-gray">May 24 (Memorial Day) ✕</span>
+          <span class="pill pill-gray">Jul 4 (Independence Day) ✕</span>
+          <button class="btn btn-ghost btn-sm" style="font-size:12px;">+ Add date</button>
+        </div>
+        <div class="form-helper">No charges or fulfillments on blackout dates. Subscribers are notified automatically.</div>
+        <div class="annotation" style="bottom:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Blackout dates solve the #1 vendor concern: "what if I go on vacation?" System auto-skips charges + notifies subscribers. Only Barn2Door has this at $99+/mo.</div></div>
+      </div>
+
+      <!-- Auto-generated terms -->
+      <div class="card-sm" style="padding:16px;background:var(--hg-green-surface);border-color:var(--hg-green-light);margin-bottom:20px;">
+        <div style="font-size:12px;font-weight:700;color:var(--hg-green);margin-bottom:6px;">Auto-generated subscription terms</div>
+        <div style="font-size:13px;color:var(--hg-text);line-height:1.5;">
+          "Subscribers will be charged $7.20 every week starting April 19, 2026. Pickup at Findlay Market on Saturdays, 9am-1pm. No charges on blackout dates. Subscribers can skip, pause, or cancel anytime."
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;">
+        <button class="btn btn-ghost btn-md">← Back</button>
+        <button class="btn btn-green btn-md">Next: Preview →</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 11 ==================== -->
+<div class="screen" id="screen-10">
+<div class="mockup-container">
+  <div class="screen-title">Create Subscription — Step 3: Preview & Publish</div>
+  <div class="screen-subtitle">Vendor previews how shoppers will see it + reviews the automated flow</div>
+
+  <div class="dash-layout">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item active"><span class="nav-icon">🔄</span> Subscriptions</div>
+      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main">
+      <div class="wizard-steps">
+        <div class="wizard-step done"><div class="wizard-dot">✓</div> What & How</div>
+        <div class="wizard-line done"></div>
+        <div class="wizard-step done"><div class="wizard-dot">✓</div> Fulfillment</div>
+        <div class="wizard-line done"></div>
+        <div class="wizard-step active"><div class="wizard-dot">3</div> Preview</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <!-- Left: Storefront preview -->
+        <div class="p-rel">
+          <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Shopper preview</div>
+          <div class="card-sm" style="padding:20px;">
+            <div style="display:flex;gap:14px;margin-bottom:14px;">
+              <div style="width:80px;height:80px;background:#f0ebe4;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:36px;">🍞</div>
+              <div>
+                <div style="font-size:16px;font-weight:800;">Sourdough Boule</div>
+                <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:4px;">Sarah's Bakery</div>
+                <div><span class="text-strike">$8.00</span> <span style="font-weight:800;">$7.20</span> <span class="save-badge">Save 10%</span></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;margin-bottom:10px;">
+              <div style="padding:6px 14px;border-radius:999px;background:var(--hg-green-light);color:white;font-size:12px;font-weight:700;">Weekly</div>
+              <div style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;">Bi-weekly</div>
+            </div>
+            <div style="font-size:11px;color:var(--hg-text-secondary);margin-bottom:10px;">📅 Saturdays at Findlay Market &middot; Cancel anytime</div>
+            <button class="btn btn-green btn-md" style="width:100%;font-size:13px;">Subscribe — $7.20/delivery</button>
+          </div>
+          <div class="annotation" style="top:-6px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Preview eliminates "I don't know what this will look like" anxiety. Shows exact shopper view before publishing.</div></div>
+        </div>
+
+        <!-- Right: Settings summary + flow -->
+        <div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Settings summary</div>
+          <div class="card-sm" style="padding:20px;margin-bottom:16px;">
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px;">
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Type</span><span>Recurring Item</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Price</span><span>$7.20/delivery (10% off $8.00)</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Frequency</span><span>Weekly, Bi-weekly</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Pickup</span><span>Findlay Market, Saturdays</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Capacity</span><span>3 / 50 slots</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Starts</span><span>April 19, 2026</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Ends</span><span>Ongoing (no end date)</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Blackouts</span><span>May 24, Jul 4</span>
+            </div>
+          </div>
+
+          <div style="font-size:14px;font-weight:700;margin-bottom:10px;">What happens automatically</div>
+          <div class="card-sm p-rel" style="padding:16px;">
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="pill pill-green" style="min-width:24px;justify-content:center;">1</span>
+                <span>Shopper subscribes → you get an alert</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="pill pill-green" style="min-width:24px;justify-content:center;">2</span>
+                <span>3 days before charge → shopper gets reminder email</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="pill pill-green" style="min-width:24px;justify-content:center;">3</span>
+                <span>Charge day → payment processed automatically</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="pill pill-green" style="min-width:24px;justify-content:center;">4</span>
+                <span>Pickup day → shopper gets pickup reminder</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="pill pill-green" style="min-width:24px;justify-content:center;">↻</span>
+                <span>Repeat every cycle until paused or cancelled</span>
+              </div>
+            </div>
+            <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Flow diagram educates vendor on automated emails. Reduces "what happens after they subscribe?" questions. All 5 steps are handled by Homegrown, not the vendor.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:24px;">
+        <button class="btn btn-ghost btn-md">← Back</button>
+        <div style="display:flex;gap:12px;">
+          <button class="btn btn-outline btn-md">Save as Draft</button>
+          <button class="btn btn-green btn-md">Publish Subscription</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 12 ==================== -->
+<div class="screen" id="screen-11">
+<div class="mockup-container">
+  <div class="screen-title">Products List — Subscription Badge</div>
+  <div class="screen-subtitle">Subscription products live in the same list with a badge, not a separate section</div>
+
+  <div class="dash-layout">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item active"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item"><span class="nav-icon">🔄</span> Subscriptions</div>
+      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 style="font-size:20px;font-weight:800;">Products</h2>
+        <div style="display:flex;gap:8px;">
+          <select class="form-input" style="width:auto;padding:8px 12px;font-size:13px;appearance:auto;">
+            <option>All products</option>
+            <option>Subscription only</option>
+            <option>One-time only</option>
+          </select>
+          <button class="btn btn-green btn-sm">+ Add Product</button>
+        </div>
+      </div>
+
+      <div class="card-sm" style="overflow:hidden;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:50px;"></th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Type</th>
+              <th>Subscribers</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div style="width:40px;height:40px;background:#f0ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🍞</div></td>
+              <td>
+                <div style="font-weight:700;">Sourdough Boule</div>
+                <span class="pill pill-green" style="margin-top:2px;">Recurring</span>
+              </td>
+              <td>$8.00 <span style="font-size:11px;color:var(--hg-green-light);">($7.20 sub)</span></td>
+              <td><span style="font-size:12px;color:var(--hg-text-secondary);">Subscription — Weekly</span></td>
+              <td><span style="font-weight:700;">28</span> <span style="font-size:11px;color:var(--hg-text-secondary);">active</span></td>
+              <td><span class="pill pill-green">Active</span></td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+            <tr>
+              <td><div style="width:40px;height:40px;background:#e8f5e9;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">📦</div></td>
+              <td>
+                <div style="font-weight:700;">Weekly Farm Box</div>
+                <span class="pill pill-green" style="margin-top:2px;">Farm Box</span>
+              </td>
+              <td>$35.00</td>
+              <td><span style="font-size:12px;color:var(--hg-text-secondary);">Subscription — Weekly</span></td>
+              <td><span style="font-weight:700;">12</span> <span style="font-size:11px;color:var(--hg-text-secondary);">active</span></td>
+              <td><span class="pill pill-green">Active</span></td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+            <tr>
+              <td><div style="width:40px;height:40px;background:#f0ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🥚</div></td>
+              <td>
+                <div style="font-weight:700;">Farm Fresh Eggs (Dozen)</div>
+                <span class="pill pill-green" style="margin-top:2px;">Save 10%</span>
+              </td>
+              <td>$6.00 <span style="font-size:11px;color:var(--hg-green-light);">($5.40 sub)</span></td>
+              <td><span style="font-size:12px;color:var(--hg-text-secondary);">One-time + Subscription</span></td>
+              <td><span style="font-weight:700;">7</span> <span style="font-size:11px;color:var(--hg-text-secondary);">active</span></td>
+              <td><span class="pill pill-green">Active</span></td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+            <tr>
+              <td><div style="width:40px;height:40px;background:#f0ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🍅</div></td>
+              <td><div style="font-weight:700;">Heirloom Tomatoes (lb)</div></td>
+              <td>$4.50</td>
+              <td><span style="font-size:12px;color:var(--hg-text-secondary);">One-time</span></td>
+              <td><span style="color:var(--hg-text-muted);">—</span></td>
+              <td><span class="pill pill-green">Active</span></td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+            <tr>
+              <td><div style="width:40px;height:40px;background:#f0ebe4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;">🥬</div></td>
+              <td><div style="font-weight:700;">Mixed Greens Bundle</div></td>
+              <td>$5.00</td>
+              <td><span style="font-size:12px;color:var(--hg-text-secondary);">One-time</span></td>
+              <td><span style="color:var(--hg-text-muted);">—</span></td>
+              <td><span class="pill pill-green">Active</span></td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 13 ==================== -->
+<div class="screen" id="screen-12">
+<div class="mockup-container">
+  <div class="screen-title">Subscriber Management Dashboard</div>
+  <div class="screen-subtitle">Vendor's view of all subscribers with MRR, filters, and quick actions</div>
+
+  <div class="dash-layout">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item active"><span class="nav-icon">🔄</span> Subscriptions <span class="nav-badge">47</span></div>
+      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main p-rel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h2 style="font-size:20px;font-weight:800;">Subscribers</h2>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline btn-sm">📤 Export CSV</button>
+          <button class="btn btn-amber btn-sm">📣 Broadcast Message</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-label">Active</div>
+          <div class="stat-value">47 <span class="stat-change stat-up">↑ 5</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Paused</div>
+          <div class="stat-value">3</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Cancelled (this month)</div>
+          <div class="stat-value">2 <span class="stat-change stat-down">↓</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">MRR</div>
+          <div class="stat-value">$1,640 <span class="stat-change stat-up">↑ 12%</span></div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <select class="form-input" style="width:auto;padding:8px 12px;font-size:12px;appearance:auto;">
+          <option>All statuses</option><option>Active</option><option>Paused</option><option>Cancelled</option>
+        </select>
+        <select class="form-input" style="width:auto;padding:8px 12px;font-size:12px;appearance:auto;">
+          <option>All products</option><option>Sourdough Boule</option><option>Weekly Farm Box</option><option>Farm Fresh Eggs</option>
+        </select>
+      </div>
+
+      <!-- Table -->
+      <div class="card-sm" style="overflow:hidden;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Frequency</th>
+              <th>Status</th>
+              <th>Next Charge</th>
+              <th>LTV</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700;">Sarah M.</td>
+              <td>Sourdough Boule</td>
+              <td>Weekly</td>
+              <td><span class="status-dot dot-active"></span> Active</td>
+              <td>Apr 19</td>
+              <td style="font-weight:700;">$86.40</td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;">Mike R.</td>
+              <td>Weekly Farm Box</td>
+              <td>Weekly</td>
+              <td><span class="status-dot dot-active"></span> Active</td>
+              <td>Apr 19</td>
+              <td style="font-weight:700;">$280.00</td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;">Jennifer L.</td>
+              <td>Farm Fresh Eggs</td>
+              <td>Bi-weekly</td>
+              <td><span class="status-dot dot-active"></span> Active</td>
+              <td>Apr 26</td>
+              <td style="font-weight:700;">$32.40</td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+            <tr style="background:var(--hg-cream);">
+              <td style="font-weight:700;">David K.</td>
+              <td>Sourdough Boule</td>
+              <td>Weekly</td>
+              <td><span class="status-dot dot-paused"></span> Paused</td>
+              <td style="color:var(--hg-text-muted);">Resumes May 3</td>
+              <td style="font-weight:700;">$57.60</td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;">Amy W.</td>
+              <td>Weekly Farm Box</td>
+              <td>Weekly</td>
+              <td><span class="status-dot dot-cancelled"></span> Cancelled</td>
+              <td style="color:var(--hg-text-muted);">—</td>
+              <td style="font-weight:700;">$140.00</td>
+              <td><span style="cursor:pointer;">⋯</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="annotation" style="top:20px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">MRR (Monthly Recurring Revenue) is the headline metric. Trend arrows show direction. This is the number vendors should obsess over.</div></div>
+      <div class="annotation" style="bottom:20px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Paused subscribers highlighted in amber — they're still in the funnel, not lost. Cancelled shows LTV to remind vendor of the value of retention.</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 14 ==================== -->
+<div class="screen" id="screen-13">
+<div class="mockup-container">
+  <div class="screen-title">This Week's Fulfillment</div>
+  <div class="screen-subtitle">The most operationally critical screen — "what do I need to prepare?"</div>
+
+  <div class="dash-layout">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item active"><span class="nav-icon">🔄</span> Subscriptions</div>
+      <div class="nav-item"><span class="nav-icon">📦</span> Inventory</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main p-rel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <button class="btn btn-ghost btn-sm">← Prev</button>
+          <h2 style="font-size:20px;font-weight:800;">Week of April 19, 2026</h2>
+          <button class="btn btn-ghost btn-sm">Next →</button>
+        </div>
+        <button class="btn btn-outline btn-sm">🖨️ Print All Pick Lists</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 280px;gap:20px;">
+        <div>
+          <!-- Orders to fulfill -->
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Orders to Fulfill <span style="font-weight:600;color:var(--hg-text-secondary);">(34 subscription + 12 one-time)</span></div>
+
+          <div class="fulfill-group">
+            <div class="fulfill-header">
+              <div>
+                <span style="font-size:18px;margin-right:8px;">🍞</span>
+                <span class="fulfill-title">Sourdough Boule</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="fulfill-count">× 28 subscription + 8 one-time = <strong>36 total</strong></span>
+                <button class="btn btn-ghost btn-sm" style="font-size:11px;">Print Pick List</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="fulfill-group p-rel">
+            <div class="fulfill-header">
+              <div>
+                <span style="font-size:18px;margin-right:8px;">📦</span>
+                <span class="fulfill-title">Weekly Farm Box</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="fulfill-count">× 6 subscription</span>
+                <button class="btn btn-green btn-sm" style="font-size:11px;">Set Box Contents</button>
+              </div>
+            </div>
+
+            <!-- Box contents -->
+            <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--hg-border);">
+              <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">THIS WEEK'S BOX CONTENTS</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+                <span class="pill pill-gray">🥬 Mixed Greens ✕</span>
+                <span class="pill pill-gray">🍅 Heirloom Tomatoes ✕</span>
+                <span class="pill pill-gray">🥒 Cucumbers ✕</span>
+                <span class="pill pill-gray">🫑 Bell Peppers ✕</span>
+                <span class="pill pill-gray">🧅 Sweet Onions ✕</span>
+                <span class="pill pill-gray">🌽 Sweet Corn ✕</span>
+                <button class="btn btn-ghost btn-sm" style="font-size:11px;">+ Add Item</button>
+              </div>
+              <button class="btn btn-amber btn-sm">📧 Notify Subscribers — "Here's what's in your box this week"</button>
+            </div>
+            <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Farm Box contents are set per-week — this is the vendor's main workflow. "Notify Subscribers" sends the "what's in your box" email. Contents live on SubscriptionOrder, not the Plan.</div></div>
+          </div>
+
+          <div class="fulfill-group">
+            <div class="fulfill-header">
+              <div>
+                <span style="font-size:18px;margin-right:8px;">🥚</span>
+                <span class="fulfill-title">Farm Fresh Eggs</span>
+              </div>
+              <span class="fulfill-count">× 4 subscription + 4 one-time = <strong>8 total</strong></span>
+            </div>
+          </div>
+
+          <!-- Skips this week -->
+          <div style="margin-top:16px;padding:14px;background:var(--hg-cream);border-radius:var(--card-radius-sm);">
+            <div style="font-size:13px;font-weight:700;color:var(--hg-amber);margin-bottom:4px;">⏭ 3 subscribers skipping this week</div>
+            <div style="font-size:12px;color:var(--hg-text-secondary);">David K. (Sourdough), Lisa T. (Farm Box), Mark S. (Eggs)</div>
+          </div>
+        </div>
+
+        <!-- Right: Quick stats -->
+        <div>
+          <div class="card-sm" style="padding:18px;margin-bottom:12px;">
+            <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">THIS WEEK</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div>
+                <div style="font-size:11px;color:var(--hg-text-secondary);">Subscription orders</div>
+                <div style="font-size:22px;font-weight:800;">34</div>
+              </div>
+              <div>
+                <div style="font-size:11px;color:var(--hg-text-secondary);">One-time orders</div>
+                <div style="font-size:22px;font-weight:800;">12</div>
+              </div>
+              <div class="divider"></div>
+              <div>
+                <div style="font-size:11px;color:var(--hg-text-secondary);">Subscription revenue</div>
+                <div style="font-size:22px;font-weight:800;color:var(--hg-green-light);">$1,240</div>
+              </div>
+              <div>
+                <div style="font-size:11px;color:var(--hg-text-secondary);">Skipping</div>
+                <div style="font-size:22px;font-weight:800;color:var(--hg-amber);">3</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-sm" style="padding:14px;">
+            <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:6px;">NEXT WEEK PREVIEW</div>
+            <div style="font-size:13px;color:var(--hg-text);">35 subscription orders expected</div>
+            <div style="font-size:12px;color:var(--hg-text-secondary);margin-top:2px;">1 new subscriber (Jennifer L.)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="annotation" style="top:20px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">This is the most-used vendor screen. Answers "what do I need to bake/pick/pack this week?" Print Pick List exports a simple packing list. Week nav lets vendor plan ahead.</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 15 ==================== -->
+<div class="screen" id="screen-14">
+<div class="mockup-container">
+  <div class="screen-title">Subscription Analytics</div>
+  <div class="screen-subtitle">MRR, growth, churn, and cancellation reasons</div>
+
+  <div class="dash-layout">
+    <div class="dash-sidebar">
+      <div class="dash-sidebar-logo">Homegrown</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> Dashboard</div>
+      <div class="nav-section">Sell</div>
+      <div class="nav-item"><span class="nav-icon">📋</span> Orders</div>
+      <div class="nav-item"><span class="nav-icon">🛍️</span> Products</div>
+      <div class="nav-item active"><span class="nav-icon">🔄</span> Subscriptions</div>
+      <div class="nav-section">Manage</div>
+      <div class="nav-item"><span class="nav-icon">👤</span> My Account</div>
+    </div>
+    <div class="dash-main">
+      <h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">Analytics</h2>
+
+      <div class="stats-bar">
+        <div class="stat-card"><div class="stat-label">MRR</div><div class="stat-value">$1,640 <span class="stat-change stat-up">↑ 12%</span></div></div>
+        <div class="stat-card"><div class="stat-label">Active Subscribers</div><div class="stat-value">47 <span class="stat-change stat-up">↑ 5</span></div></div>
+        <div class="stat-card"><div class="stat-label">Churn Rate</div><div class="stat-value">4.2%</div></div>
+        <div class="stat-card"><div class="stat-label">Avg Lifetime</div><div class="stat-value">4.2 mo</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <div class="card-sm" style="padding:20px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;">MRR Over Time</div>
+          <div class="chart-placeholder">📈 MRR line chart — last 6 months, upward trend</div>
+        </div>
+        <div class="card-sm" style="padding:20px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Subscriber Growth</div>
+          <div class="chart-placeholder">📊 Stacked bar — new vs churned, net growth line</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="card-sm p-rel" style="padding:20px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Why Subscribers Cancel</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;">
+                <span>Not using enough / too much food</span><span style="font-weight:700;">35%</span>
+              </div>
+              <div style="height:6px;background:var(--hg-border);border-radius:999px;overflow:hidden;"><div style="width:35%;height:100%;background:var(--hg-amber);border-radius:999px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;">
+                <span>Too expensive</span><span style="font-weight:700;">25%</span>
+              </div>
+              <div style="height:6px;background:var(--hg-border);border-radius:999px;overflow:hidden;"><div style="width:25%;height:100%;background:var(--hg-amber);border-radius:999px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;">
+                <span>Quality issues</span><span style="font-weight:700;">15%</span>
+              </div>
+              <div style="height:6px;background:var(--hg-border);border-radius:999px;overflow:hidden;"><div style="width:15%;height:100%;background:var(--hg-amber);border-radius:999px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;">
+                <span>Moving / out of area</span><span style="font-weight:700;">15%</span>
+              </div>
+              <div style="height:6px;background:var(--hg-border);border-radius:999px;overflow:hidden;"><div style="width:15%;height:100%;background:var(--hg-text-muted);border-radius:999px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;">
+                <span>Other</span><span style="font-weight:700;">10%</span>
+              </div>
+              <div style="height:6px;background:var(--hg-border);border-radius:999px;overflow:hidden;"><div style="width:10%;height:100%;background:var(--hg-text-muted);border-radius:999px;"></div></div>
+            </div>
+          </div>
+          <div class="annotation" style="top:-8px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Cancel reasons come from the exit survey (Screen 7). "Too much food" at 35% validates why skip/pause are offered before cancel — it's the #1 CSA churn reason.</div></div>
+        </div>
+
+        <div class="card-sm" style="padding:20px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Top Subscribers by LTV</div>
+          <table class="data-table" style="font-size:12px;">
+            <thead><tr><th>Customer</th><th>Product</th><th>LTV</th><th>Since</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:700;">Mike R.</td><td>Farm Box</td><td style="font-weight:700;">$280</td><td>Jan 2026</td></tr>
+              <tr><td style="font-weight:700;">Sarah M.</td><td>Sourdough</td><td style="font-weight:700;">$86</td><td>Feb 2026</td></tr>
+              <tr><td style="font-weight:700;">Lisa T.</td><td>Farm Box</td><td style="font-weight:700;">$70</td><td>Mar 2026</td></tr>
+              <tr><td style="font-weight:700;">Tom H.</td><td>Sourdough</td><td style="font-weight:700;">$58</td><td>Feb 2026</td></tr>
+              <tr><td style="font-weight:700;">Jennifer L.</td><td>Eggs</td><td style="font-weight:700;">$32</td><td>Mar 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 16 ==================== -->
+<div class="screen" id="screen-15">
+<div class="mockup-container">
+  <div class="screen-title">Broadcast Message to Subscribers</div>
+  <div class="screen-subtitle">Vendor notifies subscribers about box contents, schedule changes, etc.</div>
+
+  <div style="max-width:520px;margin:0 auto;">
+    <div class="modal-frame p-rel">
+      <div class="modal-header">
+        <h3>Send a Message to Subscribers</h3>
+        <span style="cursor:pointer;font-size:18px;color:var(--hg-text-muted);">✕</span>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:16px;">
+          <label class="form-label">Send to</label>
+          <select class="form-input" style="appearance:auto;">
+            <option>All active subscribers (47)</option>
+            <option>Sourdough Boule subscribers (28)</option>
+            <option>Weekly Farm Box subscribers (6)</option>
+            <option>Farm Fresh Eggs subscribers (7)</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <label class="form-label">Subject</label>
+          <input class="form-input" value="This week's Farm Box update 🌿" />
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" rows="5" style="resize:vertical;">Hi there! Just wanted to let you know what's in this week's Farm Box:
+
+🥬 Mixed Greens
+🍅 Heirloom Tomatoes (extra ripe this week!)
+🥒 Cucumbers
+🫑 Bell Peppers
+🧅 Sweet Onions
+🌽 Sweet Corn (first of the season! 🎉)
+
+See you Saturday at Findlay Market! — Green Acres Farm</textarea>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+            <span style="font-size:14px;">👁️</span>
+            <span class="text-link">Preview email</span>
+          </div>
+        </div>
+
+        <button class="btn btn-green btn-lg" style="width:100%;">Send to 6 subscribers</button>
+        <div style="font-size:11px;color:var(--hg-text-muted);text-align:center;margin-top:8px;">This will send an email to all selected subscribers</div>
+      </div>
+      <div class="annotation" style="top:8px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Product filter lets vendor message only Farm Box subscribers. All comms go through Homegrown — vendors don't get direct email addresses (protects member relationship).</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 17 ==================== -->
+<div class="screen" id="screen-16">
+<div class="mockup-container">
+  <div class="screen-title">Email Templates (5 Lifecycle Emails)</div>
+  <div class="screen-subtitle">All automated emails in the subscription lifecycle</div>
+
+  <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:20px;">
+    <!-- Email 1: Confirmed -->
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">1. SUBSCRIPTION CONFIRMED</div>
+      <div class="email-frame">
+        <div class="email-header-bar"><h4>Homegrown</h4></div>
+        <div class="email-body">
+          <div style="text-align:center;margin-bottom:16px;">
+            <div style="font-size:32px;margin-bottom:8px;">✅</div>
+            <div style="font-size:16px;font-weight:800;">You're subscribed!</div>
+          </div>
+          <div style="background:var(--hg-bg);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
+            <div style="font-weight:700;margin-bottom:4px;">Sourdough Boule</div>
+            <div style="color:var(--hg-text-secondary);">from Sarah's Bakery</div>
+            <div style="color:var(--hg-text-secondary);">$7.20/week · Every Saturday</div>
+            <div style="margin-top:6px;font-weight:700;">First pickup: Apr 19</div>
+            <div style="color:var(--hg-text-secondary);">Findlay Market, 9am-1pm</div>
+          </div>
+          <div style="text-align:center;">
+            <button class="btn btn-green btn-sm" style="font-size:11px;">Manage Subscription</button>
+          </div>
+          <div style="font-size:10px;color:var(--hg-text-muted);text-align:center;margin-top:12px;">Cancel anytime from your account</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email 2: Pre-charge -->
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">2. UPCOMING CHARGE (3 days before)</div>
+      <div class="email-frame">
+        <div class="email-header-bar"><h4>Homegrown</h4></div>
+        <div class="email-body">
+          <div style="font-size:15px;font-weight:800;margin-bottom:12px;">Your weekly order is coming up</div>
+          <div style="background:var(--hg-bg);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+              <span>Sourdough Boule</span><span style="font-weight:700;">$7.20</span>
+            </div>
+            <div style="color:var(--hg-text-secondary);">Charge date: April 19</div>
+            <div style="color:var(--hg-text-secondary);">Card: Visa ····4242</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-ghost btn-sm" style="flex:1;font-size:11px;">Skip This Week</button>
+            <button class="btn btn-outline btn-sm" style="flex:1;font-size:11px;">Manage</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email 3: Payment Failed -->
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--hg-red);margin-bottom:8px;">3. PAYMENT FAILED</div>
+      <div class="email-frame">
+        <div class="email-header-bar" style="background:var(--hg-red);"><h4>Homegrown</h4></div>
+        <div class="email-body">
+          <div style="font-size:15px;font-weight:800;margin-bottom:8px;">We couldn't process your payment</div>
+          <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:12px;">Don't worry — we'll retry in 3 days. You can update your card now to avoid interruption.</div>
+          <div style="background:var(--hg-red-light);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
+            <div style="font-weight:700;margin-bottom:4px;">Sourdough Boule — $7.20</div>
+            <div style="color:var(--hg-text-secondary);">Attempted: Apr 19 · Visa ····4242</div>
+            <div style="color:var(--hg-red);font-weight:600;margin-top:6px;">After 3 failed attempts, your subscription will be paused.</div>
+          </div>
+          <button class="btn btn-green btn-sm" style="width:100%;font-size:11px;">Update Payment Method</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:20px;margin-top:20px;">
+    <!-- Email 4: Pickup Reminder -->
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">4. PICKUP REMINDER (day-of)</div>
+      <div class="email-frame" style="max-width:none;">
+        <div class="email-header-bar"><h4>Homegrown</h4></div>
+        <div class="email-body">
+          <div style="font-size:15px;font-weight:800;margin-bottom:8px;">Your order is ready! 🎉</div>
+          <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:12px;">Pick up today at Findlay Market, 9am-1pm</div>
+          <div style="background:var(--hg-bg);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
+            <div style="font-weight:700;margin-bottom:4px;">Your items:</div>
+            <div>🍞 Sourdough Boule</div>
+            <div style="margin-top:6px;font-weight:700;">Weekly Farm Box:</div>
+            <div>🥬 Mixed Greens · 🍅 Tomatoes · 🥒 Cucumbers · 🫑 Peppers · 🧅 Onions · 🌽 Corn</div>
+          </div>
+          <div style="font-size:11px;color:var(--hg-text-muted);">📍 1801 Race St, Cincinnati, OH</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email 5: Cancelled -->
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--hg-text-secondary);margin-bottom:8px;">5. SUBSCRIPTION CANCELLED</div>
+      <div class="email-frame" style="max-width:none;">
+        <div class="email-header-bar"><h4>Homegrown</h4></div>
+        <div class="email-body">
+          <div style="font-size:15px;font-weight:800;margin-bottom:8px;">Your subscription has been cancelled</div>
+          <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:12px;">We're sorry to see you go.</div>
+          <div style="background:var(--hg-bg);border-radius:8px;padding:12px;margin-bottom:12px;font-size:12px;">
+            <div style="font-weight:700;margin-bottom:4px;">Sourdough Boule — Sarah's Bakery</div>
+            <div style="color:var(--hg-text-secondary);">Last pickup: April 19, 2026</div>
+            <div style="color:var(--hg-text-secondary);">Total deliveries: 8</div>
+            <div style="color:var(--hg-text-secondary);">Total saved: $12.80</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:12px;color:var(--hg-text-secondary);margin-bottom:8px;">Changed your mind?</div>
+            <button class="btn btn-green btn-sm" style="font-size:11px;">Resubscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 18 ==================== -->
+<div class="screen" id="screen-17">
+<div class="mockup-container">
+  <div class="screen-title">Payment Flow & Edge Cases</div>
+  <div class="screen-subtitle">Implementation reference — payment lifecycle, state machine, and edge case handling</div>
+
+  <!-- State machine -->
+  <div class="impl-section">
+    <h4>Subscription State Machine</h4>
+    <div class="state-machine">
+      <div class="state-box" style="background:#e0f2fe;color:#0369a1;border:2px solid #0369a1;">Incomplete</div>
+      <div class="state-arrow">→</div>
+      <div class="state-box state-active">Active</div>
+      <div class="state-arrow">⇄</div>
+      <div class="state-box state-paused">Paused</div>
+      <div class="state-arrow">→</div>
+      <div class="state-box state-cancelled">Cancelled</div>
+    </div>
+    <div style="font-size:12px;color:var(--hg-text-secondary);text-align:center;margin-top:8px;">
+      Active ↔ Paused (manual or auto from failed payment) · Cancelled is terminal · Past Due = Active with flag
+    </div>
+  </div>
+
+  <!-- Payment flow -->
+  <div class="impl-section">
+    <h4>Payment / Dunning Flow</h4>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;font-weight:600;margin-bottom:12px;">
+      <span class="pill pill-green">Subscribe</span> →
+      <span class="pill pill-green">PayTheory tokenize</span> →
+      <span class="pill pill-green">Store token</span> →
+      <span class="pill pill-amber">Pre-charge email (3 days before)</span> →
+      <span class="pill pill-green">Charge via PayTheory</span> →
+      <span style="color:var(--hg-text-secondary);">Success / Fail</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;font-weight:600;">
+      <span style="color:var(--hg-red);font-weight:700;">If fail:</span>
+      <span class="pill pill-red">Day 3: Retry 1</span> →
+      <span class="pill pill-red">Day 6: Retry 2</span> →
+      <span class="pill pill-red">Day 9: Retry 3</span> →
+      <span class="pill pill-amber">Auto-pause + email both parties</span>
+    </div>
+    <div style="font-size:11px;color:var(--hg-text-secondary);margin-top:8px;">
+      3-retry matches industry standard (Stripe, ReCharge). Auto-pause is better than auto-cancel — keeps the relationship alive.
+      Hard declines (stolen card, closed account) should NOT be retried. Only retry soft declines (insufficient funds, temporary holds).
+    </div>
+  </div>
+
+  <!-- Edge cases table -->
+  <div class="impl-section">
+    <h4>Edge Case Handling</h4>
+    <table class="impl-table">
+      <thead><tr><th>Scenario</th><th>System Behavior</th><th>Notifications</th></tr></thead>
+      <tbody>
+        <tr><td>Vendor goes on vacation</td><td>Blackout dates skip charge + fulfillment</td><td>Auto-email subscribers 3 days before</td></tr>
+        <tr><td>Product discontinued</td><td>Pause all subscriptions for that product</td><td>Email subscribers: "Subscribe to something else or cancel"</td></tr>
+        <tr><td>Price change by vendor</td><td>New price takes effect <strong>next billing cycle</strong>. Existing charges unchanged.</td><td>Email subscribers 30 days before (legal requirement in CA/NY/CO)</td></tr>
+        <tr><td>Capacity reached</td><td>Subscribe button → <code>Join Waitlist</code>. Card pre-authorized.</td><td>Auto-email when slot opens</td></tr>
+        <tr><td>Seasonal end date reached</td><td>Subscription status → <code>dormant</code></td><td>30-day email: "Your season is ending. Re-subscribe for next season?"</td></tr>
+        <tr><td>Card expires</td><td>Check PayTheory VAU/ABU enrollment for auto-update</td><td>Email 30 days before expiry: "Update your card"</td></tr>
+        <tr><td>Vendor cancels Homegrown account</td><td>Immediately pause all subscriptions. 30-day grace period.</td><td>Email subscribers: "Your vendor is no longer on Homegrown"</td></tr>
+        <tr><td>Shopper moves out of area</td><td>Address change validates against vendor's delivery/pickup zone</td><td>Flag if outside zone: "This vendor doesn't deliver to your new address"</td></tr>
+        <tr><td>Chargeback on recurring charge</td><td>Immediately pause subscription. Don't fulfill during dispute.</td><td>Email vendor with customer name. Use billing descriptor "HOMEGROWN - [VENDOR]"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- V1 vs V2 -->
+  <div class="impl-section">
+    <h4>V1 Scope vs V2</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--hg-green);margin-bottom:8px;">✅ V1 — BUILD NOW</div>
+        <ul style="font-size:12px;color:var(--hg-text);line-height:1.6;padding-left:16px;">
+          <li>Fixed recurring order</li>
+          <li>Farmer-choice box</li>
+          <li>Subscribe & save discount</li>
+          <li>Skip / pause / cancel</li>
+          <li>3-retry dunning</li>
+          <li>Pre-charge + pickup emails</li>
+          <li>Subscriber management</li>
+          <li>Weekly fulfillment view</li>
+          <li>Blackout dates</li>
+          <li>Capacity limits</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--hg-text-muted);margin-bottom:8px;">🔮 V2 — LATER</div>
+        <ul style="font-size:12px;color:var(--hg-text-secondary);line-height:1.6;padding-left:16px;">
+          <li>Prepaid seasonal (credit tracking)</li>
+          <li>Customizable / buy-down boxes</li>
+          <li>Market-style points</li>
+          <li>Gift subscriptions</li>
+          <li>Preference algorithm (Harvie-style)</li>
+          <li>Multi-vendor bundle pickup</li>
+          <li>Advanced reporting (MRR trends, cohorts)</li>
+          <li>Proration on mid-cycle changes</li>
+          <li>Waitlist with pre-authorization</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 19 ==================== -->
+<div class="screen" id="screen-18">
+<div class="mockup-container">
+  <div class="screen-title">Data Model</div>
+  <div class="screen-subtitle">Entity relationships for David's implementation</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="impl-section">
+      <h4>SubscriptionPlan (vendor creates)</h4>
+      <table class="impl-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>id</code></td><td>UUID</td><td>Primary key</td></tr>
+          <tr><td><code>vendor_id</code></td><td>FK → Vendor</td><td></td></tr>
+          <tr><td><code>product_id</code></td><td>FK → Product</td><td>Null for Farm Box (standalone)</td></tr>
+          <tr><td><code>type</code></td><td>Enum</td><td><code>recurring</code> | <code>farm_box</code> | <code>subscribe_save</code></td></tr>
+          <tr><td><code>frequencies</code></td><td>Array</td><td><code>['weekly', 'biweekly', 'monthly']</code></td></tr>
+          <tr><td><code>discount_percent</code></td><td>Integer</td><td>0-100, applies to base price</td></tr>
+          <tr><td><code>capacity_limit</code></td><td>Integer?</td><td>Null = unlimited</td></tr>
+          <tr><td><code>fulfillment_type</code></td><td>Enum</td><td><code>pickup</code> | <code>delivery</code> | <code>both</code></td></tr>
+          <tr><td><code>start_date</code></td><td>Date</td><td>When subscriptions begin</td></tr>
+          <tr><td><code>end_date</code></td><td>Date?</td><td>Null = ongoing. Set for seasonal.</td></tr>
+          <tr><td><code>blackout_dates</code></td><td>Date[]</td><td>No charge/fulfillment on these dates</td></tr>
+          <tr><td><code>status</code></td><td>Enum</td><td><code>draft</code> | <code>active</code> | <code>paused</code> | <code>ended</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="impl-section">
+      <h4>Subscription (customer subscribes)</h4>
+      <table class="impl-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>id</code></td><td>UUID</td><td></td></tr>
+          <tr><td><code>plan_id</code></td><td>FK → SubPlan</td><td></td></tr>
+          <tr><td><code>customer_id</code></td><td>FK → User</td><td></td></tr>
+          <tr><td><code>frequency</code></td><td>Enum</td><td>Selected from plan's options</td></tr>
+          <tr><td><code>payment_token</code></td><td>String</td><td>PayTheory card-on-file token</td></tr>
+          <tr><td><code>status</code></td><td>Enum</td><td><code>active</code> | <code>paused</code> | <code>past_due</code> | <code>cancelled</code></td></tr>
+          <tr><td><code>next_charge_date</code></td><td>Date</td><td>Auto-calculated from frequency</td></tr>
+          <tr><td><code>pause_until_date</code></td><td>Date?</td><td>Null if not paused or indefinite</td></tr>
+          <tr><td><code>created_at</code></td><td>Timestamp</td><td></td></tr>
+          <tr><td><code>cancelled_at</code></td><td>Timestamp?</td><td></td></tr>
+          <tr><td><code>cancel_reason</code></td><td>String?</td><td>From exit survey</td></tr>
+          <tr><td><code>consent_ts</code></td><td>Timestamp</td><td>FTC: store for 3+ years</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="impl-section">
+      <h4>SubscriptionOrder (each fulfillment cycle)</h4>
+      <table class="impl-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>id</code></td><td>UUID</td><td></td></tr>
+          <tr><td><code>subscription_id</code></td><td>FK → Sub</td><td></td></tr>
+          <tr><td><code>charge_amount</code></td><td>Decimal</td><td></td></tr>
+          <tr><td><code>charge_status</code></td><td>Enum</td><td><code>pending</code> | <code>succeeded</code> | <code>failed</code> | <code>skipped</code></td></tr>
+          <tr><td><code>retry_count</code></td><td>Integer</td><td>0-3</td></tr>
+          <tr><td><code>fulfillment_status</code></td><td>Enum</td><td><code>pending</code> | <code>ready</code> | <code>picked_up</code> | <code>delivered</code></td></tr>
+          <tr><td><code>box_contents</code></td><td>JSON?</td><td>For farm_box type — weekly contents</td></tr>
+          <tr><td><code>charge_date</code></td><td>Date</td><td></td></tr>
+          <tr><td><code>fulfillment_date</code></td><td>Date</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="impl-section">
+      <h4>SubscriptionEvent (audit log)</h4>
+      <table class="impl-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>id</code></td><td>UUID</td><td></td></tr>
+          <tr><td><code>subscription_id</code></td><td>FK → Sub</td><td></td></tr>
+          <tr><td><code>event_type</code></td><td>Enum</td><td><code>created</code> | <code>charged</code> | <code>skipped</code> | <code>paused</code> | <code>resumed</code> | <code>cancelled</code> | <code>payment_failed</code></td></tr>
+          <tr><td><code>timestamp</code></td><td>Timestamp</td><td></td></tr>
+          <tr><td><code>metadata</code></td><td>JSON</td><td>Context (reason, amount, etc.)</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:11px;color:var(--hg-text-secondary);margin-top:8px;">Event log enables analytics (Screen 15). Process lifecycle events as state transitions with timestamp ordering, not FIFO — webhooks can arrive out of order.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== SCREEN 20 ==================== -->
+<div class="screen" id="screen-19">
+<div class="mockup-container">
+  <div class="screen-title">Notification Triggers & Timing</div>
+  <div class="screen-subtitle">Every automated notification in the subscription lifecycle</div>
+
+  <div class="impl-section">
+    <h4>Notification Matrix</h4>
+    <table class="impl-table">
+      <thead>
+        <tr>
+          <th>Trigger</th>
+          <th>Recipient</th>
+          <th>Email Template</th>
+          <th>Timing</th>
+          <th>Conditions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>New subscription created</td>
+          <td>Customer</td>
+          <td>Subscription Confirmed</td>
+          <td>Immediate</td>
+          <td>Always</td>
+        </tr>
+        <tr>
+          <td>New subscription created</td>
+          <td>Vendor</td>
+          <td>New Subscriber Alert</td>
+          <td>Immediate</td>
+          <td>Always — include customer name + product</td>
+        </tr>
+        <tr style="background:var(--hg-cream);">
+          <td>Upcoming charge</td>
+          <td>Customer</td>
+          <td>Pre-charge Reminder</td>
+          <td><strong>3 days before</strong></td>
+          <td>Active subs only. Include skip button.</td>
+        </tr>
+        <tr>
+          <td>Payment succeeded</td>
+          <td>—</td>
+          <td>(No separate email)</td>
+          <td>—</td>
+          <td>Charge confirmation is implicit in pickup reminder</td>
+        </tr>
+        <tr style="background:var(--hg-red-light);">
+          <td>Payment failed</td>
+          <td>Customer</td>
+          <td>Payment Failed</td>
+          <td>Immediate</td>
+          <td>Include retry schedule + update card CTA</td>
+        </tr>
+        <tr style="background:var(--hg-red-light);">
+          <td>Payment failed 3x</td>
+          <td>Customer</td>
+          <td>Subscription Auto-Paused</td>
+          <td>After 3rd failure (day 9)</td>
+          <td>Include: "Update card to resume"</td>
+        </tr>
+        <tr style="background:var(--hg-red-light);">
+          <td>Payment failed 3x</td>
+          <td>Vendor</td>
+          <td>Subscriber Payment Issue</td>
+          <td>After 3rd failure</td>
+          <td>Include customer name — actionable intel</td>
+        </tr>
+        <tr>
+          <td>Pickup/delivery day</td>
+          <td>Customer</td>
+          <td>Pickup Reminder</td>
+          <td>Morning of</td>
+          <td>Active orders only. Include box contents for Farm Box.</td>
+        </tr>
+        <tr>
+          <td>Subscription cancelled</td>
+          <td>Customer</td>
+          <td>Cancelled Confirmation</td>
+          <td>Immediate</td>
+          <td>Include last delivery date + resubscribe CTA</td>
+        </tr>
+        <tr>
+          <td>Subscription cancelled</td>
+          <td>Vendor</td>
+          <td>Subscriber Lost</td>
+          <td>Immediate</td>
+          <td><strong>Include cancel reason from exit survey</strong></td>
+        </tr>
+        <tr>
+          <td>Blackout date approaching</td>
+          <td>Customer</td>
+          <td>Delivery Skipped</td>
+          <td>3 days before</td>
+          <td>"No pickup this week due to [vendor's note]"</td>
+        </tr>
+        <tr>
+          <td>Subscription skipped</td>
+          <td>Vendor</td>
+          <td>Skip Notification</td>
+          <td>Immediate</td>
+          <td>Vendor knows not to prepare this order</td>
+        </tr>
+        <tr>
+          <td>Pause resumed</td>
+          <td>Customer</td>
+          <td>Welcome Back</td>
+          <td>2 days before resume date</td>
+          <td>"Your subscription resumes on [date]"</td>
+        </tr>
+        <tr>
+          <td>Card expiring</td>
+          <td>Customer</td>
+          <td>Update Payment</td>
+          <td>30 days before expiry</td>
+          <td>"Your card expires soon — update to avoid interruption"</td>
+        </tr>
+        <tr>
+          <td>Season ending</td>
+          <td>Customer</td>
+          <td>Season End / Re-subscribe</td>
+          <td>30 days before end_date</td>
+          <td>Seasonal subs only. "Re-subscribe for next season?"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="impl-section">
+    <h4>Key Design Decisions for David</h4>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px;">
+      <span style="font-weight:700;color:var(--hg-green);">1.</span>
+      <span>Subscriptions nav item under <strong>SELL</strong> — between Products and Inventory</span>
+      <span style="font-weight:700;color:var(--hg-green);">2.</span>
+      <span>Farm Box contents set per-week on <code>SubscriptionOrder.box_contents</code>, not on the Plan</span>
+      <span style="font-weight:700;color:var(--hg-green);">3.</span>
+      <span>PayTheory token stored once at subscribe, reused for all recurring charges</span>
+      <span style="font-weight:700;color:var(--hg-green);">4.</span>
+      <span>3-retry dunning (day 3, 6, 9) then auto-pause (NOT auto-cancel)</span>
+      <span style="font-weight:700;color:var(--hg-green);">5.</span>
+      <span>No proration in V1 — all changes take effect at next billing cycle</span>
+      <span style="font-weight:700;color:var(--hg-green);">6.</span>
+      <span>Capacity limits are hard — when full, button changes to "Join Waitlist"</span>
+      <span style="font-weight:700;color:var(--hg-green);">7.</span>
+      <span>Blackout dates skip the charge entirely — no defer, no reschedule</span>
+      <span style="font-weight:700;color:var(--hg-green);">8.</span>
+      <span>Cancel flow max 3 screens — FTC compliant, each is an optional off-ramp</span>
+      <span style="font-weight:700;color:var(--hg-green);">9.</span>
+      <span>Subscribe & Save links to existing products — no product duplication needed</span>
+    </div>
+  </div>
+</div>
+</div>
+
+  </div><!-- end viewer-content -->
+</div><!-- end viewer -->
+
+<script>
+const screens = document.querySelectorAll('.screen');
+const tocItems = document.querySelectorAll('.toc-item');
+const titles = [
+  'Screen 1: Product Page — Default',
+  'Screen 2: Product — Subscribe Selected',
+  'Screen 3: Vendor Storefront — Subscription Products',
+  'Screen 4: Subscribe Checkout',
+  'Screen 5: My Subscriptions Dashboard',
+  'Screen 6: Skip & Pause Flow',
+  'Screen 7: Cancel Flow (3-Step Retention)',
+  'Screen 8: Mobile Views',
+  'Screen 9: Create Subscription — Step 1',
+  'Screen 10: Create Subscription — Step 2',
+  'Screen 11: Create Subscription — Step 3',
+  'Screen 12: Products List + Subscription Badge',
+  'Screen 13: Subscriber Management Dashboard',
+  'Screen 14: This Week\'s Fulfillment',
+  'Screen 15: Subscription Analytics',
+  'Screen 16: Broadcast Message',
+  'Screen 17: Email Templates',
+  'Screen 18: Payment Flow & Edge Cases',
+  'Screen 19: Data Model',
+  'Screen 20: Notification Triggers'
+];
+let current = 0;
+let annotationsVisible = true;
+
+function goTo(index) {
+  if (index < 0 || index >= screens.length) return;
+  screens[current].classList.remove('active');
+  tocItems[current].classList.remove('active');
+  current = index;
+  screens[current].classList.add('active');
+  tocItems[current].classList.add('active');
+  document.getElementById('viewerTitle').textContent = titles[current];
+  document.getElementById('viewerCounter').textContent = (current + 1) + ' / ' + screens.length;
+  document.getElementById('viewerContent').scrollTop = 0;
+  tocItems[current].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+function next() { goTo(current + 1); }
+function prev() { goTo(current - 1); }
+function toggleAnnotations() {
+  annotationsVisible = !annotationsVisible;
+  document.getElementById('viewerContent').classList.toggle('annotations-hidden', !annotationsVisible);
+  document.getElementById('btnAnnotations').classList.toggle('active', annotationsVisible);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+// Initialize
+document.getElementById('btnAnnotations').classList.add('active');
+</script>
+
+</body>
+</html>
