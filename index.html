@@ -1778,114 +1778,245 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 <div class="screen" id="screen-2">
 <div class="mockup-container">
   <div class="screen-title">Product Quick-View Popup</div>
-  <div class="screen-subtitle">Modal overlay on /products page — first touchpoint for subscribe. Keep it minimal here.</div>
+  <div class="screen-subtitle">Modal overlay on /products page — first touchpoint for subscribe. Desktop modal + mobile bottom sheet.</div>
 
-  <!-- Dimmed products grid background -->
-  <div style="position:relative;border-radius:var(--card-radius);overflow:hidden;">
-    <!-- Background: products page (dimmed) -->
-    <div style="opacity:0.3;pointer-events:none;">
-      <div class="mkt-header" style="border-radius:var(--card-radius) var(--card-radius) 0 0;">
-        <div class="mkt-header-left">
-          <div class="mkt-logo">
-            <svg width="120" viewBox="0 0 389 102" fill="none">
-              <text x="115" y="68" font-family="Nunito, sans-serif" font-weight="800" font-size="50" fill="#171717" letter-spacing="-1">homegrown</text>
-            </svg>
+  <div style="display:flex;gap:40px;justify-content:center;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- ===== DESKTOP VERSION ===== -->
+    <div>
+      <div style="font-size:13px;font-weight:700;color:var(--hg-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;text-align:center;">Desktop — Floating Card</div>
+
+      <div style="position:relative;border-radius:var(--card-radius);overflow:visible;width:540px;">
+        <!-- Background: products page (FULL opacity — not dimmed) -->
+        <div style="pointer-events:none;border-radius:var(--card-radius);overflow:hidden;">
+          <div class="mkt-header" style="border-radius:var(--card-radius) var(--card-radius) 0 0;">
+            <div class="mkt-header-left">
+              <div class="mkt-logo">
+                <svg width="120" viewBox="0 0 389 102" fill="none">
+                  <text x="115" y="68" font-family="Nunito, sans-serif" font-weight="800" font-size="50" fill="#171717" letter-spacing="-1">homegrown</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Category filter pills -->
+          <div style="padding:16px 32px 0;background:var(--hg-white);">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <span style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700;background:var(--hg-green-light);color:white;">All (7)</span>
+              <span style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;background:var(--hg-bg);color:var(--hg-text-secondary);border:1px solid var(--hg-border);">Artisan Bakery Goods (3)</span>
+              <span style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;background:var(--hg-bg);color:var(--hg-text-secondary);border:1px solid var(--hg-border);">Fresh Produce (2)</span>
+            </div>
+          </div>
+          <!-- Product cards -->
+          <div style="padding:20px 32px 60px;background:var(--hg-white);">
+            <div class="product-grid">
+              <div class="product-card">
+                <div style="position:relative;">
+                  <div class="product-img">🍞</div>
+                  <span style="position:absolute;top:8px;left:8px;background:var(--hg-amber);color:white;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;">POPULAR</span>
+                  <span style="position:absolute;bottom:8px;left:8px;background:rgba(23,23,23,0.85);color:white;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;">$8.00</span>
+                </div>
+                <div class="product-info">
+                  <div class="product-name">Sourdough Boule</div>
+                  <div class="product-vendor">Sarah's Bakery</div>
+                </div>
+              </div>
+              <div class="product-card">
+                <div style="position:relative;">
+                  <div class="product-img" style="background:#e8f5e9;">🥚</div>
+                  <span style="position:absolute;bottom:8px;left:8px;background:rgba(23,23,23,0.85);color:white;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;">$6.00</span>
+                </div>
+                <div class="product-info">
+                  <div class="product-name">Farm Fresh Eggs</div>
+                  <div class="product-vendor">Green Acres Farm</div>
+                </div>
+              </div>
+              <div class="product-card">
+                <div style="position:relative;">
+                  <div class="product-img" style="background:#fef3c7;">📖</div>
+                  <span style="position:absolute;bottom:8px;left:8px;background:rgba(23,23,23,0.85);color:white;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;">$12.35</span>
+                </div>
+                <div class="product-info">
+                  <div class="product-name">The Garden Book</div>
+                  <div class="product-vendor">Book Lovers</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- Category filter pills -->
-      <div style="padding:16px 32px 0;background:var(--hg-white);">
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <span style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700;background:var(--hg-green-light);color:white;">All (7)</span>
-          <span style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;background:var(--hg-bg);color:var(--hg-text-secondary);border:1px solid var(--hg-border);">Artisan Bakery Goods (3)</span>
-          <span style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;background:var(--hg-bg);color:var(--hg-text-secondary);border:1px solid var(--hg-border);">Books and Media (2)</span>
-          <span style="padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;background:var(--hg-bg);color:var(--hg-text-secondary);border:1px solid var(--hg-border);">Fresh Produce (2)</span>
-        </div>
-      </div>
-      <!-- Product cards (blurred bg) -->
-      <div style="padding:20px 32px 60px;background:var(--hg-white);">
-        <div class="product-grid">
-          <div class="product-card">
-            <div style="position:relative;">
-              <div class="product-img">🍞</div>
-              <span style="position:absolute;top:8px;left:8px;background:var(--hg-amber);color:white;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;">POPULAR</span>
-              <span style="position:absolute;bottom:8px;left:8px;background:rgba(23,23,23,0.85);color:white;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;">$8.00</span>
+
+        <!-- Floating Quick-View Card (positioned over the first product card) -->
+        <div class="p-rel" style="position:absolute;top:80px;left:20px;right:20px;background:var(--hg-white);border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,0.18),0 2px 12px rgba(0,0,0,0.08);overflow:hidden;z-index:10;">
+          <div style="display:flex;">
+            <!-- Left: product image with carousel dots -->
+            <div style="width:220px;flex-shrink:0;background:#f0ebe4;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
+              <div style="font-size:72px;">🍞</div>
+              <!-- Carousel dots -->
+              <div style="position:absolute;bottom:10px;display:flex;gap:5px;">
+                <div style="width:7px;height:7px;border-radius:50%;background:#3d9a50;"></div>
+                <div style="width:7px;height:7px;border-radius:50%;background:#ccc;"></div>
+                <div style="width:7px;height:7px;border-radius:50%;background:#ccc;"></div>
+              </div>
+              <div style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6f6f6f" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
             </div>
-            <div class="product-info">
-              <div class="product-name">Sourdough Boule</div>
-              <div class="product-vendor">Sarah's Bakery</div>
-            </div>
-          </div>
-          <div class="product-card">
-            <div style="position:relative;">
-              <div class="product-img" style="background:#e8f5e9;">🥚</div>
-              <span style="position:absolute;bottom:8px;left:8px;background:rgba(23,23,23,0.85);color:white;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;">$6.00</span>
-            </div>
-            <div class="product-info">
-              <div class="product-name">Farm Fresh Eggs</div>
-              <div class="product-vendor">Green Acres Farm</div>
-            </div>
-          </div>
-          <div class="product-card">
-            <div style="position:relative;">
-              <div class="product-img" style="background:#fef3c7;">📖</div>
-              <span style="position:absolute;bottom:8px;left:8px;background:rgba(23,23,23,0.85);color:white;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;">$12.35</span>
-            </div>
-            <div class="product-info">
-              <div class="product-name">The Garden Book</div>
-              <div class="product-vendor">Book Lovers</div>
+            <!-- Right: product info -->
+            <div style="flex:1;padding:20px;position:relative;">
+              <!-- Close X -->
+              <div style="position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--hg-text-muted);font-size:18px;">&#x2715;</div>
+              <h3 style="font-size:18px;font-weight:800;margin-bottom:4px;">Sourdough Boule</h3>
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
+                <span style="font-size:20px;font-weight:800;">$8.00</span>
+                <span style="font-size:13px;font-weight:600;color:#3d9a50;">In Stock</span>
+              </div>
+
+              <a href="#" class="text-link" style="font-size:12px;display:block;margin-bottom:12px;text-decoration:underline;color:var(--hg-text-secondary);">View Details</a>
+
+              <!-- Size variant selector -->
+              <div style="margin-bottom:12px;">
+                <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Size</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <span style="padding:6px 14px;border-radius:999px;background:#3d9a50;color:white;font-size:12px;font-weight:700;cursor:pointer;">1 loaf</span>
+                  <span style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">2 loaves +$7.20</span>
+                  <span style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;color:var(--hg-text-secondary);cursor:pointer;">4 loaves +$20.80</span>
+                </div>
+              </div>
+
+              <!-- Subscribe toggle (minimal in popup) -->
+              <div class="p-rel" style="background:var(--hg-green-surface);border:1px solid var(--hg-green-bg);border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--hg-green-light)" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                  <span style="font-size:13px;font-weight:700;color:var(--hg-green);">Subscribe & save 10%</span>
+                </div>
+                <span style="font-size:11px;color:var(--hg-text-secondary);">$7.20/week</span>
+                <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Quick-view keeps subscribe minimal — just a toggle prompt. Full frequency/detail experience is on the detail page via "View Details".</div></div>
+              </div>
+
+              <!-- Quantity + Add to Cart -->
+              <div style="display:flex;gap:10px;align-items:center;">
+                <div style="display:inline-flex;align-items:center;border:1px solid var(--hg-border);border-radius:var(--card-radius-sm);overflow:hidden;">
+                  <button style="width:32px;height:36px;border:none;background:var(--hg-bg);cursor:pointer;font-size:14px;font-weight:700;">−</button>
+                  <span style="width:32px;text-align:center;font-weight:700;font-size:14px;">1</span>
+                  <button style="width:32px;height:36px;border:none;background:var(--hg-bg);cursor:pointer;font-size:14px;font-weight:700;">+</button>
+                </div>
+                <button class="btn btn-amber btn-md" style="flex:1;font-weight:700;font-size:13px;">Add to Cart</button>
+              </div>
+                <div class="annotation" style="bottom:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Amber CTA for shopper actions. "View Details" link takes them to the full product page (Screen 1/2) where they can configure the full subscribe experience.</div></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Dark overlay -->
-    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;">
-      <!-- Quick-View Modal -->
-      <div class="p-rel" style="background:var(--hg-white);border-radius:var(--card-radius);max-width:620px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden;">
-        <div style="display:flex;">
-          <!-- Left: product image -->
-          <div style="width:240px;flex-shrink:0;background:#f0ebe4;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;">
-            🍞
-            <div style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;cursor:pointer;">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6f6f6f" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <!-- ===== MOBILE VERSION (Bottom Sheet) ===== -->
+    <div>
+      <div style="font-size:13px;font-weight:700;color:var(--hg-text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;text-align:center;">Mobile — Bottom Sheet</div>
+
+      <div class="phone-frame" style="position:relative;height:700px;">
+        <div class="phone-notch"><div class="phone-notch-bar"></div></div>
+        <div class="phone-content" style="position:relative;height:calc(100% - 28px);overflow:hidden;">
+
+          <!-- Background: products grid (dimmed, partial) -->
+          <div style="opacity:0.3;pointer-events:none;padding:0;">
+            <div style="padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--hg-border);">
+              <span style="font-size:16px;font-weight:800;color:var(--hg-green);">Homegrown</span>
+              <span style="font-size:16px;">&#9776;</span>
+            </div>
+            <!-- Category pills -->
+            <div style="padding:10px 16px 0;display:flex;gap:6px;">
+              <span style="padding:5px 12px;border-radius:999px;font-size:11px;font-weight:700;background:var(--hg-green-light);color:white;">All</span>
+              <span style="padding:5px 12px;border-radius:999px;font-size:11px;font-weight:600;border:1px solid var(--hg-border);color:var(--hg-text-secondary);">Bakery</span>
+              <span style="padding:5px 12px;border-radius:999px;font-size:11px;font-weight:600;border:1px solid var(--hg-border);color:var(--hg-text-secondary);">Produce</span>
+            </div>
+            <!-- Product cards (2-col) -->
+            <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="background:white;border:1px solid var(--hg-border);border-radius:10px;overflow:hidden;">
+                <div style="height:80px;background:#f0ebe4;display:flex;align-items:center;justify-content:center;font-size:32px;">🍞</div>
+                <div style="padding:8px;"><div style="font-size:11px;font-weight:700;">Sourdough</div><div style="font-size:10px;color:var(--hg-text-secondary);">$8.00</div></div>
+              </div>
+              <div style="background:white;border:1px solid var(--hg-border);border-radius:10px;overflow:hidden;">
+                <div style="height:80px;background:#e8f5e9;display:flex;align-items:center;justify-content:center;font-size:32px;">🥚</div>
+                <div style="padding:8px;"><div style="font-size:11px;font-weight:700;">Farm Eggs</div><div style="font-size:10px;color:var(--hg-text-secondary);">$6.00</div></div>
+              </div>
             </div>
           </div>
-          <!-- Right: product info -->
-          <div style="flex:1;padding:24px;position:relative;">
-            <!-- Close X -->
-            <div style="position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--hg-text-muted);font-size:18px;">&#x2715;</div>
-            <h3 style="font-size:20px;font-weight:800;margin-bottom:6px;">Sourdough Boule</h3>
-            <div style="font-size:22px;font-weight:800;margin-bottom:4px;">$8.00</div>
-            <div style="font-size:12px;color:var(--hg-green-light);font-weight:600;margin-bottom:12px;">&#x2022; In Stock</div>
 
-            <!-- Subscribe toggle (minimal in popup) -->
-            <div class="p-rel" style="background:var(--hg-green-surface);border:1px solid var(--hg-green-bg);border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--hg-green-light)" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-                <span style="font-size:13px;font-weight:700;color:var(--hg-green);">Subscribe & save 10%</span>
-              </div>
-              <span style="font-size:11px;color:var(--hg-text-secondary);">$7.20/week</span>
-              <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Quick-view keeps subscribe minimal — just a toggle prompt. Full frequency/detail experience is on the detail page via "View Details".</div></div>
+          <!-- Dark overlay -->
+          <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.45);"></div>
+
+          <!-- Bottom Sheet -->
+          <div style="position:absolute;bottom:0;left:0;right:0;background:white;border-radius:16px 16px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,0.15);display:flex;flex-direction:column;max-height:80%;">
+            <!-- Drag handle -->
+            <div style="display:flex;justify-content:center;padding:10px 0 4px;">
+              <div style="width:36px;height:4px;background:var(--hg-border);border-radius:999px;"></div>
             </div>
 
-            <a href="#" class="text-link" style="font-size:12px;display:block;margin-bottom:14px;">View Details &rarr;</a>
-
-            <!-- Quantity + Add to Cart -->
-            <div style="display:flex;gap:10px;align-items:center;">
-              <div style="display:inline-flex;align-items:center;border:1px solid var(--hg-border);border-radius:var(--card-radius-sm);overflow:hidden;">
-                <button style="width:34px;height:38px;border:none;background:var(--hg-bg);cursor:pointer;font-size:14px;font-weight:700;">−</button>
-                <span style="width:36px;text-align:center;font-weight:700;font-size:14px;">1</span>
-                <button style="width:34px;height:38px;border:none;background:var(--hg-bg);cursor:pointer;font-size:14px;font-weight:700;">+</button>
+            <!-- Scrollable content -->
+            <div style="padding:0 16px;overflow-y:auto;flex:1;">
+              <!-- Product image (centered) -->
+              <div style="display:flex;justify-content:center;margin-bottom:12px;position:relative;">
+                <div style="width:180px;height:160px;background:#f0ebe4;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:64px;">🍞</div>
+                <!-- Heart button -->
+                <div style="position:absolute;top:4px;right:0;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.9);border:1px solid var(--hg-border);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6f6f6f" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
               </div>
-              <button class="btn btn-amber btn-md" style="flex:1;font-weight:700;">Add to Cart</button>
+
+              <!-- Product name -->
+              <div style="font-size:18px;font-weight:800;margin-bottom:4px;">Sourdough Boule</div>
+
+              <!-- Price + In Stock (inline) -->
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">
+                <span style="font-size:20px;font-weight:800;">$8.00</span>
+                <span style="font-size:13px;font-weight:600;color:#3d9a50;">In Stock</span>
+              </div>
+
+              <!-- View Details link -->
+              <a href="#" style="font-size:12px;display:block;margin-bottom:14px;text-decoration:underline;color:var(--hg-text-secondary);">View Details</a>
+
+              <!-- Size variant pills -->
+              <div style="margin-bottom:14px;">
+                <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Size</div>
+                <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;">
+                  <span style="padding:6px 14px;border-radius:999px;background:#3d9a50;color:white;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer;">1 loaf</span>
+                  <span style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;color:var(--hg-text-secondary);white-space:nowrap;cursor:pointer;">2 loaves +$7.20</span>
+                  <span style="padding:6px 14px;border-radius:999px;border:1px solid var(--hg-border);font-size:12px;font-weight:600;color:var(--hg-text-secondary);white-space:nowrap;cursor:pointer;">4 loaves +$20.80</span>
+                </div>
+              </div>
+
+              <!-- Subscribe toggle -->
+              <div style="background:var(--hg-green-surface);border:1px solid var(--hg-green-bg);border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--hg-green-light)" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                  <span style="font-size:12px;font-weight:700;color:var(--hg-green);">Subscribe & save 10%</span>
+                </div>
+                <span style="font-size:11px;color:var(--hg-text-secondary);">$7.20/wk</span>
+              </div>
             </div>
-            <div class="annotation" style="bottom:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">Amber CTA for shopper actions. "View Details" link takes them to the full product page (Screen 1/2) where they can configure the full subscribe experience.</div></div>
+
+            <!-- Sticky bottom: Quantity + Add to Cart -->
+            <div style="padding:12px 16px;border-top:1px solid var(--hg-border);background:white;display:flex;align-items:center;gap:10px;">
+              <div style="display:flex;align-items:center;gap:2px;">
+                <span style="font-size:11px;color:var(--hg-text-secondary);margin-right:4px;">Qty</span>
+                <div style="display:inline-flex;align-items:center;border:1px solid var(--hg-border);border-radius:8px;overflow:hidden;">
+                  <button style="width:30px;height:34px;border:none;background:var(--hg-bg);cursor:pointer;font-size:13px;font-weight:700;">−</button>
+                  <span style="width:28px;text-align:center;font-weight:700;font-size:13px;">1</span>
+                  <button style="width:30px;height:34px;border:none;background:var(--hg-bg);cursor:pointer;font-size:13px;font-weight:700;">+</button>
+                </div>
+              </div>
+              <button class="btn btn-amber btn-md" style="flex:1;font-weight:700;font-size:14px;">Add to Cart</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+  </div>
+
+  <!-- Annotation -->
+  <div style="margin-top:20px;padding:14px 18px;background:var(--hg-green-surface);border:1px solid var(--hg-green-bg);border-radius:8px;font-size:13px;color:var(--hg-text);line-height:1.5;">
+    <strong>Note:</strong> QA shows variant/size selectors in the popup — subscription products can use these for box sizes (Small $25, Large $45). The bottom sheet pattern on mobile matches iOS/Android conventions.
   </div>
 </div>
 </div>
