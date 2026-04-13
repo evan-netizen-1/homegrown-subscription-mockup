@@ -5452,12 +5452,25 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
             </div>
           </div>
 
-          <!-- Stats strip -->
-          <div class="stats-bar" style="margin-bottom:20px;">
-            <div class="stat-card"><div class="stat-label">Total Spent</div><div class="stat-value" style="font-size:20px;">$86.40</div></div>
-            <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-value" style="font-size:20px;">12</div></div>
+          <!-- Stats strip — 6 metrics -->
+          <div class="stats-bar" style="margin-bottom:20px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px;">
+            <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-value" style="font-size:20px;">$86.40</div></div>
+            <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-value" style="font-size:20px;">12</div></div>
             <div class="stat-card"><div class="stat-label">Avg Order</div><div class="stat-value" style="font-size:20px;">$7.20</div></div>
+            <div class="stat-card"><div class="stat-label">Frequency</div><div class="stat-value" style="font-size:20px;">Weekly</div></div>
+            <div class="stat-card"><div class="stat-label">Customer Since</div><div class="stat-value" style="font-size:20px;">Feb 8</div></div>
             <div class="stat-card"><div class="stat-label">Last Order</div><div class="stat-value" style="font-size:20px;">Apr 12</div></div>
+          </div>
+
+          <!-- Customer Insights callout -->
+          <div class="card-sm" style="padding:16px 18px;margin-bottom:20px;background:var(--hg-cream);border-left:4px solid var(--hg-green-light);">
+            <div style="font-size:13px;font-weight:800;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;color:var(--hg-green);">Customer Insights</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;font-size:12px;color:var(--hg-text-secondary);">
+              <div>💰 Lifetime value: <strong style="color:var(--hg-text);">$86.40</strong> (9 wks active)</div>
+              <div>🗓️ Subscribed <strong style="color:var(--hg-text);">2 months ago</strong></div>
+              <div>⭐ <strong style="color:var(--hg-text);">Top 10%</strong> of your customers by LTV</div>
+              <div>✅ Reliability: <strong style="color:var(--hg-text);">92%</strong> pickup rate (11/12)</div>
+            </div>
           </div>
 
           <!-- Subscription Card -->
@@ -5478,18 +5491,54 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
             </div>
           </div>
 
-          <!-- Order History -->
-          <div class="card-sm" style="overflow:hidden;">
-            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);font-size:14px;font-weight:700;">Order History</div>
+          <!-- Products Ordered breakdown -->
+          <div class="card-sm" style="overflow:hidden;margin-bottom:20px;">
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:14px;font-weight:700;">Products Ordered</div>
+              <div style="font-size:11px;color:var(--hg-text-muted);">Sorted by revenue</div>
+            </div>
             <table class="data-table">
-              <thead><tr><th>Date</th><th>Item</th><th>Amount</th><th>Status</th></tr></thead>
+              <thead><tr><th>Product</th><th>Orders</th><th>Qty</th><th>Revenue</th><th style="width:160px;">% of Spend</th></tr></thead>
               <tbody>
-                <tr><td>Apr 12</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Apr 5</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 29</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 22</td><td>Sourdough Boule x1</td><td style="color:var(--hg-text-muted);">—</td><td><span class="pill pill-amber" style="font-size:10px;padding:1px 6px;">Skipped</span></td></tr>
-                <tr><td>Mar 15</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 8</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr>
+                  <td style="font-weight:600;">Sourdough Boule <span style="font-size:10px;color:var(--hg-green-light);font-weight:700;">SUB</span></td>
+                  <td>11</td><td>11</td>
+                  <td style="font-weight:700;">$79.20</td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--hg-border);border-radius:3px;overflow:hidden;"><div style="width:92%;height:100%;background:var(--hg-green-light);"></div></div><span style="font-size:11px;font-weight:700;color:var(--hg-text-secondary);">92%</span></div></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Seeded Rye Loaf</td>
+                  <td>1</td><td>1</td>
+                  <td style="font-weight:700;">$7.20</td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--hg-border);border-radius:3px;overflow:hidden;"><div style="width:8%;height:100%;background:var(--hg-green-light);"></div></div><span style="font-size:11px;font-weight:700;color:var(--hg-text-secondary);">8%</span></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Full Order History -->
+          <div class="card-sm" style="overflow:hidden;">
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:14px;font-weight:700;">Order History <span style="font-weight:500;color:var(--hg-text-muted);font-size:12px;">· 12 orders</span></div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <select style="font-size:11px;padding:5px 10px;border:1px solid var(--hg-border);border-radius:6px;background:var(--hg-white);color:var(--hg-text);"><option>All time</option><option>Last 30 days</option><option>Last 90 days</option><option>This year</option></select>
+                <button class="btn btn-outline btn-sm" style="font-size:11px;padding:5px 12px;">Export CSV</button>
+              </div>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Date</th><th>Order #</th><th>Item</th><th>Qty</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Apr 12</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#1098</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Apr 5</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#1041</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 29</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0998</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 22</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0986</td><td>Sourdough Boule</td><td>1</td><td style="color:var(--hg-text-muted);">—</td><td><span class="pill pill-amber" style="font-size:10px;padding:1px 6px;">Skipped</span></td></tr>
+                <tr><td>Mar 15</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0955</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 8</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0933</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 1</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0899</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Feb 22</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0872</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Feb 15</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0840</td><td>Seeded Rye Loaf</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-gray" style="font-size:10px;padding:1px 6px;">One-off</span></td></tr>
+                <tr><td>Feb 8</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0816</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-gray" style="font-size:10px;padding:1px 6px;">First order</span></td></tr>
+                <tr><td colspan="6" style="text-align:center;padding:10px;font-size:11px;color:var(--hg-text-muted);">+ 2 earlier orders</td></tr>
               </tbody>
             </table>
           </div>
@@ -5586,34 +5635,84 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
             </div>
           </div>
 
-          <!-- Stats strip -->
-          <div class="stats-bar" style="margin-bottom:20px;">
-            <div class="stat-card"><div class="stat-label">Total Spent</div><div class="stat-value" style="font-size:20px;">$32.40</div></div>
-            <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-value" style="font-size:20px;">5</div></div>
+          <!-- Stats strip — expanded to 6 metrics -->
+          <div class="stats-bar" style="margin-bottom:20px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px;">
+            <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-value" style="font-size:20px;">$32.40</div></div>
+            <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-value" style="font-size:20px;">5</div></div>
             <div class="stat-card"><div class="stat-label">Avg Order</div><div class="stat-value" style="font-size:20px;">$6.48</div></div>
+            <div class="stat-card"><div class="stat-label">Frequency</div><div class="stat-value" style="font-size:20px;">~14 days</div></div>
+            <div class="stat-card"><div class="stat-label">Customer Since</div><div class="stat-value" style="font-size:20px;">Feb 8</div></div>
             <div class="stat-card"><div class="stat-label">Last Order</div><div class="stat-value" style="font-size:20px;">Apr 5</div></div>
+          </div>
+
+          <!-- Customer Insights callout -->
+          <div class="card-sm" style="padding:16px 18px;margin-bottom:20px;background:var(--hg-cream);border-left:4px solid var(--hg-green-light);">
+            <div style="font-size:13px;font-weight:800;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;color:var(--hg-green);">Customer Insights</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;font-size:12px;color:var(--hg-text-secondary);">
+              <div>📈 <strong style="color:var(--hg-text);">74%</strong> of her spend is on Farm Fresh Eggs</div>
+              <div>🗓️ Orders roughly <strong style="color:var(--hg-text);">every 2 weeks</strong></div>
+              <div>⭐ <strong style="color:var(--hg-text);">Top 25%</strong> of your customers by LTV</div>
+              <div>🎯 Predicted next order: <strong style="color:var(--hg-text);">Apr 19</strong></div>
+            </div>
           </div>
 
           <!-- Subscription upsell CTA -->
           <div style="background:var(--hg-green-surface);border:1px solid var(--hg-green-bg);border-radius:var(--card-radius-sm);padding:18px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;">
             <div>
               <div style="font-size:14px;font-weight:700;color:var(--hg-green);margin-bottom:4px;">Jennifer is a regular — she might be interested in subscribing</div>
-              <div style="font-size:12px;color:var(--hg-text-secondary);">She buys eggs almost every 2 weeks</div>
+              <div style="font-size:12px;color:var(--hg-text-secondary);">She buys eggs almost every 2 weeks — perfect Subscribe &amp; Save candidate</div>
             </div>
             <button class="btn btn-outline btn-sm" style="white-space:nowrap;">Send her a subscription offer</button>
           </div>
 
-          <!-- Order History -->
-          <div class="card-sm" style="overflow:hidden;">
-            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);font-size:14px;font-weight:700;">Order History</div>
+          <!-- Products Ordered breakdown -->
+          <div class="card-sm" style="overflow:hidden;margin-bottom:20px;">
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:14px;font-weight:700;">Products Ordered</div>
+              <div style="font-size:11px;color:var(--hg-text-muted);">Sorted by revenue</div>
+            </div>
             <table class="data-table">
-              <thead><tr><th>Date</th><th>Items</th><th>Amount</th><th>Status</th></tr></thead>
+              <thead><tr><th>Product</th><th>Orders</th><th>Qty</th><th>Revenue</th><th style="width:160px;">% of Spend</th></tr></thead>
               <tbody>
-                <tr><td>Apr 5</td><td>Farm Fresh Eggs (dozen)</td><td style="font-weight:700;">$6.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 22</td><td>Farm Fresh Eggs (dozen), Mixed Greens</td><td style="font-weight:700;">$11.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 8</td><td>Farm Fresh Eggs (dozen)</td><td style="font-weight:700;">$6.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Feb 22</td><td>Heirloom Tomatoes, Farm Fresh Eggs</td><td style="font-weight:700;">$10.50</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Feb 8</td><td>Farm Fresh Eggs (dozen)</td><td style="font-weight:700;">$6.00</td><td><span class="pill pill-gray" style="font-size:10px;padding:1px 6px;">First order</span></td></tr>
+                <tr>
+                  <td style="font-weight:600;">Farm Fresh Eggs (dozen)</td>
+                  <td>4</td><td>4</td>
+                  <td style="font-weight:700;">$24.00</td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--hg-border);border-radius:3px;overflow:hidden;"><div style="width:74%;height:100%;background:var(--hg-green-light);"></div></div><span style="font-size:11px;font-weight:700;color:var(--hg-text-secondary);">74%</span></div></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Mixed Greens</td>
+                  <td>1</td><td>1</td>
+                  <td style="font-weight:700;">$5.00</td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--hg-border);border-radius:3px;overflow:hidden;"><div style="width:15%;height:100%;background:var(--hg-green-light);"></div></div><span style="font-size:11px;font-weight:700;color:var(--hg-text-secondary);">15%</span></div></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Heirloom Tomatoes</td>
+                  <td>1</td><td>1</td>
+                  <td style="font-weight:700;">$3.40</td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--hg-border);border-radius:3px;overflow:hidden;"><div style="width:11%;height:100%;background:var(--hg-green-light);"></div></div><span style="font-size:11px;font-weight:700;color:var(--hg-text-secondary);">11%</span></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Full Order History -->
+          <div class="card-sm" style="overflow:hidden;">
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:14px;font-weight:700;">Order History <span style="font-weight:500;color:var(--hg-text-muted);font-size:12px;">· 5 orders</span></div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <select style="font-size:11px;padding:5px 10px;border:1px solid var(--hg-border);border-radius:6px;background:var(--hg-white);color:var(--hg-text);"><option>All time</option><option>Last 30 days</option><option>Last 90 days</option><option>This year</option></select>
+                <button class="btn btn-outline btn-sm" style="font-size:11px;padding:5px 12px;">Export CSV</button>
+              </div>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Date</th><th>Order #</th><th>Items</th><th>Qty</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Apr 5</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#1042</td><td>Farm Fresh Eggs (dozen)</td><td>1</td><td style="font-weight:700;">$6.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 22</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0987</td><td>Farm Fresh Eggs + Mixed Greens</td><td>2</td><td style="font-weight:700;">$11.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 8</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0934</td><td>Farm Fresh Eggs (dozen)</td><td>1</td><td style="font-weight:700;">$6.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Feb 22</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0871</td><td>Heirloom Tomatoes + Farm Fresh Eggs</td><td>2</td><td style="font-weight:700;">$9.40</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Feb 8</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0815</td><td>Farm Fresh Eggs (dozen)</td><td>1</td><td style="font-weight:700;">$6.00</td><td><span class="pill pill-gray" style="font-size:10px;padding:1px 6px;">First order</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -5699,12 +5798,25 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
             </div>
           </div>
 
-          <!-- Stats strip -->
-          <div class="stats-bar" style="margin-bottom:20px;">
-            <div class="stat-card"><div class="stat-label">Total Spent</div><div class="stat-value" style="font-size:20px;">$57.60</div></div>
-            <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-value" style="font-size:20px;">8</div></div>
+          <!-- Stats strip — 6 metrics -->
+          <div class="stats-bar" style="margin-bottom:20px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px;">
+            <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-value" style="font-size:20px;">$57.60</div></div>
+            <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-value" style="font-size:20px;">8</div></div>
             <div class="stat-card"><div class="stat-label">Avg Order</div><div class="stat-value" style="font-size:20px;">$7.20</div></div>
+            <div class="stat-card"><div class="stat-label">Frequency</div><div class="stat-value" style="font-size:20px;">Weekly</div></div>
+            <div class="stat-card"><div class="stat-label">Customer Since</div><div class="stat-value" style="font-size:20px;">Jan 18</div></div>
             <div class="stat-card"><div class="stat-label">Last Order</div><div class="stat-value" style="font-size:20px;">Apr 5</div></div>
+          </div>
+
+          <!-- Customer Insights callout -->
+          <div class="card-sm" style="padding:16px 18px;margin-bottom:20px;background:var(--hg-cream);border-left:4px solid var(--hg-amber);">
+            <div style="font-size:13px;font-weight:800;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;color:var(--hg-green);">Customer Insights</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;font-size:12px;color:var(--hg-text-secondary);">
+              <div>💰 Lifetime value: <strong style="color:var(--hg-text);">$57.60</strong> (3 mo active)</div>
+              <div>✅ Pickup rate: <strong style="color:var(--hg-text);">100%</strong> (8/8 before fail)</div>
+              <div>⚠️ At risk: <strong style="color:var(--hg-red);">payment failed</strong> April 12</div>
+              <div>⭐ <strong style="color:var(--hg-text);">Top 30%</strong> by LTV — worth saving</div>
+            </div>
           </div>
 
           <!-- Subscription Card with RED border -->
@@ -5751,20 +5863,49 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
             <div style="font-size:12px;color:var(--hg-text-secondary);">Last successful charge: April 5 — $7.20</div>
           </div>
 
-          <!-- Order History -->
-          <div class="card-sm" style="overflow:hidden;">
-            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);font-size:14px;font-weight:700;">Order History</div>
+          <!-- Products Ordered breakdown -->
+          <div class="card-sm" style="overflow:hidden;margin-bottom:20px;">
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:14px;font-weight:700;">Products Ordered</div>
+              <div style="font-size:11px;color:var(--hg-text-muted);">Sorted by revenue</div>
+            </div>
             <table class="data-table">
-              <thead><tr><th>Date</th><th>Item</th><th>Amount</th><th>Status</th></tr></thead>
+              <thead><tr><th>Product</th><th>Orders</th><th>Qty</th><th>Revenue</th><th style="width:160px;">% of Spend</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;">Sourdough Boule <span style="font-size:10px;color:var(--hg-green-light);font-weight:700;">SUB</span></td>
+                  <td>8</td><td>8</td>
+                  <td style="font-weight:700;">$57.60</td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--hg-border);border-radius:3px;overflow:hidden;"><div style="width:100%;height:100%;background:var(--hg-green-light);"></div></div><span style="font-size:11px;font-weight:700;color:var(--hg-text-secondary);">100%</span></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Full Order History -->
+          <div class="card-sm" style="overflow:hidden;">
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:14px;font-weight:700;">Order History <span style="font-weight:500;color:var(--hg-text-muted);font-size:12px;">· 8 orders · 1 failed</span></div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <select style="font-size:11px;padding:5px 10px;border:1px solid var(--hg-border);border-radius:6px;background:var(--hg-white);color:var(--hg-text);"><option>All time</option><option>Last 30 days</option><option>Last 90 days</option></select>
+                <button class="btn btn-outline btn-sm" style="font-size:11px;padding:5px 12px;">Export CSV</button>
+              </div>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Date</th><th>Order #</th><th>Item</th><th>Qty</th><th>Amount</th><th>Status</th></tr></thead>
               <tbody>
                 <tr style="background:var(--hg-red-light);">
-                  <td>Apr 12</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td>
-                  <td><span style="color:var(--hg-red);font-weight:700;font-size:12px;">❌ Payment failed</span></td>
+                  <td>Apr 12</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#1099</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td>
+                  <td><span style="color:var(--hg-red);font-weight:700;font-size:11px;">❌ Payment failed</span></td>
                 </tr>
-                <tr><td>Apr 5</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 29</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 22</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 15</td><td>Sourdough Boule x1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Apr 5</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#1042</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 29</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0999</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 22</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0985</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 15</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0956</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 8</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0935</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 1</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0900</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Feb 22</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0873</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Feb 15</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0841</td><td>Sourdough Boule</td><td>1</td><td style="font-weight:700;">$7.20</td><td><span class="pill pill-gray" style="font-size:10px;padding:1px 6px;">First order</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -5831,12 +5972,25 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
             </div>
           </div>
 
-          <!-- Stats strip -->
-          <div class="stats-bar" style="margin-bottom:20px;">
-            <div class="stat-card"><div class="stat-label">Total Spent</div><div class="stat-value" style="font-size:20px;">$140.00</div></div>
-            <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-value" style="font-size:20px;">4</div></div>
+          <!-- Stats strip — 6 metrics -->
+          <div class="stats-bar" style="margin-bottom:20px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px;">
+            <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-value" style="font-size:20px;">$140.00</div></div>
+            <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-value" style="font-size:20px;">4</div></div>
             <div class="stat-card"><div class="stat-label">Avg Order</div><div class="stat-value" style="font-size:20px;">$35.00</div></div>
-            <div class="stat-card"><div class="stat-label">Last Order</div><div class="stat-value" style="font-size:20px;">Mar 28</div></div>
+            <div class="stat-card"><div class="stat-label">Active For</div><div class="stat-value" style="font-size:20px;">4 wks</div></div>
+            <div class="stat-card"><div class="stat-label">Customer Since</div><div class="stat-value" style="font-size:20px;">Mar 7</div></div>
+            <div class="stat-card"><div class="stat-label">Cancelled</div><div class="stat-value" style="font-size:20px;">Mar 28</div></div>
+          </div>
+
+          <!-- Customer Insights callout -->
+          <div class="card-sm" style="padding:16px 18px;margin-bottom:20px;background:var(--hg-cream);border-left:4px solid var(--hg-text-muted);">
+            <div style="font-size:13px;font-weight:800;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;color:var(--hg-green);">Customer Insights</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;font-size:12px;color:var(--hg-text-secondary);">
+              <div>💰 LTV before churn: <strong style="color:var(--hg-text);">$140.00</strong></div>
+              <div>✅ Pickup rate: <strong style="color:var(--hg-text);">100%</strong> (4/4 — never skipped)</div>
+              <div>📉 Churn reason: <strong style="color:var(--hg-text);">Too much food</strong></div>
+              <div>🎯 Win-back fit: <strong style="color:var(--hg-green-light);">High</strong> — half-size box candidate</div>
+            </div>
           </div>
 
           <!-- Subscription Card with GRAY border -->
@@ -5864,20 +6018,45 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
             </div>
           </div>
 
-          <!-- Order History -->
-          <div class="card-sm" style="overflow:hidden;">
-            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);font-size:14px;font-weight:700;">Order History</div>
+          <!-- Products Ordered breakdown -->
+          <div class="card-sm" style="overflow:hidden;margin-bottom:20px;">
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:14px;font-weight:700;">Products Ordered</div>
+              <div style="font-size:11px;color:var(--hg-text-muted);">Sorted by revenue</div>
+            </div>
             <table class="data-table">
-              <thead><tr><th>Date</th><th>Item</th><th>Amount</th><th>Status</th></tr></thead>
+              <thead><tr><th>Product</th><th>Orders</th><th>Qty</th><th>Revenue</th><th style="width:160px;">% of Spend</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;">Weekly Farm Box <span style="font-size:10px;color:var(--hg-text-muted);font-weight:700;">CHURNED</span></td>
+                  <td>4</td><td>4</td>
+                  <td style="font-weight:700;">$140.00</td>
+                  <td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:var(--hg-border);border-radius:3px;overflow:hidden;"><div style="width:100%;height:100%;background:var(--hg-text-muted);"></div></div><span style="font-size:11px;font-weight:700;color:var(--hg-text-secondary);">100%</span></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Full Order History -->
+          <div class="card-sm" style="overflow:hidden;">
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hg-border);display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:14px;font-weight:700;">Order History <span style="font-weight:500;color:var(--hg-text-muted);font-size:12px;">· 4 orders</span></div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <select style="font-size:11px;padding:5px 10px;border:1px solid var(--hg-border);border-radius:6px;background:var(--hg-white);color:var(--hg-text);"><option>All time</option><option>Last 30 days</option><option>Last 90 days</option></select>
+                <button class="btn btn-outline btn-sm" style="font-size:11px;padding:5px 12px;">Export CSV</button>
+              </div>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Date</th><th>Order #</th><th>Item</th><th>Qty</th><th>Amount</th><th>Status</th></tr></thead>
               <tbody>
                 <tr style="background:var(--hg-bg);">
-                  <td>Mar 28</td><td colspan="2" style="color:var(--hg-text-muted);font-style:italic;">Subscription cancelled</td>
+                  <td>Mar 28</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">—</td><td colspan="3" style="color:var(--hg-text-muted);font-style:italic;">Subscription cancelled — reason: "Too much food"</td>
                   <td><span class="pill pill-gray" style="font-size:10px;padding:1px 6px;">Cancelled</span></td>
                 </tr>
-                <tr><td>Mar 28</td><td>Weekly Farm Box</td><td style="font-weight:700;">$35.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 21</td><td>Weekly Farm Box</td><td style="font-weight:700;">$35.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 14</td><td>Weekly Farm Box</td><td style="font-weight:700;">$35.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
-                <tr><td>Mar 7</td><td>Weekly Farm Box</td><td style="font-weight:700;">$35.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 28</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0990</td><td>Weekly Farm Box</td><td>1</td><td style="font-weight:700;">$35.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 21</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0970</td><td>Weekly Farm Box</td><td>1</td><td style="font-weight:700;">$35.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 14</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0945</td><td>Weekly Farm Box</td><td>1</td><td style="font-weight:700;">$35.00</td><td><span class="pill pill-green" style="font-size:10px;padding:1px 6px;">Picked up</span></td></tr>
+                <tr><td>Mar 7</td><td style="font-family:monospace;font-size:11px;color:var(--hg-text-muted);">#0920</td><td>Weekly Farm Box</td><td>1</td><td style="font-weight:700;">$35.00</td><td><span class="pill pill-gray" style="font-size:10px;padding:1px 6px;">First order</span></td></tr>
               </tbody>
             </table>
           </div>
