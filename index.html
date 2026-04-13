@@ -3632,28 +3632,28 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
       <!-- 3 Type cards with detail -->
       <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">Choose your subscription type</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:28px;">
+        <div class="card-sm" style="padding:20px;border-top:3px solid var(--hg-amber);">
+          <div style="font-size:22px;margin-bottom:8px;">🏷️</div>
+          <div style="font-size:14px;font-weight:800;margin-bottom:6px;">Subscribe & Save</div>
+          <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.4;margin-bottom:12px;">Add a recurring discount to any existing product. Customers save, you get loyalty.</div>
+          <div style="font-size:11px;color:var(--hg-green);background:var(--hg-green-bg);padding:6px 10px;border-radius:6px;line-height:1.3;">
+            <strong>Example:</strong> 10% off when they subscribe to Farm Fresh Eggs
+          </div>
+        </div>
         <div class="card-sm" style="padding:20px;border-top:3px solid var(--hg-green-light);">
-          <div style="font-size:22px;margin-bottom:8px;">&#128260;</div>
-          <div style="font-size:14px;font-weight:800;margin-bottom:6px;">Recurring Item</div>
-          <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.4;margin-bottom:12px;">Same product on a schedule. Perfect for bread, eggs, dairy, or any staple your customers buy regularly.</div>
+          <div style="font-size:22px;margin-bottom:8px;">🔄</div>
+          <div style="font-size:14px;font-weight:800;margin-bottom:6px;">Recurring Only</div>
+          <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.4;margin-bottom:12px;">Subscription-only product — no one-time purchase option. Customers must subscribe to buy it.</div>
           <div style="font-size:11px;color:var(--hg-green);background:var(--hg-green-bg);padding:6px 10px;border-radius:6px;line-height:1.3;">
             <strong>Example:</strong> 2 sourdough loaves every Saturday &mdash; $14.40/week
           </div>
         </div>
         <div class="card-sm" style="padding:20px;border-top:3px solid var(--hg-green-light);">
-          <div style="font-size:22px;margin-bottom:8px;">&#128230;</div>
+          <div style="font-size:22px;margin-bottom:8px;">📦</div>
           <div style="font-size:14px;font-weight:800;margin-bottom:6px;">Farm Box</div>
           <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.4;margin-bottom:12px;">You choose what goes in the box each week based on what&rsquo;s in season. Classic CSA model.</div>
           <div style="font-size:11px;color:var(--hg-green);background:var(--hg-green-bg);padding:6px 10px;border-radius:6px;line-height:1.3;">
             <strong>Example:</strong> Weekly veggie box &mdash; $35/week
-          </div>
-        </div>
-        <div class="card-sm" style="padding:20px;border-top:3px solid var(--hg-green-light);">
-          <div style="font-size:22px;margin-bottom:8px;">&#127991;&#65039;</div>
-          <div style="font-size:14px;font-weight:800;margin-bottom:6px;">Subscribe &amp; Save</div>
-          <div style="font-size:12px;color:var(--hg-text-secondary);line-height:1.4;margin-bottom:12px;">Add a recurring discount to any existing product. Customers save, you get loyalty.</div>
-          <div style="font-size:11px;color:var(--hg-green);background:var(--hg-green-bg);padding:6px 10px;border-radius:6px;line-height:1.3;">
-            <strong>Example:</strong> 10% off when they subscribe to Farm Fresh Eggs
           </div>
         </div>
       </div>
@@ -3716,22 +3716,22 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 
       <!-- Type selector -->
       <div class="type-cards p-rel">
+        <div class="type-card">
+          <div class="type-icon">🏷️</div>
+          <div class="type-name">Subscribe & Save</div>
+          <div class="type-desc">Add a discount to an existing product for recurring orders.</div>
+        </div>
         <div class="type-card selected">
           <div class="type-icon">🔄</div>
-          <div class="type-name">Recurring Item</div>
-          <div class="type-desc">Same product on a schedule. Great for staples like bread, eggs, or dairy.</div>
+          <div class="type-name">Recurring Only</div>
+          <div class="type-desc">Subscription-only product — no one-time purchase option. Customers must subscribe to buy it.</div>
         </div>
         <div class="type-card">
           <div class="type-icon">📦</div>
           <div class="type-name">Farm Box</div>
           <div class="type-desc">You pick what goes in the box each week. Perfect for CSA programs.</div>
         </div>
-        <div class="type-card">
-          <div class="type-icon">🏷️</div>
-          <div class="type-name">Subscribe & Save</div>
-          <div class="type-desc">Add a discount to an existing product for recurring orders.</div>
-        </div>
-        <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">3 types cover 90% of farmer market use cases. "Farm Box" unlocks weekly box contents management later. "Subscribe & Save" links to existing products (no duplication).</div></div>
+        <div class="annotation" style="top:-10px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">3 types cover 90% of farmer market use cases. Subscribe & Save is the default — most vendors start here. "Recurring Only" is for subscription-only products. "Farm Box" is for CSA programs.</div></div>
       </div>
 
       <!-- Product details — single-column layout matching QA -->
@@ -3869,8 +3869,8 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
       <div class="type-cards p-rel">
         <div class="type-card">
           <div class="type-icon">🔄</div>
-          <div class="type-name">Recurring Item</div>
-          <div class="type-desc">Same product on a schedule. Great for staples like bread, eggs, or dairy.</div>
+          <div class="type-name">Recurring Only</div>
+          <div class="type-desc">Subscription-only product — no one-time purchase option. Customers must subscribe to buy it.</div>
         </div>
         <div class="type-card">
           <div class="type-icon">📦</div>
@@ -4033,19 +4033,19 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
       <!-- Type selector — Farm Box selected -->
       <div class="type-cards p-rel">
         <div class="type-card">
+          <div class="type-icon">🏷️</div>
+          <div class="type-name">Subscribe & Save</div>
+          <div class="type-desc">Add a discount to an existing product for recurring orders.</div>
+        </div>
+        <div class="type-card">
           <div class="type-icon">🔄</div>
-          <div class="type-name">Recurring Item</div>
-          <div class="type-desc">Same product on a schedule. Great for staples like bread, eggs, or dairy.</div>
+          <div class="type-name">Recurring Only</div>
+          <div class="type-desc">Subscription-only product — no one-time purchase option. Customers must subscribe to buy it.</div>
         </div>
         <div class="type-card selected">
           <div class="type-icon">📦</div>
           <div class="type-name">Farm Box</div>
           <div class="type-desc">You pick what goes in the box each week. Perfect for CSA programs.</div>
-        </div>
-        <div class="type-card">
-          <div class="type-icon">🏷️</div>
-          <div class="type-name">Subscribe & Save</div>
-          <div class="type-desc">Add a discount to an existing product for recurring orders.</div>
         </div>
       </div>
 
@@ -4348,7 +4348,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
           <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Settings summary</div>
           <div class="card-sm" style="padding:20px;margin-bottom:16px;">
             <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px;">
-              <span style="color:var(--hg-text-secondary);font-weight:600;">Type</span><span>Recurring Item</span>
+              <span style="color:var(--hg-text-secondary);font-weight:600;">Type</span><span>Recurring Only</span>
               <span style="color:var(--hg-text-secondary);font-weight:600;">Price</span><span>$7.20/pickup (10% off $8.00)</span>
               <span style="color:var(--hg-text-secondary);font-weight:600;">Frequency</span><span>Weekly, Bi-weekly</span>
               <span style="color:var(--hg-text-secondary);font-weight:600;">Markets</span><span>Findlay Market (Sat), Hyde Park (Sun)</span>
@@ -6812,7 +6812,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
       <div style="display:flex;gap:16px;max-width:520px;">
         <div class="card-sm" style="flex:1;padding:16px;text-align:center;">
           <div style="font-size:28px;margin-bottom:8px;">&#128260;</div>
-          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Recurring Item</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Recurring Only</div>
           <div style="font-size:11px;color:var(--hg-text-secondary);">Same product on a schedule</div>
         </div>
         <div class="card-sm" style="flex:1;padding:16px;text-align:center;">
@@ -7429,7 +7429,7 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
       </div>
 
       <!-- Annotations -->
-      <div class="annotation" style="top:20px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Vendors can enable subscriptions from the regular product edit page — no need to visit the separate Subscriptions wizard. This is the "Subscribe & Save" type. Farm Box and Recurring Item still use the dedicated wizard because they create new products.</div></div>
+      <div class="annotation" style="top:20px;right:-10px;" onclick="this.classList.toggle('show-tip')">1<div class="annotation-tip">Vendors can enable subscriptions from the regular product edit page — no need to visit the separate Subscriptions wizard. This is the "Subscribe & Save" type. Farm Box and Recurring Only still use the dedicated wizard because they create new products.</div></div>
       <div class="annotation" style="bottom:80px;right:-10px;" onclick="this.classList.toggle('show-tip')">2<div class="annotation-tip">The toggle pattern is familiar to any Shopify/Square user. Toggle ON = expand settings inline. Toggle OFF = one line. Matches how David builds other toggleable features.</div></div>
     </div>
   </div>
@@ -7458,7 +7458,7 @@ const titles = [
   'Screen 13: Customer Resubscribes After Cancellation',
   'Screen 14: Notification Preferences',
   'Screen 15: Vendor Subscription Onboarding',
-  'Screen 16: Create Subscription — Step 1: Recurring Item',
+  'Screen 16: Create Subscription — Step 1: Recurring Only',
   'Screen 17: Create Subscription — Step 1: Subscribe & Save',
   'Screen 18: Create Subscription — Step 1: Farm Box',
   'Screen 19: Create Subscription — Step 2',
