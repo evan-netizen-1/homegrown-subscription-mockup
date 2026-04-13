@@ -3867,6 +3867,11 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 
       <!-- Type selector — Subscribe & Save selected -->
       <div class="type-cards p-rel">
+        <div class="type-card selected">
+          <div class="type-icon">🏷️</div>
+          <div class="type-name">Subscribe & Save</div>
+          <div class="type-desc">Add a discount to an existing product for recurring orders.</div>
+        </div>
         <div class="type-card">
           <div class="type-icon">🔄</div>
           <div class="type-name">Recurring Only</div>
@@ -3876,11 +3881,6 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
           <div class="type-icon">📦</div>
           <div class="type-name">Farm Box</div>
           <div class="type-desc">You pick what goes in the box each week. Perfect for CSA programs.</div>
-        </div>
-        <div class="type-card selected">
-          <div class="type-icon">🏷️</div>
-          <div class="type-name">Subscribe & Save</div>
-          <div class="type-desc">Add a discount to an existing product for recurring orders.</div>
         </div>
       </div>
 
@@ -6810,20 +6810,20 @@ body { font-family: 'Nunito', sans-serif; color: var(--hg-text); background: var
 
       <!-- 3 type cards -->
       <div style="display:flex;gap:16px;max-width:520px;">
-        <div class="card-sm" style="flex:1;padding:16px;text-align:center;">
-          <div style="font-size:28px;margin-bottom:8px;">&#128260;</div>
-          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Recurring Only</div>
-          <div style="font-size:11px;color:var(--hg-text-secondary);">Same product on a schedule</div>
-        </div>
-        <div class="card-sm" style="flex:1;padding:16px;text-align:center;">
-          <div style="font-size:28px;margin-bottom:8px;">&#128230;</div>
-          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Farm Box</div>
-          <div style="font-size:11px;color:var(--hg-text-secondary);">You pick what goes in each week</div>
-        </div>
-        <div class="card-sm" style="flex:1;padding:16px;text-align:center;">
-          <div style="font-size:28px;margin-bottom:8px;">&#127991;&#65039;</div>
+        <div class="card-sm" style="flex:1;padding:16px;text-align:center;border-top:3px solid var(--hg-amber);">
+          <div style="font-size:28px;margin-bottom:8px;">🏷️</div>
           <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Subscribe & Save</div>
           <div style="font-size:11px;color:var(--hg-text-secondary);">Discount for recurring orders</div>
+        </div>
+        <div class="card-sm" style="flex:1;padding:16px;text-align:center;">
+          <div style="font-size:28px;margin-bottom:8px;">🔄</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Recurring Only</div>
+          <div style="font-size:11px;color:var(--hg-text-secondary);">Subscription-only, no one-time</div>
+        </div>
+        <div class="card-sm" style="flex:1;padding:16px;text-align:center;">
+          <div style="font-size:28px;margin-bottom:8px;">📦</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Farm Box</div>
+          <div style="font-size:11px;color:var(--hg-text-secondary);">You pick what goes in each week</div>
         </div>
       </div>
       <div style="font-size:12px;color:var(--hg-text-muted);margin-top:16px;">Subscriptions are included in your plan &mdash; no extra cost</div>
